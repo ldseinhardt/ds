@@ -60,9 +60,9 @@
                               <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" valignment="TOP" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <DatePicker editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" promptText="Data" GridPane.rowIndex="1" />
-                              <TextField maxWidth="250.0" minWidth="250.0" prefWidth="250.0" promptText="Valor" GridPane.rowIndex="2" />
-                              <ComboBox maxWidth="250.0" minWidth="250.0" prefHeight="26.0" prefWidth="250.0" promptText="Categoria" GridPane.rowIndex="3" />
+                              <DatePicker editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" promptText="Data" GridPane.rowIndex="1" fx:id="date" />
+                              <TextField maxWidth="250.0" minWidth="250.0" prefWidth="250.0" promptText="Valor" GridPane.rowIndex="2" fx:id="value" />
+                              <ComboBox maxWidth="250.0" minWidth="250.0" prefHeight="26.0" prefWidth="250.0" promptText="Categoria" GridPane.rowIndex="3" fx:id="category" />
                               <TextArea maxHeight="150.0" maxWidth="250.0" minHeight="150.0" minWidth="250.0" prefHeight="150.0" prefWidth="250.0" promptText="Informações" GridPane.rowIndex="7" />
                               <TextField maxWidth="250.0" minWidth="250.0" prefWidth="250.0" promptText="Descrição" GridPane.rowIndex="6" />
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="8">
@@ -82,7 +82,7 @@
                               </HBox>
                               <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="4">
                                  <children>
-                                    <ComboBox maxWidth="160.0" minWidth="160.0" prefHeight="26.0" prefWidth="160.0" promptText="Conta" />
+                                    <ComboBox maxWidth="160.0" minWidth="160.0" prefHeight="26.0" prefWidth="160.0" promptText="Conta" fx:id="account" />
                                     <Button maxWidth="85.0" minWidth="85.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Gerenciar" />
                                  </children>
                               </HBox>
@@ -122,7 +122,7 @@
                                   <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <ComboBox prefWidth="150.0" promptText="Conta" GridPane.columnIndex="2" />
+                                    <ComboBox prefWidth="150.0" promptText="Conta" GridPane.columnIndex="2" fx:id="accountFilter" />
                                     <Button mnemonicParsing="false" text="Exluir" GridPane.columnIndex="1" />
                                     <Button mnemonicParsing="false" text="Editar" />
                                  </children>
