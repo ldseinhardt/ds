@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -16,27 +17,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="1000.0" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.MainController">
-   <top>
-      <MenuBar BorderPane.alignment="CENTER">
-        <menus>
-          <Menu mnemonicParsing="false" text="Arquivo">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Salvar" />
-              <MenuItem mnemonicParsing="false" text="Exportar dados" />
-                  <MenuItem mnemonicParsing="false" text="Importar dados" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.MainController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -44,9 +34,9 @@
                <content>
                   <BorderPane prefHeight="200.0" prefWidth="200.0">
                      <left>
-                        <GridPane hgap="5.0" maxWidth="250.0" minHeight="438.0" minWidth="250.0" prefHeight="438.0" prefWidth="250.0" vgap="5.0" BorderPane.alignment="CENTER">
+                        <GridPane hgap="5.0" maxWidth="200.0" minHeight="438.0" minWidth="200.0" prefHeight="438.0" prefWidth="200.0" vgap="5.0" BorderPane.alignment="CENTER">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
                           </columnConstraints>
                           <rowConstraints>
                               <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" valignment="TOP" vgrow="SOMETIMES" />
@@ -55,17 +45,15 @@
                             <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" valignment="TOP" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" valignment="TOP" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" valignment="TOP" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" valignment="TOP" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="150.0" minHeight="150.0" prefHeight="150.0" valignment="TOP" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" valignment="TOP" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <DatePicker editable="false" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" promptText="Data" GridPane.rowIndex="1" fx:id="date" />
-                              <TextField maxWidth="250.0" minWidth="250.0" prefWidth="250.0" promptText="Valor" GridPane.rowIndex="2" fx:id="value" />
-                              <ComboBox maxWidth="250.0" minWidth="250.0" prefHeight="26.0" prefWidth="250.0" promptText="Categoria" GridPane.rowIndex="3" fx:id="category" />
-                              <TextArea maxHeight="150.0" maxWidth="250.0" minHeight="150.0" minWidth="250.0" prefHeight="150.0" prefWidth="250.0" promptText="Informações" GridPane.rowIndex="7" />
-                              <TextField maxWidth="250.0" minWidth="250.0" prefWidth="250.0" promptText="Descrição" GridPane.rowIndex="6" />
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="8">
+                              <DatePicker fx:id="date" editable="false" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" promptText="Data" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="category" maxWidth="200.0" minWidth="200.0" prefHeight="26.0" prefWidth="200.0" promptText="Categoria" GridPane.rowIndex="3" />
+                              <TextArea maxHeight="150.0" maxWidth="200.0" minHeight="150.0" minWidth="200.0" prefHeight="150.0" prefWidth="200.0" promptText="Informações" GridPane.rowIndex="6" />
+                              <TextField maxWidth="200.0" minWidth="200.0" prefWidth="200.0" promptText="Descrição" GridPane.rowIndex="5" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="7">
                                  <children>
                                     <Button mnemonicParsing="false" text="Salvar" />
                                     <Button mnemonicParsing="false" text="Limpar" />
@@ -80,13 +68,13 @@
                                     <RadioButton mnemonicParsing="false" text="Receita" toggleGroup="$type" underline="true" />
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="4">
+                              <ComboBox fx:id="account" maxWidth="200.0" minWidth="200.0" prefHeight="26.0" prefWidth="200.0" promptText="Conta" GridPane.rowIndex="4" />
+                              <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.rowIndex="2">
                                  <children>
-                                    <ComboBox maxWidth="160.0" minWidth="160.0" prefHeight="26.0" prefWidth="160.0" promptText="Conta" fx:id="account" />
-                                    <Button maxWidth="85.0" minWidth="85.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Gerenciar" />
+                                    <TextField fx:id="value" maxWidth="135.0" minWidth="135.0" prefWidth="135.0" promptText="Valor" />
+                                    <ToggleButton maxWidth="60.0" minWidth="60.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" selected="true" text="Pago" />
                                  </children>
                               </HBox>
-                              <ToggleButton maxWidth="250.0" minWidth="250.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="250.0" selected="true" text="Pago" GridPane.rowIndex="5" />
                            </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -111,37 +99,63 @@
                                 </columns>
                               </TableView>
                            </center>
-                           <top>
-                              <GridPane hgap="5.0" maxHeight="30.0" minHeight="30.0" prefHeight="30.0" BorderPane.alignment="CENTER">
-                                <columnConstraints>
-                                    <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="579.0" minWidth="10.0" prefWidth="520.0" />
-                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" />
-                                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints maxHeight="30.0" minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
-                                 <children>
-                                    <ComboBox prefWidth="150.0" promptText="Conta" GridPane.columnIndex="2" fx:id="accountFilter" />
-                                    <Button mnemonicParsing="false" text="Exluir" GridPane.columnIndex="1" />
-                                    <Button mnemonicParsing="false" text="Editar" />
-                                 </children>
-                                 <BorderPane.margin>
-                                    <Insets right="3.0" />
-                                 </BorderPane.margin>
-                              </GridPane>
-                           </top>
                         </BorderPane>
                      </center>
                   </BorderPane>
                </content>
           </Tab>
           <Tab text="Relatórios">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" />
+               </content>
           </Tab>
         </tabs>
       </TabPane>
    </center>
+   <top>
+      <VBox maxHeight="65.0" minHeight="65.0" prefHeight="65.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="Arquivo">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Salvar" />
+                    <MenuItem mnemonicParsing="false" text="Exportar dados" />
+                        <MenuItem mnemonicParsing="false" text="Importar dados" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Contas">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Cadastar" />
+                        <MenuItem mnemonicParsing="false" text="Gerenciar" />
+                     </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+            <ToolBar prefHeight="25.0" prefWidth="1000.0">
+               <items>
+                  <Label text="Data Inicial:" />
+                  <DatePicker maxWidth="150.0" minWidth="150.0" prefWidth="150.0" fx:id="filterInitialDate" />
+                  <Label text="Data Final:" />
+                  <DatePicker maxWidth="150.0" minWidth="150.0" prefWidth="150.0" fx:id="filterFinalDate" />
+                  <Pane HBox.hgrow="ALWAYS" />
+                  <ComboBox maxWidth="150.0" minWidth="150.0" prefWidth="150.0" promptText="Conta" fx:id="filterAccount" />
+                  <ComboBox maxWidth="100.0" minWidth="100.0" prefWidth="100.0" promptText="Tipo" fx:id="filterType" />
+                  <ComboBox maxWidth="150.0" minWidth="150.0" prefWidth="150.0" promptText="Categoria" fx:id="filterCategory" />
+               </items>
+            </ToolBar>
+         </children></VBox>
+   </top>
+   <bottom>
+      <HBox maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="1000.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane HBox.hgrow="ALWAYS" />
+            <Label text="Saldo:" />
+            <Label text="R$ 0,00" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+   </bottom>
 </BorderPane>

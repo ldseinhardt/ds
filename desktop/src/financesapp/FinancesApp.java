@@ -18,8 +18,7 @@ public class FinancesApp extends Application {
         MainController main = loader.getController();
         
         stage.setOnCloseRequest(e -> main.save());
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
