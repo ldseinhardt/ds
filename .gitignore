@@ -3,7 +3,7 @@ desktop/build.xml
 desktop/manifest.mf
 desktop/build
 desktop/nbproject/build-impl.xml
-desktop/nbproject/jfx-impl_backup.xml
+desktop/nbproject/jfx-impl_backup*
 desktop/nbproject/genfiles.properties
 desktop/nbproject/UPDATED.TXT
 desktop/nbproject/private
