@@ -20,6 +20,14 @@ public class FinancesApp extends Application {
         stage.setOnCloseRequest(e -> main.save());
         stage.setScene(new Scene(root));
         stage.show();
+        
+        //test
+        User u = new User("Usuário padrão");
+        System.out.println(u.getName());
+        
+        Account a = new DefaultAccount("Conta carteira");
+        u.addAccount(a);
+        System.out.println(a.getName());
     }
 
     public static void main(String[] args) {
