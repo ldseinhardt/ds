@@ -1,5 +1,6 @@
 package financesapp;
 
+import java.time.LocalDate;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -21,16 +22,30 @@ public class FinancesApp extends Application {
         stage.setScene(new Scene(root));
         stage.show();
         
-        //test
-        User u = new User("Usuário padrão");
-        System.out.println(u.getName());
+        //Testes
+        User user = new User("Usuário Padrão");
+        System.out.println(user.getName());
         
-        Account a = new DefaultAccount("Conta carteira");
-        u.addAccount(a);
-        System.out.println(a.getName());
+        DefaultAccount carteira = new DefaultAccount("Conta Carteira");
+        user.addAccount(carteira);
+        carteira.addTransaction(new Recipe(75, LocalDate.now(), 1, true, "Serviço prestado", ""));
+        carteira.addTransaction(new Expense(010.0, LocalDate.now(), 1, true, "Compra 1", ""));
+        carteira.addTransaction(new Expense(022.5, LocalDate.now(), 1, true, "Compra 2", ""));
+        carteira.addTransaction(new Expense(100.0, LocalDate.now(), 1, true, "Compra 3", ""));
+        System.out.println(carteira.getName());
+        System.out.println(carteira.getBalanceTotal());
+        
+        
+        DefaultAccount caixa = new DefaultAccount("Conta Caixa", 3750.76);
+        user.addAccount(caixa);
+        System.out.println(caixa.getName());
+        System.out.println(caixa.getBalanceTotal());
+        
+        System.out.println(user.getBalanceTotal());
     }
 
     public static void main(String[] args) {
         launch(args);
     }
+    
 }
