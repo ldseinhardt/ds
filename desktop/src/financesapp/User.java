@@ -1,6 +1,7 @@
 package financesapp;
 
-import java.util.ArrayList;
+import java.util.*;
+import org.json.*;
 
 public class User {
     
@@ -9,6 +10,11 @@ public class User {
     
     //Lista de contas
     private ArrayList<Account> accounts;
+    
+    public User() {
+        this.name = "";
+        this.accounts = new ArrayList();        
+    }
     
     public User(String name) {
         this.name = name;
@@ -29,6 +35,18 @@ public class User {
                 this.accounts.remove(i);
             }
         }        
+    }
+    
+    public void loadFromJSONString(String str) {
+        JSONObject json = new JSONObject(str);
+        this.name = json.getString("name");
+    }
+    
+    public String toJSONString() {
+        JSONObject json = new JSONObject();
+        json.put("name", this.name);
+        // dados das contas ...
+        return json.toString();
     }
     
     public String getName() {
