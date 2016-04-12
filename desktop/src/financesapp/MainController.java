@@ -101,7 +101,6 @@ public class MainController implements Initializable {
         //Testes
         user.loadFromJSONString("{\"name\": \"Usuário padrão\"}");
         System.out.println(user.getName());
-        System.out.println(user.toJSONString());
         
         DefaultAccount carteira = new DefaultAccount("Conta Carteira");
         user.addAccount(carteira);
@@ -119,6 +118,8 @@ public class MainController implements Initializable {
         System.out.println(caixa.getBalanceTotal());
         
         System.out.println(user.getBalanceTotal()); 
+        
+        System.out.println(user.toJSONString());
     }
 
     public void save() {

@@ -55,7 +55,11 @@ abstract class Transaction {
         this.information = information;
     }
     
-    abstract double getValue();
+    abstract double getRealValue();
+    
+    public double getValue() {
+        return this.value;
+    }
     
     public LocalDate getDate() {
         return this.date;

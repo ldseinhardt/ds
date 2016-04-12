@@ -19,7 +19,7 @@ public class Expense extends Transaction {
         return this.category;
     }
           
-    public double getValue() {
-        return this.value * - 1;
+    public double getRealValue() {
+        return this.value  * this.number * - 1;
     }  
 }

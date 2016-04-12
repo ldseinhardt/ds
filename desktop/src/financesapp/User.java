@@ -43,18 +43,56 @@ public class User {
     }
     
     public String toJSONString() {
-        JSONObject json = new JSONObject();
-        json.put("name", this.name);
-        // dados das contas ...
-        return json.toString();
+        JSONObject JSON = new JSONObject();
+        
+        JSON.put("name", this.name);
+        
+        JSONArray accountsJSON = new JSONArray();
+        
+        for(int i = 0, n = this.accounts.size(); i < n; i++) {
+            Account account = this.accounts.get(i);
+            
+            JSONObject accountJSON = new JSONObject();
+            
+            accountJSON.put("name", account.getName());
+            
+            accountJSON.put("balanceInitial", account.getBalanceInitial());
+            
+            JSONArray transactionsJSON = new JSONArray();
+        
+            ArrayList<Transaction> transactions = account.getTransactions();
+                
+            for(int j = 0, m = transactions.size(); j < m; j++) {
+                Transaction transaction = transactions.get(j);
+            
+                JSONObject transactionJSON = new JSONObject();
+                
+                transactionJSON.put("date", transaction.getDate().toString());
+                transactionJSON.put("value", transaction.getValue());
+                transactionJSON.put("number", transaction.getNumber());
+                transactionJSON.put("concretized", transaction.hasConcretized());
+                transactionJSON.put("description", transaction.getDescription());
+                transactionJSON.put("information", transaction.getInformation());
+                
+                transactionsJSON.put(transactionJSON);
+            }
+            
+            accountJSON.put("transactions", transactionsJSON);
+            
+            accountsJSON.put(accountJSON);
+        } 
+        
+        JSON.put("accounts", accountsJSON);
+
+        return JSON.toString();
     }
     
     public String getName() {
         return this.name;
     }
         
-    public float getBalanceTotal() {
-        float balance = 0;
+    public double getBalanceTotal() {
+        double balance = 0;
         
         for(int i = 0, n = this.accounts.size(); i < n; i++) {
             balance += this.accounts.get(i).getBalanceTotal();
@@ -71,6 +109,10 @@ public class User {
         }     
         
         return null;
+    }
+   
+     public ArrayList<Account> getAccounts() {        
+        return this.accounts;
     }   
     
 }

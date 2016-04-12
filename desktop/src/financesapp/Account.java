@@ -7,9 +7,6 @@ abstract class Account {
     //Nome da conta
     protected String name;
     
-    // Saldo da conta (calculado com as transações)
-    protected double balance;
-    
     // Saldo inicial da conta
     protected double balanceInitial;
     
@@ -26,25 +23,24 @@ abstract class Account {
         this.name = name;
     }
     
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-    
     public void setBalanceInitial(double balanceInitial) {
         this.balanceInitial = balanceInitial;
     }    
     
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
-        this.balance += transaction.getValue();
+    }
+    
+    public void deleteTransaction(String description) {
+        for(int i = 0, n = this.transactions.size(); i < n; i++) {
+            if (this.transactions.get(i).getDescription().equalsIgnoreCase(name)) {
+                this.transactions.remove(i);
+            }
+        }        
     }
     
     public String getName() {
         return this.name;
-    }
-    
-    public double getBalance() {
-        return this.balance;
     }
     
     public double getBalanceInitial() {
@@ -52,7 +48,27 @@ abstract class Account {
     }
     
     public double getBalanceTotal() {
-        return this.balanceInitial + this.balance;
+        double balance = this.balanceInitial;
+        
+        for(int i = 0, n = this.transactions.size(); i < n; i++) {
+            balance += this.transactions.get(i).getRealValue();
+        }
+        
+        return balance;
     }
+    
+    public Transaction getTransaction(String description) {
+        for(int i = 0, n = this.transactions.size(); i < n; i++) {
+            if (this.transactions.get(i).getDescription().equalsIgnoreCase(name)) {
+                return this.transactions.get(i);
+            }
+        }   
+        
+        return null;
+    }
+   
+     public ArrayList<Transaction> getTransactions() {        
+        return this.transactions;
+    } 
 
 }

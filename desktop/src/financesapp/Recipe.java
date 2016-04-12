@@ -19,8 +19,8 @@ public class Recipe extends Transaction {
         return this.category;
     }
     
-    public double getValue() {
-        return this.value;
+    public double getRealValue() {
+        return this.value * this.number;
     }
     
 }
