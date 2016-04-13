@@ -79,7 +79,7 @@ public class MainController implements Initializable {
      
     @Override
     public void initialize(URL url, ResourceBundle rb) {     
-        filterInitialDate.setValue(today.minusDays(30));
+        filterInitialDate.setValue(today.minusMonths(1));
         filterFinalDate.setValue(today);
         
         filterAccount.setItems(accounts);

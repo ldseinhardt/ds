@@ -40,11 +40,9 @@ abstract class Transaction {
         this.addPayments(value, date, concretized, 1);
     }
     
-    public void addPayments(double value, LocalDate date, boolean concretized, int number) {
-        int periodicity = 30;
-        
+    public void addPayments(double value, LocalDate date, boolean concretized, int number) {        
         for (int i = 0; i < number; i++) {
-            this.payments.add(new Payment(value, date.minusDays(i * periodicity), concretized));
+            this.payments.add(new Payment(value, date.plusMonths(i), concretized));
         }
     }
         
@@ -56,11 +54,11 @@ abstract class Transaction {
         this.payments.remove(i); 
     }
     
-    abstract void setCategory(Category category);
+    public abstract void setCategory(Category category);
     
-    abstract Category getCategory();
+    public abstract Category getCategory();
     
-    abstract double getTotalValue();
+    public abstract double getTotalValue();
     
     public LocalDate getDate() {
         return this.date;
