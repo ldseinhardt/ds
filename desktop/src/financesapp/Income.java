@@ -3,26 +3,26 @@ package financesapp;
 import java.time.LocalDate;
 import java.util.Iterator;
 
-public class Recipe extends Transaction {
+public class Income extends Transaction {
  
     //Categoria
-    private RecipeCategory category;
+    private IncomeCategory category;
 
-    public Recipe() {
+    public Income() {
         super(LocalDate.now(), "", "");
         this.category = null;
     }    
     
-    public Recipe(LocalDate date, String description, String information) {
+    public Income(LocalDate date, String description, String information) {
         super(date, description, information);
         this.category = null;
     }
     
     public void setCategory(Category category) {
-        this.category = (RecipeCategory) category;
+        this.category = (IncomeCategory) category;
     }
     
-    public RecipeCategory getCategory() {
+    public IncomeCategory getCategory() {
         return this.category;
     }
     

@@ -21,7 +21,7 @@ public class MainController implements Initializable {
     private ArrayList<ExpenseCategory> expenseCategories;
     
     //Categorias de receitas
-    private ArrayList<RecipeCategory> recipeCategories;
+    private ArrayList<IncomeCategory> incomeCategories;
     
     //Nome padrão do arquivo
     private final String data_file = "data_user.json"; 
@@ -111,9 +111,9 @@ public class MainController implements Initializable {
         
         Transaction transaction;
         
-        transaction = new Recipe(today, "Serviço prestado", "");
+        transaction = new Income(today, "Serviço prestado", "");
         transaction.addPayments(75, today, true);
-        transaction.setCategory(new RecipeCategory("Serviços"));
+        transaction.setCategory(new IncomeCategory("Serviços"));
         carteira.addTransaction(transaction);
 
         transaction = new Expense(today, "Compra 1", "");
@@ -182,8 +182,8 @@ public class MainController implements Initializable {
         this.expenseCategories = categories;
     }
     
-    public void setRecipeCategories(ArrayList<RecipeCategory> categories) {
-        this.recipeCategories = categories;
+    public void setIncomeCategories(ArrayList<IncomeCategory> categories) {
+        this.incomeCategories = categories;
     }
     
     public User getUser() {
@@ -194,13 +194,13 @@ public class MainController implements Initializable {
         return this.expenseCategories;
     }
     
-    public ArrayList<RecipeCategory> getRecipeCategories() {
-        return this.recipeCategories;
+    public ArrayList<IncomeCategory> getIncomeCategories() {
+        return this.incomeCategories;
     }
     
     public String loadFile(String filename) {
         // implementar leitura de arquivo
-        return "{\"name\":\"Usuário Padrão\",\"accounts\":[{\"balanceInitial\":0,\"name\":\"Conta Carteira\",\"type\":\"DefaultAccount\",\"transactions\":[{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":75}],\"description\":\"Serviço prestado\",\"information\":\"\",\"type\":\"Recipe\",\"category\":\"Serviços\"},{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":10}],\"description\":\"Compra 1\",\"information\":\"\",\"type\":\"Expense\",\"category\":\"\"},{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":22.5}],\"description\":\"Compra 2\",\"information\":\"\",\"type\":\"Expense\",\"category\":\"\"},{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":100}],\"description\":\"Compra 3\",\"information\":\"\",\"type\":\"Expense\",\"category\":\"\"}]},{\"balanceInitial\":3750.76,\"name\":\"Conta Caixa\",\"type\":\"DefaultAccount\",\"transactions\":[]}]}";
+        return "{\"name\":\"Usuário Padrão\",\"accounts\":[{\"balanceInitial\":0,\"name\":\"Conta Carteira\",\"type\":\"DefaultAccount\",\"transactions\":[{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":75}],\"description\":\"Serviço prestado\",\"information\":\"\",\"type\":\"Income\",\"category\":\"Serviços\"},{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":10}],\"description\":\"Compra 1\",\"information\":\"\",\"type\":\"Expense\",\"category\":\"\"},{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":22.5}],\"description\":\"Compra 2\",\"information\":\"\",\"type\":\"Expense\",\"category\":\"\"},{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":100}],\"description\":\"Compra 3\",\"information\":\"\",\"type\":\"Expense\",\"category\":\"\"}]},{\"balanceInitial\":3750.76,\"name\":\"Conta Caixa\",\"type\":\"DefaultAccount\",\"transactions\":[]}]}";
     }
     
     public void saveFile(String filename, String content) {

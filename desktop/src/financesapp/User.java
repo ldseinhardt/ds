@@ -60,9 +60,9 @@ public class User {
                     if (transactionJSON.getString("type").equalsIgnoreCase("Expense")) {
                         transaction = new Expense();
                         transaction.setCategory(new ExpenseCategory(categoryName));
-                    } else if (transactionJSON.getString("type").equalsIgnoreCase("Recipe")) {
-                        transaction = new Recipe();    
-                        transaction.setCategory(new RecipeCategory(categoryName));
+                    } else if (transactionJSON.getString("type").equalsIgnoreCase("Income")) {
+                        transaction = new Income();    
+                        transaction.setCategory(new IncomeCategory(categoryName));
                     }
                     
                     if (transaction != null) {

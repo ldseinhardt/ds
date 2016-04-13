@@ -15,13 +15,13 @@ public class FinancesApp extends Application {
     private ArrayList<ExpenseCategory> expenseCategories;
     
     //Categorias de receitas
-    private ArrayList<RecipeCategory> recipeCategories;
+    private ArrayList<IncomeCategory> incomeCategories;
 
     @Override
     public void start(Stage stage) throws Exception {
         this.user = new User();
         this.expenseCategories = new ArrayList();
-        this.recipeCategories = new ArrayList();
+        this.incomeCategories = new ArrayList();
         
         stage.setTitle("FinancesApp");
 
@@ -31,7 +31,7 @@ public class FinancesApp extends Application {
         MainController main = loader.getController();
         main.setUser(this.user);
         main.setExpenseCategories(this.expenseCategories);
-        main.setRecipeCategories(this.recipeCategories);
+        main.setIncomeCategories(this.incomeCategories);
         main.load();
         
         stage.setOnCloseRequest(e -> main.save());
