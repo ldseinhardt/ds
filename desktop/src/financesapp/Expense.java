@@ -32,8 +32,11 @@ public class Expense extends Transaction {
         Iterator<Payment> itp = this.payments.iterator();
         while (itp.hasNext()) {
             Payment payment = itp.next();
-            value += payment.getValue();
-        }        
+            LocalDate today = LocalDate.now();
+            if (payment.hasConcretized() && (payment.getDate().isBefore(today) || payment.getDate().isEqual(today))) {
+                value += payment.getValue();
+            }
+        }           
         
         return value * - 1;
     }  

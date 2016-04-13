@@ -161,14 +161,14 @@ public class User {
         return this.name;
     }
         
-    public double getBalanceTotal() {
+    public double getBalance() {
         double balance = 0;
        
         Iterator<Account> it = this.accounts.iterator();
         while (it.hasNext()) {
             Account account = it.next();                  
             
-            balance += account.getBalanceTotal();
+            balance += account.getBalance();
         }        
         
         return balance;

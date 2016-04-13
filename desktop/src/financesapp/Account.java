@@ -43,7 +43,7 @@ abstract class Account {
         return this.balanceInitial;
     }
     
-    public double getBalanceTotal() {
+    public double getBalance() {
         double balance = this.balanceInitial;
         
         Iterator<Transaction> it = this.transactions.iterator();

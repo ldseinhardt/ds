@@ -53,6 +53,9 @@ public class MainController implements Initializable {
     @FXML
     private ComboBox account;
     
+    @FXML
+    private Label balance;
+    
     private final LocalDate today = LocalDate.now();
     
     private final static ObservableList<String> accounts = FXCollections.observableArrayList();
@@ -88,7 +91,7 @@ public class MainController implements Initializable {
         
         date.setValue(today);
         
-        final NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
+        NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
         TextFormatter<Number> formatter = new TextFormatter<>(new FormatStringConverter<>(currencyInstance));
         formatter.valueProperty().bindBidirectional(new SimpleDoubleProperty(0));
         value.setTextFormatter(formatter);
@@ -114,7 +117,7 @@ public class MainController implements Initializable {
         carteira.addTransaction(transaction);
 
         transaction = new Expense(today, "Compra 1", "");
-        transaction.addPayments(10, today, true);
+        transaction.addPayments(10, today.minusMonths(1), true, 5);
         carteira.addTransaction(transaction);
         
         transaction = new Expense(today, "Compra 2", "");
@@ -126,15 +129,15 @@ public class MainController implements Initializable {
         carteira.addTransaction(transaction);
                 
         System.out.println(carteira.getName());
-        System.out.println(carteira.getBalanceTotal());            
+        System.out.println(carteira.getBalance());            
             
         DefaultAccount caixa = new DefaultAccount("Conta Caixa", 3750.76);
         this.user.addAccount(caixa);
         
         System.out.println(caixa.getName());
-        System.out.println(caixa.getBalanceTotal());
+        System.out.println(caixa.getBalance());
         
-        System.out.println(this.user.getBalanceTotal()); 
+        System.out.println(this.user.getBalance()); 
         
         System.out.println(this.user.toJSONString());
         
@@ -150,18 +153,21 @@ public class MainController implements Initializable {
             Account account = it.next();                  
         
             System.out.println(account.getName());
-            System.out.println(account.getBalanceTotal());   
+            System.out.println(account.getBalance());   
         }        
         
-        System.out.println(this.user.getBalanceTotal()); 
+        System.out.println(this.user.getBalance()); 
       
         System.out.println(this.user.toJSONString());  
     }
     
     public void load() {
         //Testes
-        //this.test1();
-        this.test2();
+        this.test1();
+        //this.test2();
+        
+        NumberFormat formatter = NumberFormat.getCurrencyInstance();        
+        this.balance.setText(formatter.format(this.user.getBalance()));
     }
 
     public void save() {
