@@ -1,6 +1,7 @@
 package financesapp;
  
 import java.time.LocalDate;
+import java.util.Iterator;
 
 public class Expense extends Transaction {
     
@@ -8,24 +9,32 @@ public class Expense extends Transaction {
     private ExpenseCategory category;
     
     public Expense() {
-        super(0, LocalDate.now(), 1, true, "", "");
+        super(LocalDate.now(), "", "");
         this.category = null;
     }
     
-    public Expense(double value, LocalDate date, int number, boolean concretized, String description, String information) {
-        super(value, date, number, concretized, description, information);
+    public Expense(LocalDate date, String description, String information) {
+        super(date, description, information);
         this.category = null;
     }
     
-    public void setCategory(ExpenseCategory category) {
-        this.category = category;
+    public void setCategory(Category category) {
+        this.category = (ExpenseCategory) category;
     }
     
     public ExpenseCategory getCategory() {
         return this.category;
     }
           
-    public double getRealValue() {
-        return this.value  * this.number * - 1;
+    public double getTotalValue() {
+        double value = 0;
+        
+        Iterator<Payment> itp = this.payments.iterator();
+        while (itp.hasNext()) {
+            Payment payment = itp.next();
+            value += payment.getValue();
+        }        
+        
+        return value * - 1;
     }  
 }

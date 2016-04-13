@@ -119,9 +119,9 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Arquivo">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Salvar" />
-                    <MenuItem mnemonicParsing="false" text="Exportar dados" />
-                        <MenuItem mnemonicParsing="false" text="Importar dados" />
+                    <MenuItem mnemonicParsing="false" text="Exportar dados" onAction="#exportData"  />
+                    <MenuItem mnemonicParsing="false" text="Importar dados" onAction="#importData"  />
+                    <MenuItem mnemonicParsing="false" text="Salvar" onAction="#save"  />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Contas">

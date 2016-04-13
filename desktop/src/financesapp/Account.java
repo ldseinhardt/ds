@@ -1,6 +1,6 @@
 package financesapp;
 
-import java.util.ArrayList;
+import java.util.*;
 
 abstract class Account {  
     
@@ -31,12 +31,8 @@ abstract class Account {
         transactions.add(transaction);
     }
     
-    public void deleteTransaction(String description) {
-        for(int i = 0, n = this.transactions.size(); i < n; i++) {
-            if (this.transactions.get(i).getDescription().equalsIgnoreCase(name)) {
-                this.transactions.remove(i);
-            }
-        }        
+    public void deleteTransaction(int i) {
+        this.transactions.remove(i);        
     }
     
     public String getName() {
@@ -50,8 +46,11 @@ abstract class Account {
     public double getBalanceTotal() {
         double balance = this.balanceInitial;
         
-        for(int i = 0, n = this.transactions.size(); i < n; i++) {
-            balance += this.transactions.get(i).getRealValue();
+        Iterator<Transaction> it = this.transactions.iterator();
+        while (it.hasNext()) {
+            Transaction transaction = it.next();                  
+            
+            balance += transaction.getTotalValue();
         }
         
         return balance;

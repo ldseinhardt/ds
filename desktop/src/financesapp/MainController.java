@@ -23,6 +23,9 @@ public class MainController implements Initializable {
     //Categorias de receitas
     private ArrayList<RecipeCategory> recipeCategories;
     
+    //Nome padrão do arquivo
+    private final String data_file = "data_user.json"; 
+    
     @FXML
     private DatePicker filterInitialDate;
     
@@ -96,42 +99,73 @@ public class MainController implements Initializable {
         category.setItems(categories);
     }
     
-    public void load() {
-        //Testes
-        user.loadFromJSONString(this.loadFile("data_user.json"));
+    public void test1() {
+        this.user.setName("Usuário Padrão");
         System.out.println(user.getName());
         
-        /*
         DefaultAccount carteira = new DefaultAccount("Conta Carteira");
-        user.addAccount(carteira);
-        carteira.addTransaction(new Recipe(75, LocalDate.now(), 1, true, "Serviço prestado", ""));
-        carteira.addTransaction(new Expense(010.0, LocalDate.now(), 1, true, "Compra 1", ""));
-        carteira.addTransaction(new Expense(022.5, LocalDate.now(), 1, true, "Compra 2", ""));
-        carteira.addTransaction(new Expense(100.0, LocalDate.now(), 1, true, "Compra 3", ""));
-        */
-        Account carteira = user.getAccount(0);
-        if (carteira != null) {
-            System.out.println(carteira.getName());
-            System.out.println(carteira.getBalanceTotal());            
-        }
+        this.user.addAccount(carteira);
         
-        /*
+        Transaction transaction;
+        
+        transaction = new Recipe(today, "Serviço prestado", "");
+        transaction.addPayments(75, today, true);
+        transaction.setCategory(new RecipeCategory("Serviços"));
+        carteira.addTransaction(transaction);
+
+        transaction = new Expense(today, "Compra 1", "");
+        transaction.addPayments(10, today, true);
+        carteira.addTransaction(transaction);
+        
+        transaction = new Expense(today, "Compra 2", "");
+        transaction.addPayments(22.5, today, true);
+        carteira.addTransaction(transaction);
+        
+        transaction = new Expense(today, "Compra 3", "");
+        transaction.addPayments(100, today, true);
+        carteira.addTransaction(transaction);
+                
+        System.out.println(carteira.getName());
+        System.out.println(carteira.getBalanceTotal());            
+            
         DefaultAccount caixa = new DefaultAccount("Conta Caixa", 3750.76);
-        user.addAccount(caixa);
-        */
-        Account caixa = user.getAccount(1);
-        if (caixa != null) {
-            System.out.println(caixa.getName());
-            System.out.println(caixa.getBalanceTotal());
-        }
+        this.user.addAccount(caixa);
         
-        System.out.println(user.getBalanceTotal()); 
+        System.out.println(caixa.getName());
+        System.out.println(caixa.getBalanceTotal());
         
-        System.out.println(user.toJSONString());
+        System.out.println(this.user.getBalanceTotal()); 
+        
+        System.out.println(this.user.toJSONString());
+        
+        this.saveFile(this.data_file, this.user.toString());
+    }
+    
+    public void test2() {
+        this.user.loadFromJSONString(this.loadFile(this.data_file));
+        System.out.println(this.user.getName());
+        
+        Iterator<Account> it = this.user.getAccounts().iterator();
+        while (it.hasNext()) {
+            Account account = it.next();                  
+        
+            System.out.println(account.getName());
+            System.out.println(account.getBalanceTotal());   
+        }        
+        
+        System.out.println(this.user.getBalanceTotal()); 
+      
+        System.out.println(this.user.toJSONString());  
+    }
+    
+    public void load() {
+        //Testes
+        //this.test1();
+        this.test2();
     }
 
     public void save() {
-        this.saveFile("data_user.json", this.user.toJSONString());
+        this.saveFile(this.data_file, this.user.toJSONString());
     }
     
     public void setUser(User user) {
@@ -160,11 +194,33 @@ public class MainController implements Initializable {
     
     public String loadFile(String filename) {
         // implementar leitura de arquivo
-        return "{\"name\":\"Usuário padrão\",\"accounts\":[{\"balanceInitial\":0,\"name\":\"Conta Carteira\",\"type\":\"DefaultAccount\",\"transactions\":[{\"date\":\"2016-04-13\",\"number\":1,\"concretized\":true,\"description\":\"Serviço prestado\",\"information\":\"\",\"type\":\"Recipe\",\"value\":75},{\"date\":\"2016-04-13\",\"number\":1,\"concretized\":true,\"description\":\"Compra 1\",\"information\":\"\",\"type\":\"Expense\",\"value\":10},{\"date\":\"2016-04-13\",\"number\":1,\"concretized\":true,\"description\":\"Compra 2\",\"information\":\"\",\"type\":\"Expense\",\"value\":22.5},{\"date\":\"2016-04-13\",\"number\":1,\"concretized\":true,\"description\":\"Compra 3\",\"information\":\"\",\"type\":\"Expense\",\"value\":100}]},{\"balanceInitial\":3750.76,\"name\":\"Conta Caixa\",\"type\":\"DefaultAccount\",\"transactions\":[]}]}";
+        return "{\"name\":\"Usuário Padrão\",\"accounts\":[{\"balanceInitial\":0,\"name\":\"Conta Carteira\",\"type\":\"DefaultAccount\",\"transactions\":[{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":75}],\"description\":\"Serviço prestado\",\"information\":\"\",\"type\":\"Recipe\",\"category\":\"Serviços\"},{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":10}],\"description\":\"Compra 1\",\"information\":\"\",\"type\":\"Expense\",\"category\":\"\"},{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":22.5}],\"description\":\"Compra 2\",\"information\":\"\",\"type\":\"Expense\",\"category\":\"\"},{\"date\":\"2016-04-13\",\"payments\":[{\"date\":\"2016-04-13\",\"concretized\":true,\"value\":100}],\"description\":\"Compra 3\",\"information\":\"\",\"type\":\"Expense\",\"category\":\"\"}]},{\"balanceInitial\":3750.76,\"name\":\"Conta Caixa\",\"type\":\"DefaultAccount\",\"transactions\":[]}]}";
     }
     
     public void saveFile(String filename, String content) {
         //implementar escrita de arquivo
+    }
+    
+    public void copyFile(String a, String b) {
+        //implementar copia de arquivo de a para b
+    }
+    
+    public void exportData() {
+        //local do arquivo selecionado pelo usuário
+        String filename = "";
+        
+        this.copyFile(this.data_file, filename);        
+    }
+    
+    public void importData() {
+        //local do arquivo selecionado pelo usuário
+        String filename = "";
+        
+        this.copyFile(filename, this.data_file);
+        this.user = new User();
+        this.user.loadFromJSONString(this.loadFile(this.data_file));
+        
+        //atualizar dados na interface
     }
     
 }

@@ -30,51 +30,55 @@ public class User {
         this.accounts.add(account);
     }
     
-    public void deleteAccount(String name) {
-        for(int i = 0, n = this.accounts.size(); i < n; i++) {
-            if (this.accounts.get(i).getName().equalsIgnoreCase(name)) {
-                this.accounts.remove(i);
-            }
-        }        
+    public void deleteAccount(int i) {
+        this.accounts.remove(i);        
     }
     
     public void loadFromJSONString(String str) {
-        //Falta adicionar informações de categorias
         try {
             JSONObject json = new JSONObject(str);
 
             this.name = json.getString("name");
 
-            JSONArray accountsJSON = json.getJSONArray("accounts");
-
-            for(int i = 0, n = accountsJSON.length(); i < n; i++) {
-                JSONObject accountJSON = accountsJSON.getJSONObject(i);
-
+            Iterator<Object> ita = json.getJSONArray("accounts").iterator();
+            while (ita.hasNext()) {
+                JSONObject accountJSON = (JSONObject) ita.next();
+                        
                 Account account = new DefaultAccount(
                     accountJSON.getString("name"),
                     accountJSON.getDouble("balanceInitial")
                 );
 
-                JSONArray transactionsJSON = accountJSON.getJSONArray("transactions");
+                Iterator<Object> itt = accountJSON.getJSONArray("transactions").iterator();
+                while (itt.hasNext()) {
+                    JSONObject transactionJSON = (JSONObject) itt.next();
 
-                for(int j = 0, m = transactionsJSON.length(); j < m; j++) {
-                    JSONObject transactionJSON = transactionsJSON.getJSONObject(j);                
-
+                    String categoryName = transactionJSON.getString("category");
+                    
                     Transaction transaction = null;
 
                     if (transactionJSON.getString("type").equalsIgnoreCase("Expense")) {
                         transaction = new Expense();
+                        transaction.setCategory(new ExpenseCategory(categoryName));
                     } else if (transactionJSON.getString("type").equalsIgnoreCase("Recipe")) {
                         transaction = new Recipe();    
+                        transaction.setCategory(new RecipeCategory(categoryName));
                     }
                     
                     if (transaction != null) {
-                        transaction.setValue(transactionJSON.getDouble("value"));
                         transaction.setDate(LocalDate.parse(transactionJSON.getString("date")));
-                        transaction.setNumber(transactionJSON.getInt("number"));
-                        transaction.setConcretized(transactionJSON.getBoolean("concretized"));
                         transaction.setDescription(transactionJSON.getString("description"));
                         transaction.setInformation(transactionJSON.getString("information"));
+                        
+                        Iterator<Object> itp = transactionJSON.getJSONArray("payments").iterator();
+                        while (itp.hasNext()) {
+                            JSONObject paymentJSON = (JSONObject) itp.next();
+                            transaction.addPayment(new Payment(
+                                paymentJSON.getDouble("value"),
+                                LocalDate.parse(paymentJSON.getString("date")),
+                                paymentJSON.getBoolean("concretized")
+                            ));
+                        }
                         
                         account.addTransaction(transaction);
                     }
@@ -88,15 +92,15 @@ public class User {
     }
     
     public String toJSONString() {
-        //Falta adicionar informações de categorias
         JSONObject JSON = new JSONObject();
         
         JSON.put("name", this.name);
         
         JSONArray accountsJSON = new JSONArray();
         
-        for(int i = 0, n = this.accounts.size(); i < n; i++) {
-            Account account = this.accounts.get(i);
+        Iterator<Account> ita = this.accounts.iterator();
+        while (ita.hasNext()) {
+            Account account = ita.next();                                       
             
             JSONObject accountJSON = new JSONObject();
             
@@ -106,20 +110,39 @@ public class User {
             
             JSONArray transactionsJSON = new JSONArray();
         
-            ArrayList<Transaction> transactions = account.getTransactions();
-                
-            for(int j = 0, m = transactions.size(); j < m; j++) {
-                Transaction transaction = transactions.get(j);
+            Iterator<Transaction> itt = account.getTransactions().iterator();
+            while (itt.hasNext()) {
+                Transaction transaction = itt.next();                                       
             
                 JSONObject transactionJSON = new JSONObject();
                 
                 transactionJSON.put("type", transaction.getClass().getSimpleName());
                 transactionJSON.put("date", transaction.getDate().toString());
-                transactionJSON.put("value", transaction.getValue());
-                transactionJSON.put("number", transaction.getNumber());
-                transactionJSON.put("concretized", transaction.hasConcretized());
                 transactionJSON.put("description", transaction.getDescription());
                 transactionJSON.put("information", transaction.getInformation());
+                
+                Category category = transaction.getCategory();
+                String categoryName = "";
+                
+                if (category != null) {
+                    categoryName = category.getName();
+                }
+                
+                transactionJSON.put("category", categoryName);
+                
+                JSONArray paymentsJSON = new JSONArray();
+                
+                Iterator<Payment> itp = transaction.getPayments().iterator();
+                while (itp.hasNext()) {
+                    Payment payment = itp.next();                                       
+                    JSONObject paymentJSON = new JSONObject();                
+                    paymentJSON.put("value", payment.getValue());
+                    paymentJSON.put("date", payment.getDate().toString());
+                    paymentJSON.put("concretized", payment.hasConcretized());                    
+                    paymentsJSON.put(paymentJSON);
+                }
+                
+                transactionJSON.put("payments", paymentsJSON);
                 
                 transactionsJSON.put(transactionJSON);
             }
@@ -140,10 +163,13 @@ public class User {
         
     public double getBalanceTotal() {
         double balance = 0;
-        
-        for(int i = 0, n = this.accounts.size(); i < n; i++) {
-            balance += this.accounts.get(i).getBalanceTotal();
-        }
+       
+        Iterator<Account> it = this.accounts.iterator();
+        while (it.hasNext()) {
+            Account account = it.next();                  
+            
+            balance += account.getBalanceTotal();
+        }        
         
         return balance;
     }

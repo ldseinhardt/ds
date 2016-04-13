@@ -1,20 +1,12 @@
 package financesapp;
  
 import java.time.LocalDate;
+import java.util.*;
 
 abstract class Transaction {
     
-    // Valor
-    protected double value;
-    
     //Data
     protected LocalDate date;
-    
-    //Número de vezes
-    protected int number;
-    
-    //Transação contretizada (Pago/Recebido)
-    protected boolean concretized;
     
     //Descrição
     protected String description;
@@ -22,29 +14,18 @@ abstract class Transaction {
     //Informação adicional
     protected String information;
     
-    public Transaction(double value, LocalDate date, int number, boolean concretized, String description, String information) {
-        this.value = Math.abs(value);
+    //Lista de pagamentos
+    protected ArrayList<Payment> payments;
+    
+    public Transaction(LocalDate date, String description, String information) {
         this.date = date;
-        this.number = number;
-        this.concretized = concretized;
         this.description = description;
         this.information = information;
-    }
-    
-    public void setValue(double value) {
-        this.value = Math.abs(value);
+        this.payments = new ArrayList(); 
     }
     
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-    
-    public void setNumber(int number) {
-        this.number = number;
-    }
-    
-    public void setConcretized(boolean concretized) {
-        this.concretized = concretized;
     }
     
     public void setDescription(String description) {
@@ -55,22 +36,34 @@ abstract class Transaction {
         this.information = information;
     }
     
-    abstract double getRealValue();
-    
-    public double getValue() {
-        return this.value;
+    public void addPayments(double value, LocalDate date, boolean concretized) {
+        this.addPayments(value, date, concretized, 1);
     }
+    
+    public void addPayments(double value, LocalDate date, boolean concretized, int number) {
+        int periodicity = 30;
+        
+        for (int i = 0; i < number; i++) {
+            this.payments.add(new Payment(value, date.minusDays(i * periodicity), concretized));
+        }
+    }
+        
+    public void addPayment(Payment payment) {
+        this.payments.add(payment);
+    }
+    
+    public void deletePayment(int i) {
+        this.payments.remove(i); 
+    }
+    
+    abstract void setCategory(Category category);
+    
+    abstract Category getCategory();
+    
+    abstract double getTotalValue();
     
     public LocalDate getDate() {
         return this.date;
-    }
-    
-    public int getNumber() {
-        return this.number;
-    }
-    
-    public boolean hasConcretized() {
-        return this.concretized;
     }
     
     public String getDescription() {
@@ -80,5 +73,17 @@ abstract class Transaction {
     public String getInformation() {
         return this.information;
     }
+   
+    public Payment getPayment(int i) {
+        if (i < this.payments.size()) {
+            return this.payments.get(i);
+        }     
+        
+        return null;
+    }   
+   
+    public ArrayList<Payment> getPayments() {        
+        return this.payments;
+    }   
     
 }
