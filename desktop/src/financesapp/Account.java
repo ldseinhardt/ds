@@ -57,18 +57,17 @@ abstract class Account {
         return balance;
     }
     
-    public Transaction getTransaction(String description) {
-        for(int i = 0, n = this.transactions.size(); i < n; i++) {
-            if (this.transactions.get(i).getDescription().equalsIgnoreCase(name)) {
-                return this.transactions.get(i);
-            }
-        }   
+    public Transaction getTransaction(int i) {
+        if (i < this.transactions.size()) {
+            return this.transactions.get(i);
+        } 
         
         return null;
     }
    
-     public ArrayList<Transaction> getTransactions() {        
+    public ArrayList<Transaction> getTransactions() {        
         return this.transactions;
     } 
 
 }
+
