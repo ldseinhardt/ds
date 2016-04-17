@@ -46,7 +46,7 @@ public class User {
                         
                 Account account = new DefaultAccount(
                     accountJSON.getString("name"),
-                    accountJSON.getDouble("balanceInitial")
+                    accountJSON.getDouble("openingBalance")
                 );
 
                 Iterator<Object> itt = accountJSON.getJSONArray("transactions").iterator();
@@ -106,7 +106,7 @@ public class User {
             
             accountJSON.put("type", account.getClass().getSimpleName());        
             accountJSON.put("name", account.getName());
-            accountJSON.put("balanceInitial", account.getBalanceInitial());
+            accountJSON.put("openingBalance", account.getOpeningBalance());
             
             JSONArray transactionsJSON = new JSONArray();
         

@@ -8,14 +8,14 @@ abstract class Account {
     protected String name;
     
     // Saldo inicial da conta
-    protected double balanceInitial;
+    protected double openingBalance;
     
     // Lista de transações
     protected ArrayList<Transaction> transactions;
 
-    public Account(String name, double balanceInitial) {
+    public Account(String name, double openingBalance) {
         this.name = name;
-        this.balanceInitial = balanceInitial;
+        this.openingBalance = openingBalance;
         this.transactions = new ArrayList();
     }
     
@@ -23,8 +23,8 @@ abstract class Account {
         this.name = name;
     }
     
-    public void setBalanceInitial(double balanceInitial) {
-        this.balanceInitial = balanceInitial;
+    public void setOpeningBalance(double openingBalance) {
+        this.openingBalance = openingBalance;
     }    
     
     public void addTransaction(Transaction transaction) {
@@ -39,12 +39,12 @@ abstract class Account {
         return this.name;
     }
     
-    public double getBalanceInitial() {
-        return this.balanceInitial;
+    public double getOpeningBalance() {
+        return this.openingBalance;
     }
     
     public double getBalance() {
-        double balance = this.balanceInitial;
+        double balance = this.openingBalance;
         
         Iterator<Transaction> it = this.transactions.iterator();
         while (it.hasNext()) {

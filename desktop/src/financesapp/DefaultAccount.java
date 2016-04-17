@@ -6,8 +6,8 @@ public class DefaultAccount extends Account {
         super(name, 0);
     }
     
-    public DefaultAccount(String name, double balanceInitial) {
-        super(name, balanceInitial);
+    public DefaultAccount(String name, double openingBalance) {
+        super(name, openingBalance);
     }
     
 }

@@ -1,45 +1,25 @@
 package financesapp;
 
-import java.util.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
-import javafx.stage.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class FinancesApp extends Application {
     
-    //Usuário
-    private User user;
-    
-    //Categorias de despesas
-    private ArrayList<ExpenseCategory> expenseCategories;
-    
-    //Categorias de receitas
-    private ArrayList<IncomeCategory> incomeCategories;
-
     @Override
     public void start(Stage stage) throws Exception {
-        this.user = new User();
-        this.expenseCategories = new ArrayList();
-        this.incomeCategories = new ArrayList();
+        Parent root = FXMLLoader.load(getClass().getResource("MainView.fxml"));
         
-        stage.setTitle("FinancesApp");
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainView.fxml"));        
-        Parent root = loader.load();
-        
-        MainController main = loader.getController();
-        main.setUser(this.user);
-        main.setExpenseCategories(this.expenseCategories);
-        main.setIncomeCategories(this.incomeCategories);
-        main.load();
-        
-        stage.setOnCloseRequest(e -> main.save());
-        stage.setScene(new Scene(root));
+        Scene scene = new Scene(root);
+        stage.setTitle("Tanto Faz");
+        stage.setMaximized(true);
+        stage.setScene(scene);
         stage.show();
     }
 
-    public static void main(String[] args) {        
+    public static void main(String[] args) {
         launch(args);
     }
     
