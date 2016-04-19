@@ -1,6 +1,6 @@
 package financesapp;
  
-abstract class Category {
+public abstract class Category {
     
     // Nome da categoria
     protected String name;

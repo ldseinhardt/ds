@@ -3,7 +3,7 @@ package financesapp;
 import java.time.LocalDate;
 import java.util.*;
 
-abstract class Transaction {
+public abstract class Transaction {
     
     //Data
     protected LocalDate date;

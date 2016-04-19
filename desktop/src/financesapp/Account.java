@@ -2,7 +2,7 @@ package financesapp;
 
 import java.util.*;
 
-abstract class Account {  
+public abstract class Account {  
     
     //Nome da conta
     protected String name;

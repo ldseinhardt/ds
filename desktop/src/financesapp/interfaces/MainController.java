@@ -1,5 +1,8 @@
-package financesapp;
+package financesapp.interfaces;
 
+import financesapp.Account;
+import financesapp.DefaultAccount;
+import financesapp.User;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
