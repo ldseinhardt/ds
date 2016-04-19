@@ -6,7 +6,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 
-public class MainController implements Initializable {
+/**
+ * Expenses by Category (Despesas por Categoria)
+ */
+public class ExpByCatController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

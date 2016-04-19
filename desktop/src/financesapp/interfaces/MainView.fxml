@@ -8,19 +8,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.Rectangle?>
 
 <AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.interfaces.MainController">
    <children>
@@ -67,44 +62,8 @@
                      <children>
                         <TabPane prefHeight="512.0" prefWidth="100.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <tabs>
-                              <Tab text="Contas">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label fx:id="label0" layoutX="14.0" layoutY="44.0" text="Conta1" visible="false" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="44.0" />
-                                          <Label fx:id="label1" layoutX="14.0" layoutY="114.0" text="Conta2" visible="false" AnchorPane.leftAnchor="14.0" />
-                                          <Label fx:id="label2" layoutX="14.0" layoutY="184.0" text="Conta3" visible="false" />
-                                          <Label fx:id="label3" layoutX="14.0" layoutY="254.0" text="Conta4" visible="false" />
-                                          <Label fx:id="label4" layoutX="14.0" layoutY="324.0" text="Conta5" visible="false" />
-                                          <ProgressBar layoutX="14.0" layoutY="61.0" prefHeight="18.0" prefWidth="200.0" progress="0.7" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="61.0" />
-                                          <ProgressBar layoutX="14.0" layoutY="131.0" prefHeight="18.0" prefWidth="200.0" progress="0.3" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" />
-                                          <ProgressBar layoutX="14.0" layoutY="201.0" prefHeight="18.0" prefWidth="200.0" progress="0.5" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" />
-                                          <ProgressBar layoutX="14.0" layoutY="271.0" prefHeight="18.0" prefWidth="200.0" progress="0.2" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" />
-                                          <ProgressBar layoutX="14.0" layoutY="341.0" prefHeight="18.0" prefWidth="200.0" progress="0.4" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" />
-                                          <Label fx:id="label5" layoutX="88.0" layoutY="44.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="44.0" />
-                                          <Label fx:id="label6" layoutX="88.0" layoutY="114.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" />
-                                          <Label fx:id="label7" layoutX="88.0" layoutY="184.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" />
-                                          <Label fx:id="label8" layoutX="88.0" layoutY="254.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" />
-                                          <Label fx:id="label9" layoutX="88.0" layoutY="324.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" />
-                                          <fx:define>
-                                             <ArrayList fx:id="labelList">
-                                                <fx:reference source="label0" />
-                                                <fx:reference source="label1" />
-                                                <fx:reference source="label2" />
-                                                <fx:reference source="label3" />
-                                                <fx:reference source="label4" />
-                                                <fx:reference source="label5" />
-                                                <fx:reference source="label6" />
-                                                <fx:reference source="label7" />
-                                                <fx:reference source="label8" />
-                                                <fx:reference source="label9" />
-                                             </ArrayList>
-                                          </fx:define>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                              <Tab text="Untitled Tab 2" />
+                              <fx:include fx:id="contas1" source="AccountsView.fxml" />
+                              <Tab text="Tab 2" />
                            </tabs>
                         </TabPane>
                      </children>
@@ -113,139 +72,7 @@
                      <children>
                         <TabPane prefHeight="512.0" prefWidth="646.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <tabs>
-                              <Tab text="Despesas por Categoria">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <Label layoutX="14.0" layoutY="14.0" text="Label" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
-                                          <Label layoutX="14.0" layoutY="64.0" text="Label" AnchorPane.leftAnchor="14.0" />
-                                          <Label layoutX="14.0" layoutY="114.0" text="Label" AnchorPane.leftAnchor="14.0" />
-                                          <Label layoutX="14.0" layoutY="164.0" text="Label" AnchorPane.leftAnchor="14.0" />
-                                          <Label layoutX="14.0" layoutY="214.0" text="Label" AnchorPane.leftAnchor="14.0" />
-                                          <Label layoutX="14.0" layoutY="264.0" text="Label" AnchorPane.leftAnchor="14.0" />
-                                          <Label layoutX="14.0" layoutY="314.0" text="Label" AnchorPane.leftAnchor="14.0" />
-                                          <Label layoutX="14.0" layoutY="364.0" text="Label" AnchorPane.leftAnchor="14.0" />
-                                          <Label layoutX="14.0" layoutY="414.0" text="Label" AnchorPane.leftAnchor="14.0" />
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff8121" height="20.0" layoutX="14.0" layoutY="31.0" strokeType="INSIDE" strokeWidth="0.0" width="500.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="31.0">
-                                             <effect>
-                                                <Reflection fraction="0.5" topOpacity="0.2" />
-                                             </effect>
-                                             <stroke>
-                                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </RadialGradient>
-                                             </stroke>
-                                          </Rectangle>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1fba" height="20.0" layoutX="14.0" layoutY="81.0" strokeType="INSIDE" strokeWidth="0.0" width="100.0" AnchorPane.leftAnchor="14.0">
-                                             <effect>
-                                                <Reflection fraction="0.5" topOpacity="0.2" />
-                                             </effect>
-                                             <stroke>
-                                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </RadialGradient>
-                                             </stroke>
-                                          </Rectangle>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f6ff1f" height="20.0" layoutX="14.0" layoutY="131.0" strokeType="INSIDE" strokeWidth="0.0" width="180.0" AnchorPane.leftAnchor="14.0">
-                                             <effect>
-                                                <Reflection fraction="0.5" topOpacity="0.2" />
-                                             </effect>
-                                             <stroke>
-                                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </RadialGradient>
-                                             </stroke>
-                                          </Rectangle>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#81ff1f" height="20.0" layoutX="14.0" layoutY="181.0" strokeType="INSIDE" strokeWidth="0.0" width="266.0" AnchorPane.leftAnchor="14.0">
-                                             <effect>
-                                                <Reflection fraction="0.5" topOpacity="0.2" />
-                                             </effect>
-                                             <stroke>
-                                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </RadialGradient>
-                                             </stroke>
-                                          </Rectangle>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" layoutX="14.0" layoutY="231.0" strokeType="INSIDE" strokeWidth="0.0" width="70.0" AnchorPane.leftAnchor="14.0">
-                                             <effect>
-                                                <Reflection fraction="0.5" topOpacity="0.2" />
-                                             </effect>
-                                             <stroke>
-                                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </RadialGradient>
-                                             </stroke>
-                                          </Rectangle>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1f1f" height="20.0" layoutX="14.0" layoutY="281.0" strokeType="INSIDE" strokeWidth="0.0" width="333.0" AnchorPane.leftAnchor="14.0">
-                                             <effect>
-                                                <Reflection fraction="0.5" topOpacity="0.2" />
-                                             </effect>
-                                             <stroke>
-                                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </RadialGradient>
-                                             </stroke>
-                                          </Rectangle>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8bb2d7" height="20.0" layoutX="14.0" layoutY="331.0" strokeType="INSIDE" strokeWidth="0.0" width="120.0" AnchorPane.leftAnchor="14.0">
-                                             <effect>
-                                                <Reflection fraction="0.5" topOpacity="0.2" />
-                                             </effect>
-                                             <stroke>
-                                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </RadialGradient>
-                                             </stroke>
-                                          </Rectangle>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#309e05" height="20.0" layoutX="14.0" layoutY="381.0" strokeType="INSIDE" strokeWidth="0.0" width="180.0" AnchorPane.leftAnchor="14.0">
-                                             <effect>
-                                                <Reflection fraction="0.5" topOpacity="0.2" />
-                                             </effect>
-                                             <stroke>
-                                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </RadialGradient>
-                                             </stroke>
-                                          </Rectangle>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b21598" height="20.0" layoutX="14.0" layoutY="431.0" strokeType="INSIDE" strokeWidth="0.0" width="288.0" AnchorPane.leftAnchor="14.0">
-                                             <effect>
-                                                <Reflection fraction="0.5" topOpacity="0.2" />
-                                             </effect>
-                                             <stroke>
-                                                <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
-                                                   <stops>
-                                                      <Stop color="BLACK" />
-                                                      <Stop color="WHITE" offset="1.0" />
-                                                   </stops>
-                                                </RadialGradient>
-                                             </stroke>
-                                          </Rectangle>
-                                       </children></AnchorPane>
-                                 </content>
-                              </Tab>
+                              <fx:include fx:id="exp1" source="ExpByCatView.fxml" />
                               <Tab text="Receitas por Categoria">
                                  <content>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
