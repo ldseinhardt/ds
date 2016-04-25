@@ -1,46 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--<?import java.util.ArrayList?>-->
-<?import java.util.ArrayList?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <Tab text="Contas" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.interfaces.AccountsController">
     <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="200.0">
-            <children>
-                <Label fx:id="label0" layoutX="14.0" layoutY="44.0" text="Conta1" visible="false" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="44.0" />
-                <Label fx:id="label1" layoutX="14.0" layoutY="114.0" text="Conta2" visible="false" AnchorPane.leftAnchor="14.0" />
-                <Label fx:id="label2" layoutX="14.0" layoutY="184.0" text="Conta3" visible="false" />
-                <Label fx:id="label3" layoutX="14.0" layoutY="254.0" text="Conta4" visible="false" />
-                <Label fx:id="label4" layoutX="14.0" layoutY="324.0" text="Conta5" visible="false" />
-                <ProgressBar layoutX="14.0" layoutY="61.0" prefHeight="18.0" prefWidth="200.0" progress="0.7" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="61.0" />
-                <ProgressBar layoutX="14.0" layoutY="131.0" prefHeight="18.0" prefWidth="200.0" progress="0.3" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" />
-                <ProgressBar layoutX="14.0" layoutY="201.0" prefHeight="18.0" prefWidth="200.0" progress="0.5" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" />
-                <ProgressBar layoutX="14.0" layoutY="271.0" prefHeight="18.0" prefWidth="200.0" progress="0.2" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" />
-                <ProgressBar layoutX="14.0" layoutY="341.0" prefHeight="18.0" prefWidth="200.0" progress="0.4" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="12.0" />
-                <Label fx:id="label5" layoutX="88.0" layoutY="44.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="44.0" />
-                <Label fx:id="label6" layoutX="88.0" layoutY="114.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" />
-                <Label fx:id="label7" layoutX="88.0" layoutY="184.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" />
-                <Label fx:id="label8" layoutX="88.0" layoutY="254.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" />
-                <Label fx:id="label9" layoutX="88.0" layoutY="324.0" text="&lt;saldo&gt;" AnchorPane.rightAnchor="14.0" />
-                <fx:define>
-                    <ArrayList fx:id="labelList">
-                        <fx:reference source="label0" />
-                        <fx:reference source="label1" />
-                        <fx:reference source="label2" />
-                        <fx:reference source="label3" />
-                        <fx:reference source="label4" />
-                        <fx:reference source="label5" />
-                        <fx:reference source="label6" />
-                        <fx:reference source="label7" />
-                        <fx:reference source="label8" />
-                        <fx:reference source="label9" />
-                    </ArrayList>
-                </fx:define>
-            </children>
+        <AnchorPane fx:id="accounts" minHeight="100.0" minWidth="100.0" prefHeight="500.0" prefWidth="200.0">
         </AnchorPane>
     </content>
 </Tab>
