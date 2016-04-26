@@ -26,6 +26,10 @@ public class AccountsGestorController implements Initializable, Observer {
     //Tabela de contas
     private TableView<Account> tableView;
     
+    //Referências para o formulário
+    private Parent form;
+    private AccountsGestorFormController formController;
+    
     //Referência da classe principal
     private FinancesApp app;
     
@@ -36,27 +40,25 @@ public class AccountsGestorController implements Initializable, Observer {
     
     @FXML
     private void onAdd() {  
-        borderPane.setBottom(null);
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("AccountsGestorAddView.fxml")
-            );
-            Parent root = loader.load();
-
-            AccountsGestorAddController controller = loader.getController();
-            controller.init(this.app);
-            
-            borderPane.setBottom(root);
-        } catch(Exception e) {
-            
-        } 
+        if (this.form != null && this.formController != null) {
+            this.borderPane.setBottom(null);
+            this.borderPane.setBottom(this.form);  
+            this.formController.setAccount(null);
+        }
         //Test
         //this.app.getUser().addAccount(new DefaultAccount("Teste", 200));                
     }
     
     @FXML
     private void onEdit() {
+        Account account = this.tableView.getSelectionModel().getSelectedItem();
+        if (this.form != null && this.formController != null && account != null) {
+            this.borderPane.setBottom(null);
+            this.borderPane.setBottom(this.form); 
+            this.formController.setAccount(account);           
+        }
         //Test
+        /*
         Account account = this.app.getUser().getAccount(5);
         if (account != null) {
             account.setName("Conta de teste");
@@ -66,27 +68,31 @@ public class AccountsGestorController implements Initializable, Observer {
             income.addPayments(10, income.getDate(), true, 5);
             account.addTransaction(income);
             this.app.getUser().update();            
-        }
+        }*/
     }
     
     @FXML
     private void onDelete() {
-        
+        Account account = this.tableView.getSelectionModel().getSelectedItem();
+        if (account != null) {
+            this.app.getUser().getAccounts().remove(account);
+            this.app.getUser().update();
+        }    
     }  
     
     public void init(FinancesApp app) {
         this.app = app;
+        this.formController.init(this.app);
         this.update(null, null);
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-                
-        tableView = new TableView();        
-        tableView.setMinWidth(302);
-        tableView.setMaxWidth(302);
-        tableView.setPrefWidth(302);
-        tableView.setPrefHeight(400);
+    public void initialize(URL url, ResourceBundle rb) {                
+        this.tableView = new TableView();        
+        this.tableView.setMinWidth(302);
+        this.tableView.setMaxWidth(302);
+        this.tableView.setPrefWidth(302);
+        this.tableView.setPrefHeight(400);
         
         TableColumn accountColunm = new TableColumn("Conta");
         accountColunm.setMinWidth(200);
@@ -110,17 +116,28 @@ public class AccountsGestorController implements Initializable, Observer {
             }
         });
         
-        accounts = FXCollections.observableArrayList();
+        this.accounts = FXCollections.observableArrayList();
         
-        tableView.getColumns().addAll(accountColunm, balanceColunm);
-        tableView.setItems(accounts);
+        this.tableView.getColumns().addAll(accountColunm, balanceColunm);
+        this.tableView.setItems(this.accounts);
         
-        borderPane.setCenter(tableView);        
-        borderPane.setFocusTraversable(true);
+        this.borderPane.setCenter(this.tableView);        
+        this.borderPane.setFocusTraversable(true);
+                
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("AccountsGestorFormView.fxml")
+            );
+            this.form = loader.load();
+            this.formController = loader.getController();
+        } catch(Exception e) {
+            this.form = null;
+            this.formController = null;
+        }
     }  
 
     @Override
     public void update(Observable o, Object arg) {        
-        accounts.setAll(this.app.getUser().getAccounts());
+        this.accounts.setAll(this.app.getUser().getAccounts());
     }
 }

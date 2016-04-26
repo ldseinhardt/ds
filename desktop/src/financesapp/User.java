@@ -19,17 +19,10 @@ public class User extends Observable {
     
     public void setName(String name) {
         this.name = name;
-        this.update();
     }
         
     public void addAccount(Account account) {
         this.accounts.add(account);
-        this.update();
-    }
-    
-    public void deleteAccount(int i) {
-        this.accounts.remove(i);   
-        this.update(); 
     }
     
     public void update() {

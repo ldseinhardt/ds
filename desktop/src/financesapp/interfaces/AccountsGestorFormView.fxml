@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="gridPane" hgap="5.0" maxWidth="300.0" minWidth="300.0" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.interfaces.AccountsGestorAddController">
+<GridPane fx:id="gridPane" hgap="5.0" maxWidth="300.0" minWidth="300.0" prefHeight="100.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.interfaces.AccountsGestorFormController">
     <columnConstraints>
         <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="125.0" minWidth="125.0" prefWidth="125.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="160.0" minWidth="160.0" prefWidth="160.0" />
