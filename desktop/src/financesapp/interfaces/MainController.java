@@ -37,7 +37,7 @@ public class MainController implements Initializable {
     }
     
     public void showAccounts(ObservableList<Account> accountsList) {
-        accounts.getChildren().removeAll();
+        accounts.getChildren().clear();
         
         Iterator<Account> ac = accountsList.iterator();
         int y = 0;
