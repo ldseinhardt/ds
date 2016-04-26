@@ -2,42 +2,45 @@ package financesapp;
 
 import java.time.LocalDate;
 import java.util.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.json.*;
 
-public class User {
+public class User extends Observable {
     
     //Nome
     private String name;
     
     //Lista de contas
-    private ObservableList<Account> accounts;
+    private ArrayList<Account> accounts;
     
     public User() {
         this.name = "";
-        this.accounts = FXCollections.observableArrayList();        
-    }
-    
-    public User(String name) {
-        this.name = name;
-        this.accounts = FXCollections.observableArrayList();
+        this.accounts = new ArrayList();        
     }
     
     public void setName(String name) {
         this.name = name;
+        this.update();
     }
         
     public void addAccount(Account account) {
         this.accounts.add(account);
+        this.update();
     }
     
     public void deleteAccount(int i) {
-        this.accounts.remove(i);        
+        this.accounts.remove(i);   
+        this.update(); 
+    }
+    
+    public void update() {
+        this.setChanged();
+        this.notifyObservers();         
     }
     
     public void loadFromJSONString(String str) {
         try {
+            accounts.clear();
+            
             JSONObject json = new JSONObject(str);
 
             this.name = json.getString("name");
@@ -90,7 +93,8 @@ public class User {
             }            
         } catch(Exception e) {
             //algum atributo não foi encontrado
-        }        
+        }
+        this.update();    
     }
     
     public String toJSONString() {
@@ -184,7 +188,7 @@ public class User {
         return null;
     }   
    
-    public ObservableList<Account> getAccounts() {        
+    public ArrayList<Account> getAccounts() {        
         return this.accounts;
     }   
     

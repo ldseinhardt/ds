@@ -4,13 +4,11 @@ import financesapp.*;
 import java.net.*;
 import java.text.*;
 import java.util.*;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-public class MainController implements Initializable {
+public class MainController implements Initializable, Observer {
     
     //Referência da classe principal
     private FinancesApp app;
@@ -26,20 +24,13 @@ public class MainController implements Initializable {
     public void init(FinancesApp app) {
         this.app = app;
         
-        this.showAccounts(this.app.getUser().getAccounts());
-        
-        this.app.getUser().getAccounts().addListener(new ListChangeListener() {
-            @Override
-            public void onChanged(ListChangeListener.Change change) {
-                showAccounts(change.getList());
-            }
-        });               
+        this.showAccounts();                     
     }
     
-    public void showAccounts(ObservableList<Account> accountsList) {
+    public void showAccounts() {
         accounts.getChildren().clear();
         
-        Iterator<Account> ac = accountsList.iterator();
+        Iterator<Account> ac = this.app.getUser().getAccounts().iterator();
         int y = 0;
         while (ac.hasNext()) {
             
@@ -76,5 +67,10 @@ public class MainController implements Initializable {
     
     public void onAccountsGestor() {          
         this.app.showAccountsGestor();    
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.showAccounts();   
     }
 }
