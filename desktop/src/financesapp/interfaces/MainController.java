@@ -12,6 +12,7 @@ import javafx.geometry.NodeOrientation;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 
 public class MainController implements Initializable, Observer {
@@ -27,6 +28,7 @@ public class MainController implements Initializable, Observer {
         
         int y = 0;
         double bal, prog;
+        Color balColor;
         NodeOrientation nodeOr;
         ColorAdjust colorAdj;
         
@@ -36,6 +38,7 @@ public class MainController implements Initializable, Observer {
             Account account = ac.next();
             
             bal      = account.getBalance();
+            balColor = Color.DARKGREEN;
             prog     = bal/500; //R$ 500: teste. 100% sera o maior saldo no mes.
             nodeOr   = NodeOrientation.LEFT_TO_RIGHT;
             colorAdj = new ColorAdjust();
@@ -46,15 +49,19 @@ public class MainController implements Initializable, Observer {
             
             if(prog < 0){
                 prog = -prog;
+                balColor = Color.RED;
                 nodeOr = NodeOrientation.RIGHT_TO_LEFT;
                 colorAdj.setHue(1.0); //VERMELHO
             }
             
             Label accName     = new Label(account.getName());
+            
             Label accBalance  = new Label(
                                 NumberFormat.
                                 getCurrencyInstance().
                                 format(bal));
+            accBalance.setTextFill(balColor);
+            
             ProgressBar accPb = new ProgressBar(prog);
             accPb.setNodeOrientation(nodeOr);
             accPb.setEffect(colorAdj);
