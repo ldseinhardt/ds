@@ -3,22 +3,15 @@ package financesapp.interfaces;
 import financesapp.*;
 import java.net.URL;
 import java.text.NumberFormat;
-import java.time.LocalDate;
 import java.util.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.*;
 import javafx.fxml.*;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class AccountsGestorController implements Initializable, Observer {
@@ -40,35 +33,19 @@ public class AccountsGestorController implements Initializable, Observer {
     
     @FXML
     private void onAdd() {  
-        if (this.form != null && this.formController != null) {
-            this.borderPane.setBottom(null);
-            this.borderPane.setBottom(this.form);  
+        if (this.form != null && this.formController != null) {  
             this.formController.setAccount(null);
-        }
-        //Test
-        //this.app.getUser().addAccount(new DefaultAccount("Teste", 200));                
+            this.borderPane.setBottom(this.form);
+        }              
     }
     
     @FXML
     private void onEdit() {
         Account account = this.tableView.getSelectionModel().getSelectedItem();
         if (this.form != null && this.formController != null && account != null) {
-            this.borderPane.setBottom(null);
-            this.borderPane.setBottom(this.form); 
-            this.formController.setAccount(account);           
+            this.formController.setAccount(account);        
+            this.borderPane.setBottom(this.form);    
         }
-        //Test
-        /*
-        Account account = this.app.getUser().getAccount(5);
-        if (account != null) {
-            account.setName("Conta de teste");
-            Income income = new Income();
-            income.setDescription("Compras de supermercado");
-            income.setInformation("blah... blah... blah...");
-            income.addPayments(10, income.getDate(), true, 5);
-            account.addTransaction(income);
-            this.app.getUser().update();            
-        }*/
     }
     
     @FXML
