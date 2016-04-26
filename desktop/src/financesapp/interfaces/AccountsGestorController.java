@@ -11,9 +11,14 @@ import javafx.collections.*;
 import javafx.fxml.*;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class AccountsGestorController implements Initializable, Observer {
@@ -30,9 +35,23 @@ public class AccountsGestorController implements Initializable, Observer {
     private BorderPane borderPane;
     
     @FXML
-    private void onAdd() {        
+    private void onAdd() {  
+        borderPane.setBottom(null);
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("AccountsGestorAddView.fxml")
+            );
+            Parent root = loader.load();
+
+            AccountsGestorAddController controller = loader.getController();
+            controller.init(this.app);
+            
+            borderPane.setBottom(root);
+        } catch(Exception e) {
+            
+        } 
         //Test
-        this.app.getUser().addAccount(new DefaultAccount("Teste", 200));                
+        //this.app.getUser().addAccount(new DefaultAccount("Teste", 200));                
     }
     
     @FXML
@@ -62,31 +81,6 @@ public class AccountsGestorController implements Initializable, Observer {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        /*
-        borderPane.setBottom(null);
-        GridPane gridPane = new GridPane();
-        gridPane.setPrefWidth(290);
-        gridPane.setPrefHeight(83);
-        gridPane.setHgap(5);
-        gridPane.setVgap(5);
-        gridPane.setPadding(new Insets(5, 5, 5, 5));
-        
-        ColumnConstraints cc = new ColumnConstraints();
-        cc.setHalignment(HPos.RIGHT);
-        cc.setMinWidth(125);
-        cc.setMaxWidth(125);
-        cc.setPrefWidth(125);
-                        
-        gridPane.getColumnConstraints().add(cc);
-        
-        gridPane.add(new Label("Nome da conta:"), 0, 0);
-        gridPane.add(new Label("Saldo inicial:"), 0, 1);
-        gridPane.add(new TextField(), 1, 0);
-        gridPane.add(new TextField(), 1, 1);
-        gridPane.add(new HBox(), 2, 2);
-        
-        borderPane.setBottom(gridPane);
-        */
                 
         tableView = new TableView();        
         tableView.setMinWidth(302);

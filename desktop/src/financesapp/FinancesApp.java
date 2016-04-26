@@ -45,8 +45,11 @@ public class FinancesApp extends Application {
         
         this.user.addObserver((Observer) main);
         
+        // Dados padrões para um usuário novo
         this.user.setName("Usuário Padrão");
+        this.user.addAccount(new DefaultAccount("Carteira"));
         
+        // Carrega os dados do usuário se possível
         this.open();
         
         Scene scene = new Scene(root);
