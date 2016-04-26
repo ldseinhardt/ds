@@ -5,13 +5,13 @@
       "name": "Carteira",
       "type": "DefaultAccount",
       "transactions": [],
-      "openingBalance": 3.25
+      "openingBalance": 23.25
     },
     {
       "name": "Caixa",
       "type": "DefaultAccount",
       "transactions": [],
-      "openingBalance": 125.47
+      "openingBalance": -125.47
     },
     {
       "name": "Santander",
@@ -23,7 +23,7 @@
       "name": "Bolsa",
       "type": "DefaultAccount",
       "transactions": [],
-      "openingBalance": 7.4
+      "openingBalance": 37.4
     },
     {
       "name": "Poupança",

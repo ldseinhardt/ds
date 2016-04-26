@@ -8,7 +8,9 @@ import java.util.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.*;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
@@ -23,19 +25,39 @@ public class MainController implements Initializable, Observer {
     private void showAccounts() {
         accounts.getChildren().clear();
         
-        Iterator<Account> ac = this.app.getUser().getAccounts().iterator();
         int y = 0;
+        double bal, prog;
+        NodeOrientation nodeOr;
+        ColorAdjust colorAdj;
+        
+        Iterator<Account> ac = this.app.getUser().getAccounts().iterator();
         while (ac.hasNext()) {
             
             Account account = ac.next();
+            
+            bal      = account.getBalance();
+            prog     = bal/500; //R$ 500: teste. 100% sera o maior saldo no mes.
+            nodeOr   = NodeOrientation.LEFT_TO_RIGHT;
+            colorAdj = new ColorAdjust();
+            colorAdj.setHue(-0.4); //VERDE
+            
+            /* Saldo positivo: progresso VERDE da ESQUERDA PRA DIREITA.
+             * Saldo negativo: progresso VERMELHO da DIREITA PRA ESQUERDA. */
+            
+            if(prog < 0){
+                prog = -prog;
+                nodeOr = NodeOrientation.RIGHT_TO_LEFT;
+                colorAdj.setHue(1.0); //VERMELHO
+            }
             
             Label accName     = new Label(account.getName());
             Label accBalance  = new Label(
                                 NumberFormat.
                                 getCurrencyInstance().
-                                format(account.getBalance()));
-            ProgressBar accPb = new ProgressBar(account.getBalance()/500);
-            //R$ 500,00: valor teste. Depois, 100% sera o maior saldo no mes.
+                                format(bal));
+            ProgressBar accPb = new ProgressBar(prog);
+            accPb.setNodeOrientation(nodeOr);
+            accPb.setEffect(colorAdj);
             
             accounts.getChildren().add(accName);
             accounts.getChildren().add(accBalance);

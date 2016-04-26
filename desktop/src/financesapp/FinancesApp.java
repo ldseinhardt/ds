@@ -47,14 +47,6 @@ public class FinancesApp extends Application {
         
         this.user.setName("Usuário Padrão");
         
-        /* Test
-        user.addAccount(new DefaultAccount("Carteira" ,   3.25));
-        user.addAccount(new DefaultAccount("Caixa"    , 125.47));
-        user.addAccount(new DefaultAccount("Santander", 215.05));
-        user.addAccount(new DefaultAccount("Bolsa"    ,   7.40));
-        user.addAccount(new DefaultAccount("Poupança" , 398.89));
-        */        
-        
         this.open();
         
         Scene scene = new Scene(root);
