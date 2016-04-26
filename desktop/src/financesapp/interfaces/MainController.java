@@ -59,11 +59,7 @@ public class MainController implements Initializable {
         }                        
     }
     
-    public void onAccountsGestor() {
-        try {            
-            this.app.showAccountsGestor();    
-        } catch(Exception e) {
-            
-        }
+    public void onAccountsGestor() {          
+        this.app.showAccountsGestor();    
     }
 }

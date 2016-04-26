@@ -1,0 +1,35 @@
+{
+  "name": "Usuário test",
+  "accounts": [
+    {
+      "name": "Carteira",
+      "type": "DefaultAccount",
+      "transactions": [],
+      "openingBalance": 3.28
+    },
+    {
+      "name": "Caixa",
+      "type": "DefaultAccount",
+      "transactions": [],
+      "openingBalance": 125.47
+    },
+    {
+      "name": "Santander",
+      "type": "DefaultAccount",
+      "transactions": [],
+      "openingBalance": 215.05
+    },
+    {
+      "name": "Bolsa",
+      "type": "DefaultAccount",
+      "transactions": [],
+      "openingBalance": 7.4
+    },
+    {
+      "name": "Poupança",
+      "type": "DefaultAccount",
+      "transactions": [],
+      "openingBalance": 398.89
+    }
+  ]
+}

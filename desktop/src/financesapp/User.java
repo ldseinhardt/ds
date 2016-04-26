@@ -154,7 +154,7 @@ public class User {
         
         JSON.put("accounts", accountsJSON);
 
-        return JSON.toString();
+        return JSON.toString(2);
     }
     
     public String getName() {
