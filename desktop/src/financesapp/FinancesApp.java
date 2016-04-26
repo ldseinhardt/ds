@@ -27,12 +27,15 @@ public class FinancesApp extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        this.user = new User();
+        this.user = new User("Usuário Padrão");
         this.expenseCategories = new ArrayList();
         this.incomeCategories = new ArrayList();
         this.window = stage;
         
-        this.user.loadFromJSONString(this.loadFile(this.data_filename));
+        String data = this.loadFile(this.data_filename);
+        if (data != null) {
+            this.user.loadFromJSONString(data);
+        }
         
         /* Testes
         user.addAccount(new DefaultAccount("Carteira" ,   3.25));

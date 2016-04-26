@@ -2,9 +2,7 @@ package financesapp.interfaces;
 
 import financesapp.*;
 import java.net.URL;
-import java.text.DateFormat;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -28,7 +26,7 @@ public class AccountsGestorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        table = new TableView<Account>();        
+        table = new TableView();        
         table.setMinWidth(302);
         table.setMaxWidth(302);
         table.setPrefWidth(302);
@@ -39,7 +37,7 @@ public class AccountsGestorController implements Initializable {
         accountColunm.setMaxWidth(200);
         accountColunm.setPrefWidth(200);
         accountColunm.setCellValueFactory(
-            new PropertyValueFactory<Account, String>("name")
+            new PropertyValueFactory("name")
         );
         
         TableColumn balanceColunm = new TableColumn("Saldo");
@@ -64,17 +62,14 @@ public class AccountsGestorController implements Initializable {
     }    
     
     public void init(FinancesApp app) {
-        this.app = app;
+        this.app = app;        
         
-        ObservableList<Account> data = FXCollections.observableArrayList(
-            this.app.getUser().getAccounts()
-        );
-        
-        table.setItems(data);
+        table.setItems(this.app.getUser().getAccounts());
     }
     
-    public void onAdd() {
-                
+    public void onAdd() {        
+        //Teste
+        this.app.getUser().addAccount(new DefaultAccount("Teste", 200));                
     }
     
     public void onEdit() {

@@ -4,6 +4,8 @@ import financesapp.*;
 import java.net.*;
 import java.text.*;
 import java.util.*;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -24,7 +26,20 @@ public class MainController implements Initializable {
     public void init(FinancesApp app) {
         this.app = app;
         
-        Iterator<Account> ac = this.app.getUser().getAccounts().iterator();
+        this.showAccounts(this.app.getUser().getAccounts());
+        
+        this.app.getUser().getAccounts().addListener(new ListChangeListener() {
+            @Override
+            public void onChanged(ListChangeListener.Change change) {
+                showAccounts(change.getList());
+            }
+        });               
+    }
+    
+    public void showAccounts(ObservableList<Account> accountsList) {
+        accounts.getChildren().removeAll();
+        
+        Iterator<Account> ac = accountsList.iterator();
         int y = 0;
         while (ac.hasNext()) {
             
@@ -49,14 +64,14 @@ public class MainController implements Initializable {
             
             accName   .setLayoutY (44 + y);
             accBalance.setLayoutY (44 + y);
-            accPb     .setLayoutY (61 + y);
+            accPb     .setLayoutY (65 + y);
             
             AnchorPane.setLeftAnchor  (accName   , 14.0);
             AnchorPane.setRightAnchor (accBalance, 14.0);
             AnchorPane.setLeftAnchor  (accPb     , 14.0);
             AnchorPane.setRightAnchor (accPb     , 14.0);
             y += 70;
-        }                        
+        } 
     }
     
     public void onAccountsGestor() {          

@@ -2,6 +2,8 @@ package financesapp;
 
 import java.time.LocalDate;
 import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.json.*;
 
 public class User {
@@ -10,16 +12,16 @@ public class User {
     private String name;
     
     //Lista de contas
-    private ArrayList<Account> accounts;
+    private ObservableList<Account> accounts;
     
     public User() {
         this.name = "";
-        this.accounts = new ArrayList();        
+        this.accounts = FXCollections.observableArrayList();        
     }
     
     public User(String name) {
         this.name = name;
-        this.accounts = new ArrayList();
+        this.accounts = FXCollections.observableArrayList();
     }
     
     public void setName(String name) {
@@ -182,7 +184,7 @@ public class User {
         return null;
     }   
    
-    public ArrayList<Account> getAccounts() {        
+    public ObservableList<Account> getAccounts() {        
         return this.accounts;
     }   
     
