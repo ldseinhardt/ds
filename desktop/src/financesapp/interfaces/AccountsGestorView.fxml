@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.interfaces.AccountsGestorController">
-    
-</AnchorPane>
+
+<BorderPane fx:id="container" maxHeight="-Infinity" maxWidth="300.0" minHeight="400.0" minWidth="300.0" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.interfaces.AccountsGestorController">
+   <top>
+      <ToolBar prefHeight="40.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+        <items>
+          <Button minWidth="93.0" mnemonicParsing="false" text="Adicionar" onAction="#onAdd" />
+            <Button minWidth="93.0" mnemonicParsing="false" text="Editar" onAction="#onEdit" />
+            <Button minWidth="93.0" mnemonicParsing="false" text="Remover" onAction="#onDelete" />
+        </items>
+      </ToolBar>
+   </top>
+</BorderPane>

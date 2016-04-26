@@ -74,6 +74,7 @@ public class FinancesApp extends Application {
             stage.initOwner(this.window);
             stage.setTitle("Gestor de Contas");
             stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("interfaces/AccountsGestorView.fxml"));        
             Parent root = loader.load();
