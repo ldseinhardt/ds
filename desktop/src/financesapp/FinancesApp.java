@@ -55,10 +55,7 @@ public class FinancesApp extends Application {
         user.addAccount(new DefaultAccount("Poupança" , 398.89));
         */        
         
-        String data = this.loadFile(this.data_filename);
-        if (data != null) {
-            this.user.loadFromJSONString(data);
-        }                
+        this.open();
         
         Scene scene = new Scene(root);
         this.window.setTitle("FinancesApp");
@@ -69,15 +66,7 @@ public class FinancesApp extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
-    }
-    
-    public void setUser(User user) {
-        this.user = user;
-    }
-    
-    public User getUser() {
-        return this.user;
+        Application.launch(args);
     }
     
     public void showAccountsGestor() {   
@@ -110,8 +99,35 @@ public class FinancesApp extends Application {
         } 
     }
     
+    public User getUser() {
+        return this.user;
+    }
+        
+    public Stage getWindow() {
+        return this.window;
+    }
+    
+    public void open(String filename) {
+        String data = this.loadFile(filename);
+        if (data != null) {
+            this.user.loadFromJSONString(data);
+        }    
+    }
+    
+    public void open() {
+        this.open(this.data_filename);
+    }
+    
+    public void save(String filename) {
+        this.saveFile(filename, this.user.toJSONString());
+    }
+    
     public void save() {
-        this.saveFile(this.data_filename, this.user.toJSONString());
+        this.save(this.data_filename);
+    }
+    
+    public String getDefaultFileName() {
+        return this.data_filename;
     }
     
     private void saveFile(String filename, String content) {

@@ -1,12 +1,16 @@
 package financesapp.interfaces;
 
 import financesapp.*;
+import java.io.File;
 import java.net.*;
 import java.text.*;
 import java.util.*;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.stage.*;
 
 public class MainController implements Initializable, Observer {
     
@@ -15,19 +19,8 @@ public class MainController implements Initializable, Observer {
     
     @FXML
     private AnchorPane accounts;
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
- 
-    }
-    
-    public void init(FinancesApp app) {
-        this.app = app;
-        
-        this.showAccounts();                     
-    }
-    
-    public void showAccounts() {
+
+    private void showAccounts() {
         accounts.getChildren().clear();
         
         Iterator<Account> ac = this.app.getUser().getAccounts().iterator();
@@ -53,22 +46,65 @@ public class MainController implements Initializable, Observer {
             accPb     .setLayoutX (14);
             accPb     .setPrefWidth(200);
             
-            accName   .setLayoutY (44 + y);
-            accBalance.setLayoutY (44 + y);
-            accPb     .setLayoutY (65 + y);
+            accName   .setLayoutY (14 + y);
+            accBalance.setLayoutY (14 + y);
+            accPb     .setLayoutY (35 + y);
             
             AnchorPane.setLeftAnchor  (accName   , 14.0);
             AnchorPane.setRightAnchor (accBalance, 14.0);
             AnchorPane.setLeftAnchor  (accPb     , 14.0);
             AnchorPane.setRightAnchor (accPb     , 14.0);
-            y += 70;
+            y += 50;
         } 
     }
     
-    public void onAccountsGestor() {          
+    @FXML
+    private void onOpen() {          
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Selecione o arquivo...");
+        FileChooser.ExtensionFilter extFilter =
+            new FileChooser.ExtensionFilter("Arquivo JSON", "*.json", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(this.app.getWindow());
+        if (file != null) {
+            this.app.open(file.getAbsoluteFile().toString());
+        }
+    }
+    
+    @FXML
+    private void onSave() {          
+        this.app.save();
+    }
+    
+    @FXML
+    private void onSaveAs() {          
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Salvar arquivo...");
+        FileChooser.ExtensionFilter extFilter =
+            new FileChooser.ExtensionFilter("Arquivo JSON", "*.json", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.setInitialFileName(this.app.getDefaultFileName());
+        File file = fileChooser.showSaveDialog(this.app.getWindow());
+        if (file != null) {        
+            this.app.save(file.getAbsoluteFile().toString()); 
+        }
+    }
+    
+    @FXML
+    private void onAccountsGestor() {          
         this.app.showAccountsGestor();    
     }
-
+    
+    public void init(FinancesApp app) {
+        this.app = app;        
+        this.update(null, null);                     
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+ 
+    }
+    
     @Override
     public void update(Observable o, Object arg) {
         this.showAccounts();   
