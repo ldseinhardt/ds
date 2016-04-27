@@ -59,6 +59,7 @@ public class AccountsGestorController implements Initializable, Observer {
     
     public void init(FinancesApp app) {
         this.app = app;
+        this.app.getUser().addObserver(this);
         this.formController.init(this.app);
         this.update(null, null);
     }
@@ -117,4 +118,5 @@ public class AccountsGestorController implements Initializable, Observer {
     public void update(Observable o, Object arg) {        
         this.accounts.setAll(this.app.getUser().getAccounts());
     }
+    
 }

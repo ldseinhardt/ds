@@ -79,8 +79,6 @@ public class FinancesApp extends Application {
 
             AccountsGestorController accountsGestor = loader.getController();
             accountsGestor.init(this);            
-        
-            this.user.addObserver(accountsGestor);
             
             stage.setOnCloseRequest(e ->
                 this.user.deleteObserver(accountsGestor)
@@ -152,4 +150,5 @@ public class FinancesApp extends Application {
         }
         return null;        
     }
+    
 }

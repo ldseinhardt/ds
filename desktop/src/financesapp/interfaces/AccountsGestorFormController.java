@@ -93,4 +93,5 @@ public class AccountsGestorFormController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.account = null;
     } 
+    
 }
