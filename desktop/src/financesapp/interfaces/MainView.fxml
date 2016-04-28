@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.Reflection?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
@@ -22,33 +11,25 @@
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.interfaces.MainController">
     <center>
         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-            <top>
-                <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
-                    <items>
-                        <Pane HBox.hgrow="ALWAYS" />
-                        <ComboBox prefHeight="48.0" prefWidth="192.0" />
-                        <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="70.0" text="Editar" wrapText="true">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Contas" />
-                                <MenuItem mnemonicParsing="false" text="Despesas" />
-                                <MenuItem mnemonicParsing="false" text="Receitas" />
-                            </items>
-                        </MenuButton>
-                        <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="70.0" text="Dados" wrapText="true">
-                            <items>
-                                <MenuItem mnemonicParsing="false" text="Importar" />
-                                <MenuItem mnemonicParsing="false" text="Exportar" />
-                            </items>
-                        </MenuButton>
-                    </items>
-                    <padding>
-                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                    </padding>
-                </ToolBar>
-            </top>
             <center>        
                 <TabPane prefHeight="512.0" prefWidth="646.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                     <tabs>
+                        <Tab text="Transações">
+                            <content>
+                                <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                            <columns>
+                                                <TableColumn prefWidth="117.0" text="Data" />
+                                                <TableColumn prefWidth="129.0" text="Descriçao" />
+                                                <TableColumn prefWidth="129.0" text="Valor" />
+                                                <TableColumn prefWidth="129.0" text="Categoria" />
+                                            </columns>
+                                        </TableView>
+                                    </center>
+                                </BorderPane>
+                            </content>
+                        </Tab>
                         <Tab text="Despesas por Categoria">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="650.0">
@@ -182,20 +163,8 @@
                                     </children>
                                 </AnchorPane>
                             </content>
-                        </Tab>
-                                    
-                                    
+                        </Tab>     
                         <Tab text="Receitas por Categoria">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            </content>
-                        </Tab>
-                        <Tab text="Despesas">
-                            <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                            </content>
-                        </Tab>
-                        <Tab text="Receitas">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                             </content>
@@ -206,16 +175,40 @@
         </BorderPane>
     </center>
     <top>
-        <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu mnemonicParsing="false" text="Arquivo">
+        <VBox BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="Arquivo">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Abrir ..." />
+                                <MenuItem mnemonicParsing="false" onAction="#onSave" text="Salvar" />
+                                <MenuItem mnemonicParsing="false" onAction="#onSaveAs" text="Salvar como ..." />
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <Pane />
+                <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="1000.0">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Abrir ..." />
-                        <MenuItem mnemonicParsing="false" onAction="#onSave" text="Salvar" />
-                        <MenuItem mnemonicParsing="false" onAction="#onSaveAs" text="Salvar como ..." />
+                        <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddExpense" prefWidth="94.0" text="Adicionar Despesa" textAlignment="CENTER" wrapText="true" />
+                        <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddIncome" prefWidth="94.0" text="Adicionar Receita" textAlignment="CENTER" wrapText="true" />
+                        <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAccountsGestor" prefWidth="94.0" text="Gerenciar Contas" textAlignment="CENTER" wrapText="true" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <ComboBox prefHeight="48.0" prefWidth="192.0" />
+                        <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="77.0" text="Editar" wrapText="true">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Contas" />
+                                <MenuItem mnemonicParsing="false" text="Despesas" />
+                                <MenuItem mnemonicParsing="false" text="Receitas" />
+                            </items>
+                        </MenuButton>
                     </items>
-                </Menu>
-            </menus>
-        </MenuBar>
+                    <padding>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                    </padding>
+                </ToolBar>
+            </children>
+        </VBox>
     </top>
 </BorderPane>

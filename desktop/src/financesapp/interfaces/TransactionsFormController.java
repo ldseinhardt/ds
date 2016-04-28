@@ -9,15 +9,17 @@ import javafx.scene.layout.*;
 
 public class TransactionsFormController implements Initializable {
 
-    //Referências para o formulário
+    //Referências para o relatório de contas
     private Parent accountsView;
     private AccountsController accountsController;
 
     //Referência da classe principal
     private FinancesApp app;
 
+    //Conta para add transações
     private Account account;
 
+    //Transação para add/edit
     private Transaction transaction;
 
     @FXML

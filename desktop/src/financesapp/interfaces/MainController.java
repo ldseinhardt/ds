@@ -14,12 +14,48 @@ public class MainController implements Initializable, Observer {
     //Referência da classe principal
     private FinancesApp app;
     
-    //Referências para o formulário
+    //Referências para o relatório de contas
     private Parent accountsView;
     private AccountsController accountsController;
     
+    //Referências para o formulário
+    private Parent form;
+    private TransactionsFormController formController;
+    
     @FXML
     private BorderPane borderPane;
+    
+    @FXML
+    private void onAddExpense() { 
+        if (this.form != null && this.formController != null) { 
+            // exemplo (passar conta selecionada de fato)
+            Account selectedAccount = this.app.getUser().getAccount(this.app.getUser().getAccounts().size()-1);
+            this.formController.setAccount(selectedAccount);
+            this.formController.setTransaction(new Expense());
+            this.showForm();       
+        }       
+    }
+    
+    @FXML
+    private void onAddIncome() {
+        if (this.form != null && this.formController != null) { 
+            // exemplo (passar conta selecionada de fato)
+            Account selectedAccount = this.app.getUser().getAccount(this.app.getUser().getAccounts().size()-1);
+            this.formController.setAccount(selectedAccount);
+            this.formController.setTransaction(new Income());
+            this.showForm();        
+        }    
+    }
+    
+    private void showForm() {
+        this.app.getUser().deleteObserver(this.accountsController); 
+        this.borderPane.setLeft(this.form);      
+    }
+    
+    @FXML
+    private void onAccountsGestor() {          
+        this.app.showAccountsGestor();    
+    }
     
     @FXML
     private void onOpen() {          
@@ -57,6 +93,7 @@ public class MainController implements Initializable, Observer {
         this.app = app;        
         this.update(null, null);  
         this.accountsController.init(this.app);
+        this.formController.init(this.app);
     }
     
     @Override
@@ -71,6 +108,17 @@ public class MainController implements Initializable, Observer {
         } catch(Exception e) {
             this.accountsView = null;
             this.accountsController = null;
+        }
+        
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("TransactionsFormView.fxml")
+            );
+            this.form = loader.load();
+            this.formController = loader.getController();
+        } catch(Exception e) {
+            this.form = null;
+            this.formController = null;
         }
     }
     

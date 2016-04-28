@@ -6,7 +6,6 @@ import java.text.NumberFormat;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.geometry.NodeOrientation;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.*;
@@ -14,15 +13,8 @@ import javafx.scene.paint.Color;
 
 public class AccountsController implements Initializable, Observer {
     
-    //Referências para o formulário
-    private Parent form;
-    private TransactionsFormController formController;
-    
     //Referência da classe principal
     private FinancesApp app;
-    
-    @FXML
-    private BorderPane borderPane;
     
     @FXML
     private ScrollPane scrollPane;
@@ -94,56 +86,15 @@ public class AccountsController implements Initializable, Observer {
         } 
     }
     
-    @FXML
-    private void onAddExpense() { 
-        // exemplo (passar conta selecionada de fato)
-        Account selectedAccount = this.app.getUser().getAccount(this.app.getUser().getAccounts().size()-1);
-        this.formController.setAccount(selectedAccount);
-        this.formController.setTransaction(new Expense());
-        this.showForm();
-    }
-    
-    @FXML
-    private void onAddIncome() { 
-        // exemplo (passar conta selecionada de fato)
-        Account selectedAccount = this.app.getUser().getAccount(this.app.getUser().getAccounts().size()-1);
-        this.formController.setAccount(selectedAccount);
-        this.formController.setTransaction(new Income());
-        this.showForm();
-    }
-    
-    @FXML
-    private void onAccountsGestor() {          
-        this.app.showAccountsGestor();    
-    }
-    
-    private void showForm() {
-        if (this.form != null && this.formController != null) { 
-            this.app.getUser().deleteObserver(this);            
-            BorderPane bp = (BorderPane) this.borderPane.getParent();
-            bp.setLeft(this.form);
-        }          
-    }
-    
     public void init(FinancesApp app) {
         this.app = app;
         this.app.getUser().addObserver(this);
-        this.formController.init(this.app);
         this.update(null, null);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("TransactionsFormView.fxml")
-            );
-            this.form = loader.load();
-            this.formController = loader.getController();
-        } catch(Exception e) {
-            this.form = null;
-            this.formController = null;
-        }
+        
     }  
 
     @Override
