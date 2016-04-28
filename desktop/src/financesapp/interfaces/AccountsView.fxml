@@ -21,7 +21,7 @@
         </HBox>
     </bottom>
     <center>
-        <ScrollPane fx:id="scrollPane" BorderPane.alignment="CENTER">
+        <ScrollPane fx:id="scrollPane" minWidth="200.0" BorderPane.alignment="CENTER">
             <BorderPane.margin>
                 <Insets />
             </BorderPane.margin>

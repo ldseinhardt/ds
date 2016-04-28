@@ -96,11 +96,19 @@ public class AccountsController implements Initializable, Observer {
     
     @FXML
     private void onAddExpense() { 
+        // exemplo (passar conta selecionada de fato)
+        Account selectedAccount = this.app.getUser().getAccount(this.app.getUser().getAccounts().size()-1);
+        this.formController.setAccount(selectedAccount);
+        this.formController.setTransaction(new Expense());
         this.showForm();
     }
     
     @FXML
     private void onAddIncome() { 
+        // exemplo (passar conta selecionada de fato)
+        Account selectedAccount = this.app.getUser().getAccount(this.app.getUser().getAccounts().size()-1);
+        this.formController.setAccount(selectedAccount);
+        this.formController.setTransaction(new Income());
         this.showForm();
     }
     
