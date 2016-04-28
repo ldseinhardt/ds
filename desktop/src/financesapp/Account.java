@@ -10,12 +10,16 @@ public abstract class Account {
     // Saldo inicial da conta
     protected double openingBalance;
     
+    //Maior saldo já obtido (por enquanto geral, depois no mês corrente)
+    protected double maxBalance;
+    
     // Lista de transações
     protected ArrayList<Transaction> transactions;
 
     public Account(String name, double openingBalance) {
         this.name = name;
         this.openingBalance = openingBalance;
+        this.maxBalance = openingBalance;
         this.transactions = new ArrayList();
     }
     
@@ -29,10 +33,27 @@ public abstract class Account {
     
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
+        
+        int currentMonth = 1 + Calendar.getInstance().get(Calendar.MONTH);
+        for(Payment p : transaction.getPayments()){
+            if(p.getDate().getMonthValue() == currentMonth)
+                if(p.getValue() > 0 &&
+                   p.hasConcretized()){ //ver como atualizar quando editar
+                    maxBalance += p.getValue();
+                    //System.out.println(maxBalance);
+                }
+        }
     }
     
     public void deleteTransaction(int i) {
-        this.transactions.remove(i);        
+        int currentMonth = 1 + Calendar.getInstance().get(Calendar.MONTH);
+        for(Payment p : transactions.get(i).getPayments()){
+            if(p.getDate().getMonthValue() == currentMonth)
+                if(p.getValue() > 0 &&
+                   p.hasConcretized()) //ver como atualizar quando editar
+                    maxBalance -= p.getValue();
+        }
+        this.transactions.remove(i);
     }
     
     public String getName() {
@@ -41,6 +62,10 @@ public abstract class Account {
     
     public double getOpeningBalance() {
         return this.openingBalance;
+    }
+    
+    public double getMaxBalance() {
+        return this.maxBalance;
     }
     
     public double getBalance() {

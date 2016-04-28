@@ -172,6 +172,21 @@ public class User extends Observable {
         
         return balance;
     }
+    
+    public double getGeneralMaxBalance(){
+        double maxBalance = 0;
+       
+        Iterator<Account> it = this.accounts.iterator();
+        while (it.hasNext()) {
+            Account account = it.next();                  
+            
+            if(account.getMaxBalance() > maxBalance){
+                maxBalance = account.getMaxBalance();
+            }
+        }
+        
+        return maxBalance;
+    }
    
     public Account getAccount(int i) {
         if (i < this.accounts.size()) {

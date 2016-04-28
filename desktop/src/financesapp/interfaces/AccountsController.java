@@ -23,11 +23,12 @@ public class AccountsController implements Initializable, Observer {
         VBox vBox = new VBox(5);
         this.scrollPane.setContent(vBox);
         
-        double bal, prog;
+        double bal, prog, generalMaxBalance;
         Color balColor;
         NodeOrientation nodeOr;
         ColorAdjust colorAdj;
         
+        generalMaxBalance = this.app.getUser().getGeneralMaxBalance();
         Iterator<Account> ac = this.app.getUser().getAccounts().iterator();
         while (ac.hasNext()) {
             
@@ -35,7 +36,7 @@ public class AccountsController implements Initializable, Observer {
             
             bal      = account.getBalance();
             balColor = Color.DARKGREEN;
-            prog     = bal/500; //R$ 500: teste. 100% sera o maior saldo no mes.
+            prog     = bal/(generalMaxBalance*1.05);
             nodeOr   = NodeOrientation.LEFT_TO_RIGHT;
             colorAdj = new ColorAdjust();
             colorAdj.setHue(-0.4); //VERDE
