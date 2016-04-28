@@ -25,6 +25,12 @@ public class FinancesApp extends Application {
     //Categorias de receitas
     private ArrayList<IncomeCategory> incomeCategories;
     
+    //Nomes das categorias de despesa
+    private String[] expCategName;
+    
+    //Nomes das categorias de receita
+    private String[] incCategName;
+    
     @Override
     public void start(Stage stage) throws Exception {
         this.window = stage;
@@ -32,6 +38,28 @@ public class FinancesApp extends Application {
         // Lista de categorias para ambos tipos de transações
         this.expenseCategories = new ArrayList();
         this.incomeCategories = new ArrayList();
+        
+        this.expCategName = new String[]{
+            "Alimentação", "Beleza", "Dívida", "Educação", "Eletricidade",
+            "Higiene", "Internet", "Investimento", "Item Pessoal", "Justiça",
+            "Lazer", "Limpeza", "Moradia", "Pet", "Presente", "Saneamento",
+            "Saúde", "Telefonia", "Terceiros", "Transporte", "TV a Cabo",
+            "Vestuário"
+        };
+        
+        this.incCategName = new String[]{
+            "Empréstimo", "Justiça", "Presente",
+            "Renda", "Salário", "Serviço",
+            "Terceiros"
+        };
+        
+        for (String name : expCategName) {
+            this.expenseCategories.add(new ExpenseCategory(name));
+        }
+        
+        for (String name : incCategName) {
+            this.incomeCategories.add(new IncomeCategory(name));
+        }
         
         this.user = new User();
         
