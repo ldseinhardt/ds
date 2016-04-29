@@ -180,7 +180,7 @@ public class User extends Observable {
         while (it.hasNext()) {
             Account account = it.next();                  
             
-            if(account.getMaxBalance() > maxBalance){
+            if(Math.abs(account.getMaxBalance()) > maxBalance){
                 maxBalance = account.getMaxBalance();
             }
         }
@@ -198,6 +198,14 @@ public class User extends Observable {
    
     public ArrayList<Account> getAccounts() {        
         return this.accounts;
-    }   
+    }
     
+    public double getTotalByCategory(Category categ){
+        double total = 0.0;
+        
+        for (Account account : accounts) {
+            total += account.getTotalByCategory(categ);
+        }
+        return total;
+    }
 }

@@ -32,8 +32,8 @@
                         </Tab>
                         <Tab text="Despesas por Categoria">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="650.0">
-                                    <children>
+                                <ScrollPane fx:id="dpc" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="650.0">
+                                    <!--<children>
                                         <Label layoutX="14.0" layoutY="14.0" text="Label" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0" />
                                         <Label layoutX="14.0" layoutY="64.0" text="Label" AnchorPane.leftAnchor="14.0" />
                                         <Label layoutX="14.0" layoutY="114.0" text="Label" AnchorPane.leftAnchor="14.0" />
@@ -160,10 +160,10 @@
                                                 </RadialGradient>
                                             </stroke>
                                         </Rectangle>
-                                    </children>
-                                </AnchorPane>
+                                    </children>-->
+                                </ScrollPane>
                             </content>
-                        </Tab>     
+                        </Tab>
                         <Tab text="Receitas por Categoria">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />

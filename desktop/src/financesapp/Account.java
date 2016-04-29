@@ -91,7 +91,17 @@ public abstract class Account {
    
     public ArrayList<Transaction> getTransactions() {        
         return this.transactions;
-    } 
-
+    }
+    
+    public double getTotalByCategory(Category categ){
+        double total = 0.0;
+        
+        for (Transaction transaction : transactions) {
+            if(transaction.getCategory() == categ){
+                total += transaction.getPayments().get(0).getValue();
+                //Por enquanto pegando so o primeiro pagamento.
+            }
+        }
+        return total;
+    }
 }
-

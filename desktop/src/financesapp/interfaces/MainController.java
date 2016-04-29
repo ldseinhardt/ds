@@ -90,8 +90,8 @@ public class MainController implements Initializable, Observer {
     }
     
     public void init(FinancesApp app) {
-        this.app = app;        
-        this.update(null, null);  
+        this.app = app;
+        this.update(null, null);
         this.accountsController.init(this.app);
         this.formController.init(this.app);
     }

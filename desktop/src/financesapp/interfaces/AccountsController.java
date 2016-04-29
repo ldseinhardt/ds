@@ -35,7 +35,7 @@ public class AccountsController implements Initializable, Observer {
             Account account = ac.next();
             
             bal      = account.getBalance();
-            balColor = Color.DARKGREEN;
+            balColor = Color.GREEN;
             prog     = bal/(generalMaxBalance*1.05);
             nodeOr   = NodeOrientation.LEFT_TO_RIGHT;
             colorAdj = new ColorAdjust();

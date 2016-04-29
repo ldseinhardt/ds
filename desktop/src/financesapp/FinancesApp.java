@@ -128,6 +128,14 @@ public class FinancesApp extends Application {
         return this.window;
     }
     
+    public ArrayList<ExpenseCategory> getExpenseCategories(){
+        return this.expenseCategories;
+    }
+    
+    public ArrayList<IncomeCategory> getIncomeCategories(){
+        return this.incomeCategories;
+    }
+    
     public void open(String filename) {
         String data = this.loadFile(filename);
         if (data != null) {
