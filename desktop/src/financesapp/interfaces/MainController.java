@@ -6,6 +6,8 @@ import java.net.*;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
@@ -24,6 +26,9 @@ public class MainController implements Initializable, Observer {
     
     @FXML
     private BorderPane borderPane;
+    
+    @FXML
+    private ScrollPane sp;
     
     @FXML
     private void onAddExpense() { 
@@ -46,6 +51,32 @@ public class MainController implements Initializable, Observer {
             this.showForm();        
         }    
     }
+    
+    private void showReport() {
+        VBox vBox = new VBox(5);
+        this.sp.setContent(vBox);
+        
+        for(ExpenseCategory expCateg : this.app.getExpenseCategories()){
+            
+            Label lb = new Label(expCateg.getName());
+            
+            AnchorPane anchorPane = new AnchorPane();
+            anchorPane.getChildren().add(lb);
+            vBox.getChildren().add(anchorPane);
+            
+            lb.setLayoutX(14);
+            lb.setLayoutY(14);
+        }
+        
+        for(int i=1;i<11;i++){
+            Label lb = new Label("Categoria " + i);
+            AnchorPane anchorPane = new AnchorPane();
+            anchorPane.getChildren().add(lb);
+            vBox.getChildren().add(anchorPane);
+            lb.setLayoutX(14);
+            lb.setLayoutY(14);
+        }
+    }    
     
     private void showForm() {
         this.app.getUser().deleteObserver(this.accountsController); 
@@ -123,8 +154,8 @@ public class MainController implements Initializable, Observer {
     }
     
     @Override
-    public void update(Observable o, Object arg) {
-        
+    public void update(Observable o, Object arg) {  
+        this.showReport();        
     }
     
 }
