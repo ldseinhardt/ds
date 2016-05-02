@@ -34,7 +34,7 @@ public class AccountsGestorFormController implements Initializable {
             if (!this.name.getText().equalsIgnoreCase("")) {
                 try {
                     balance = Double.parseDouble(
-                        this.openingBalance.getTextFormatter().getValue().toString()
+                        this.openingBalance.getText()
                     );
                 } catch(Exception e) {
                     
@@ -71,7 +71,6 @@ public class AccountsGestorFormController implements Initializable {
         this.account = account;
         
         this.name.clear();
-        this.openingBalance .clear();
         
         double balance = 0;
         
@@ -80,11 +79,7 @@ public class AccountsGestorFormController implements Initializable {
             balance = this.account.getOpeningBalance();
         }
         
-        final NumberFormat currencyInstance = NumberFormat.getCurrencyInstance();
-        String symbol = currencyInstance.getCurrency().getSymbol();
-        TextFormatter<Number> formatter = new TextFormatter<>(new FormatStringConverter<>(currencyInstance));
-        formatter.valueProperty().bindBidirectional(new SimpleDoubleProperty(balance));
-        this.openingBalance.setTextFormatter(formatter);
+        this.openingBalance.setText(String.valueOf(balance));
         
         this.name.requestFocus();
     }

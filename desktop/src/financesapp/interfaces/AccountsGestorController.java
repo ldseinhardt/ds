@@ -34,17 +34,17 @@ public class AccountsGestorController implements Initializable, Observer {
     @FXML
     private void onAdd() {  
         if (this.form != null && this.formController != null) {  
-            this.formController.setAccount(null);
             this.borderPane.setBottom(this.form);
+            this.formController.setAccount(null);
         }              
     }
     
     @FXML
     private void onEdit() {
         Account account = this.tableView.getSelectionModel().getSelectedItem();
-        if (this.form != null && this.formController != null && account != null) {
-            this.formController.setAccount(account);        
-            this.borderPane.setBottom(this.form);    
+        if (this.form != null && this.formController != null && account != null) {      
+            this.borderPane.setBottom(this.form);   
+            this.formController.setAccount(account);   
         }
     }
     
@@ -98,9 +98,23 @@ public class AccountsGestorController implements Initializable, Observer {
         
         this.tableView.getColumns().addAll(accountColunm, balanceColunm);
         this.tableView.setItems(this.accounts);
+                
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem addOption = new MenuItem("Adicionar");
+        addOption.setOnAction((e)-> this.onAdd());
+
+        MenuItem editOption = new MenuItem("Editar");
+        editOption.setOnAction((e)-> this.onEdit());
         
-        this.borderPane.setCenter(this.tableView);        
-        this.borderPane.setFocusTraversable(true);
+        MenuItem deleteOption = new MenuItem("Remover");
+        deleteOption.setOnAction((e)-> this.onDelete());
+        
+        contextMenu.getItems().addAll(addOption, editOption, deleteOption);
+        
+        this.tableView.setContextMenu(contextMenu);        
+        
+        this.borderPane.setCenter(this.tableView);   
                 
         try {
             FXMLLoader loader = new FXMLLoader(

@@ -5,11 +5,14 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
 import javafx.fxml.*;
+import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class AccountsController implements Initializable, Observer {
     
@@ -21,7 +24,14 @@ public class AccountsController implements Initializable, Observer {
 
     private void showAccounts() {
         VBox vBox = new VBox(5);
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        vBox.setAlignment(Pos.CENTER);
         this.scrollPane.setContent(vBox);
+        
+        Label title = new Label("Contas");
+        title.setFont(new Font(24));
+        
+        vBox.getChildren().add(title);        
         
         double bal, prog, generalMaxBalance;
         Color balColor;
@@ -51,40 +61,34 @@ public class AccountsController implements Initializable, Observer {
                 colorAdj.setHue(1.0); //VERMELHO
             }
             
-            Label accName     = new Label(account.getName());
+            Label accName = new Label(account.getName());
+            accName.setPrefWidth(150);
             
-            Label accBalance  = new Label(
-                                NumberFormat.
-                                getCurrencyInstance().
-                                format(bal));
+            Label accBalance = new Label(
+                NumberFormat.getCurrencyInstance().format(bal)
+            );
+            accBalance.setPrefWidth(100);
+            accBalance.setAlignment(Pos.CENTER_RIGHT);
             accBalance.setTextFill(balColor);
             
             ProgressBar accPb = new ProgressBar(prog);
             accPb.setNodeOrientation(nodeOr);
             accPb.setEffect(colorAdj);
+            accPb.setPrefWidth(260);
             
-            AnchorPane anchorPane = new AnchorPane();
+            HBox hBox = new HBox(5);            
+            hBox.getChildren().add(accName);            
+            hBox.getChildren().add(accBalance);            
             
-            anchorPane.getChildren().add(accName);
-            anchorPane.getChildren().add(accBalance);
-            anchorPane.getChildren().add(accPb);
-            
-            vBox.getChildren().add(anchorPane);
-            
-            accName   .setLayoutX (14);
-            accBalance.setLayoutX (250);
-            accPb     .setLayoutX (14);
-            accPb     .setPrefWidth(250);
-            
-            accName   .setLayoutY (14);
-            accBalance.setLayoutY (14);
-            accPb     .setLayoutY (35);
-            
-            AnchorPane.setLeftAnchor  (accName   , 14.0);
-            AnchorPane.setRightAnchor (accBalance, 14.0);
-            AnchorPane.setLeftAnchor  (accPb     , 14.0);
-            AnchorPane.setRightAnchor (accPb     , 14.0);
+            vBox.getChildren().add(hBox);
+            vBox.getChildren().add(accPb);
         } 
+        
+        Label total = new Label("Saldo total: " + NumberFormat.getCurrencyInstance().format(
+            this.app.getUser().getBalance()
+        ));
+        
+        vBox.getChildren().add(total);
     }
     
     public void init(FinancesApp app) {
