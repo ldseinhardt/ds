@@ -23,7 +23,7 @@ public class AccountsController implements Initializable, Observer {
     private ScrollPane scrollPane;
 
     private void showAccounts() {
-        VBox vBox = new VBox(5);
+        VBox vBox = new VBox(3);
         vBox.setPadding(new Insets(10, 10, 10, 10));
         vBox.setAlignment(Pos.CENTER);
         this.scrollPane.setContent(vBox);
@@ -34,7 +34,7 @@ public class AccountsController implements Initializable, Observer {
         vBox.getChildren().add(title);        
         
         double bal, prog, generalMaxBalance;
-        Color balColor;
+        Color balColor = Color.GREEN;
         NodeOrientation nodeOr;
         ColorAdjust colorAdj;
         
@@ -82,13 +82,28 @@ public class AccountsController implements Initializable, Observer {
             
             vBox.getChildren().add(hBox);
             vBox.getChildren().add(accPb);
+            vBox.getChildren().add(new Label()); //Espaço entre contas
         } 
         
-        Label total = new Label("Saldo total: " + NumberFormat.getCurrencyInstance().format(
+        double totalBalance = this.app.getUser().getBalance();
+        
+        Label st = new Label("Saldo total: ");
+        Label total = new Label(NumberFormat.getCurrencyInstance().format(
             this.app.getUser().getBalance()
         ));
         
-        vBox.getChildren().add(total);
+        if(totalBalance < 0)
+            total.setTextFill(Color.RED);
+        else
+            total.setTextFill(Color.GREEN);
+        
+        HBox hBox = new HBox();
+        hBox.getChildren().add(st);
+        hBox.getChildren().add(total);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setScaleY(1.3);
+        
+        vBox.getChildren().add(hBox);
     }
     
     public void init(FinancesApp app) {

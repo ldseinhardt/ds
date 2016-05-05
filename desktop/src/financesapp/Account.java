@@ -97,8 +97,8 @@ public abstract class Account {
         double total = 0.0;
         
         for (Transaction transaction : transactions) {
-            if(transaction.getCategory() == categ){
-                total += transaction.getPayments().get(0).getValue();
+            if(transaction.getCategory().getName().equals(categ.getName())){
+                total += transaction.getPayment(0).getValue();
                 //Por enquanto pegando so o primeiro pagamento.
             }
         }

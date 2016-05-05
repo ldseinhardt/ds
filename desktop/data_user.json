@@ -64,10 +64,10 @@
               "value": 10
             }
           ],
-          "description": "Compras de supermercado",
+          "description": "teste",
           "information": "blah... blah... blah...",
           "type": "Income",
-          "category": "test"
+          "category": "Serviço"
         },
         {
           "date": "2016-04-27",
@@ -98,10 +98,70 @@
               "value": 10
             }
           ],
-          "description": "Compras de supermercado5",
+          "description": "Grana in",
           "information": "blah... blah... blah...5",
           "type": "Income",
-          "category": ""
+          "category": "Empréstimo"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 50
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Saúde"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 2200
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Income",
+          "category": "Salário"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 50
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Alimentação"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 50
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Alimentação"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 50
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Income",
+          "category": "Empréstimo"
         }
       ],
       "openingBalance": 200

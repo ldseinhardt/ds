@@ -55,10 +55,14 @@ public class FinancesApp extends Application {
         
         for (String name : expCategName) {
             this.expenseCategories.add(new ExpenseCategory(name));
+            this.expenseCategories.get(this.expenseCategories.size()-1)
+                .setColor("#"+String.format("%06x", new Random().nextInt(0xFFFFFF)));
         }
         
         for (String name : incCategName) {
             this.incomeCategories.add(new IncomeCategory(name));
+            this.incomeCategories.get(this.incomeCategories.size()-1)
+                .setColor("#"+String.format("%06x", new Random().nextInt(0xFFFFFF)));
         }
         
         this.user = new User();

@@ -48,11 +48,16 @@ public class TransactionsFormController implements Initializable {
                 //this.transaction.setDate();
                 this.transaction.setDescription("teste");
                 //this.transaction.setInformation();
-                //this.transaction.setCategory();
+                try {
+                    this.transaction.setCategory(this.app.getExpenseCategories().get(0));
+                } catch (Exception e){
+                    this.transaction.setCategory(this.app.getIncomeCategories().get(0));
+                }
                 this.transaction.addPayments(50, transaction.getDate(), true);
                 this.account.addTransaction(transaction);
             }
         }
+        this.app.getUser().update();
         this.close();
     }
 

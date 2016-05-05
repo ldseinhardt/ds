@@ -29,15 +29,18 @@
                             <content>
                                 <BorderPane maxHeight="1000.0" minHeight="300.0" prefHeight="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <center>
-                                        <ScrollPane fx:id="sp" BorderPane.alignment="CENTER">
-                                        </ScrollPane>
+                                        <ScrollPane fx:id="expScrollPane" BorderPane.alignment="CENTER" />
                                     </center>
                                 </BorderPane>
                             </content>
                         </Tab>
                         <Tab text="Receitas por Categoria">
                             <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                <BorderPane maxHeight="1000.0" minHeight="300.0" prefHeight="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <center>
+                                        <ScrollPane fx:id="incScrollPane" BorderPane.alignment="CENTER" />
+                                    </center>
+                                </BorderPane>
                             </content>
                         </Tab>
                         <Tab text="Gráficos">

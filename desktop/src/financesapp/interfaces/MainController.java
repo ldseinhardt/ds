@@ -3,6 +3,7 @@ package financesapp.interfaces;
 import financesapp.*;
 import java.io.File;
 import java.net.*;
+import java.text.NumberFormat;
 import java.text.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -13,7 +14,14 @@ import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Reflection;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Font;
 import javafx.stage.*;
 import javafx.util.Callback;
 
@@ -33,10 +41,12 @@ public class MainController implements Initializable, Observer {
     @FXML
     private BorderPane borderPane;
     
-    // POE UM NOME MELHOR
     @FXML
-    private ScrollPane sp;
+    private ScrollPane expScrollPane;
    
+    @FXML
+    private ScrollPane incScrollPane;
+    
     //Tabela de Transações
     private TableView<Payment> tableView;
     
@@ -67,31 +77,109 @@ public class MainController implements Initializable, Observer {
         }    
     }
     
-    private void showReport() {
-        VBox vBox = new VBox(5);
-        this.sp.setContent(vBox);
+    private void showExpensesByCategory(Calendar initialDate, Calendar finalDate) {
+        
+        double max = 1000;//temporario
+        
+        VBox vBox = new VBox(8);
+        this.expScrollPane.setContent(vBox);
         
         for(ExpenseCategory expCateg : this.app.getExpenseCategories()){
             
-            Label lb = new Label(expCateg.getName());
+            double total = this.app.getUser().getTotalByCategory(expCateg);
+            if(total != 0){
             
+                Label lb = new Label(expCateg.getName()
+                    + ":   "
+                    + NumberFormat.getCurrencyInstance().format(total)
+                    + ""
+                );
+                
+                Rectangle rect = new Rectangle();
+                
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.getChildren().add(lb);
-            vBox.getChildren().add(anchorPane);
+                anchorPane.getChildren().add(rect);
             
             lb.setLayoutX(14);
             lb.setLayoutY(14);
+                lb.setTextFill(Color.web(expCateg.getColor()).darker().darker());
+                lb.setFont(new Font(13));
+                
+                rect.setLayoutX(14);
+                rect.setLayoutY(34);
+                rect.setHeight(20.0);
+                
+                // Perfumaria ////////
+                rect.setArcHeight(5.0);
+                rect.setArcWidth(5.0);
+                DropShadow ds = new DropShadow();
+                ds.setOffsetY(5.0);
+                ds.setOffsetX(5.0);
+                ds.setColor(Color.GRAY);
+                rect.setEffect(ds);
+                rect.setFill(Color.web(expCateg.getColor()).brighter());
+                //////////////////////
+                
+                rect.setWidth(total*1000/max);
+                
+                vBox.getChildren().add(anchorPane);
         }
+        }
+        vBox.getChildren().add(new Label()); //Espaço vazio
+    }
         
-        for(int i=1;i<11;i++){
-            Label lb = new Label("Categoria " + i);
+    private void showIncomesByCategory(Calendar initialDate, Calendar finalDate) {
+        
+        double max = 2500;//temporario
+        
+        VBox vBox = new VBox(8);
+        this.incScrollPane.setContent(vBox);
+        
+        for(IncomeCategory incCateg : this.app.getIncomeCategories()){
+            
+            double total = this.app.getUser().getTotalByCategory(incCateg);
+            if(total != 0){
+                
+                Label lb = new Label(incCateg.getName()
+                    + ":   "
+                    + NumberFormat.getCurrencyInstance().format(total)
+                    + ""
+                );
+                
+                Rectangle rect = new Rectangle();
+                
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.getChildren().add(lb);
-            vBox.getChildren().add(anchorPane);
+                anchorPane.getChildren().add(rect);
+                
             lb.setLayoutX(14);
             lb.setLayoutY(14);
+                lb.setTextFill(Color.web(incCateg.getColor()).darker().darker());
+                lb.setFont(new Font(13));
+                
+                rect.setLayoutX(14);
+                rect.setLayoutY(34);
+                rect.setHeight(20.0);
+                
+                // Perfumaria ////////
+                rect.setArcHeight(5.0);
+                rect.setArcWidth(5.0);
+                DropShadow ds = new DropShadow();
+                ds.setOffsetY(5.0);
+                ds.setOffsetX(5.0);
+                ds.setColor(Color.GRAY);
+                rect.setEffect(ds);
+                rect.setFill(Color.web(incCateg.getColor()).brighter());
+                //////////////////////
+                
+                rect.setWidth(total*1000/max);
+                
+                vBox.getChildren().add(anchorPane);
         }
     }    
+        vBox.getChildren().add(new Label()); //Espaço vazio
+    }
     
     private void showForm() {
         this.app.getUser().deleteObserver(this.accountsController); 
@@ -262,16 +350,17 @@ public class MainController implements Initializable, Observer {
     
     @Override
     public void update(Observable o, Object arg) {  
-        this.showReport();        
+        // Teste ///////////////////////////////
+        Calendar first = Calendar.getInstance();
+        Calendar last  = first;
+        first.set(Calendar.DAY_OF_MONTH, 1);
+            // 01/MES/ANO
+        last .set(Calendar.DAY_OF_MONTH, last.getActualMaximum(Calendar.DAY_OF_MONTH));
+            // <ultimo dia do mes>/MES/ANO
+        ////////////////////////////////////////
+        this.showExpensesByCategory(first, last);
+        this.showIncomesByCategory(first, last);
         this.showTransactions();
     }
     
 }
-
-
-
-
-
-
-
-
