@@ -30,7 +30,7 @@ public abstract class Account {
     
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
-                }
+    }
     
     public void deleteTransaction(int i) {
         this.transactions.remove(i);
@@ -82,7 +82,10 @@ public abstract class Account {
             for(Payment payment : transaction.getPayments()){
                 if(payment.getDate().isBefore(untilDate.plusDays(1))){
                     if(payment.hasConcretized()){
-                        balance += payment.getValue();
+                        if(payment.getTransaction().getType().equals("Income"))
+                            balance += payment.getValue();
+                        else //Expense
+                            balance -= payment.getValue();
                     }
                 }
             }

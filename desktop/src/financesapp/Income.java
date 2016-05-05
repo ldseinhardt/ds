@@ -11,11 +11,13 @@ public class Income extends Transaction {
     public Income() {
         super(LocalDate.now(), "", "");
         this.category = null;
+        super.type = "Income";
     }    
     
     public Income(LocalDate date, String description, String information) {
         super(date, description, information);
         this.category = null;
+        super.type = "Income";
     }
     
     public void setCategory(Category category) {

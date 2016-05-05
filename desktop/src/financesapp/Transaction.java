@@ -17,6 +17,9 @@ public abstract class Transaction {
     //Lista de pagamentos
     protected ArrayList<Payment> payments;
     
+    //Despesa ou Receita
+    protected String type;
+    
     public Transaction(LocalDate date, String description, String information) {
         this.date = date;
         this.description = description;
@@ -72,6 +75,10 @@ public abstract class Transaction {
         return this.information;
     }
    
+    public String getType(){
+        return this.type;
+    }
+    
     public Payment getPayment(int i) {
         if (i < this.payments.size()) {
             return this.payments.get(i);
