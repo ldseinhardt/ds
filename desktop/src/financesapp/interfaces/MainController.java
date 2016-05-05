@@ -251,6 +251,7 @@ public class MainController implements Initializable, Observer {
         transactionsTab.setContent(this.tableView);
         
         TableColumn dateColunm = new TableColumn("Data");
+        dateColunm.setStyle("-fx-alignment: CENTER");
         dateColunm.setMinWidth(100);
         dateColunm.setMaxWidth(100);
         dateColunm.setPrefWidth(100);
@@ -292,6 +293,7 @@ public class MainController implements Initializable, Observer {
         });
         
         TableColumn concretizedColunm = new TableColumn("Concretizado");
+        concretizedColunm.setStyle("-fx-alignment: CENTER");
         concretizedColunm.setMinWidth(125);
         concretizedColunm.setMaxWidth(125);
         concretizedColunm.setPrefWidth(125);
