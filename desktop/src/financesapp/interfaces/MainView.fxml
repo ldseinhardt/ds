@@ -24,22 +24,7 @@
             <center>        
                 <TabPane prefHeight="512.0" prefWidth="646.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                     <tabs>
-                        <Tab text="Transações">
-                            <content>
-                                <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                    <center>
-                                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                            <columns>
-                                                <TableColumn prefWidth="117.0" text="Data" />
-                                                <TableColumn prefWidth="129.0" text="Descriçao" />
-                                                <TableColumn prefWidth="129.0" text="Valor" />
-                                                <TableColumn prefWidth="129.0" text="Categoria" />
-                                            </columns>
-                                        </TableView>
-                                    </center>
-                                </BorderPane>
-                            </content>
-                        </Tab>
+                        <Tab text="Transações" fx:id="transactionsTab"></Tab>
                         <Tab text="Despesas por Categoria">
                             <content>
                                 <BorderPane maxHeight="1000.0" minHeight="300.0" prefHeight="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

@@ -42,7 +42,7 @@ public abstract class Transaction {
     
     public void addPayments(double value, LocalDate date, boolean concretized, int number) {        
         for (int i = 0; i < number; i++) {
-            this.payments.add(new Payment(value, date.plusMonths(i), concretized));
+            this.payments.add(new Payment(this, value, date.plusMonths(i), concretized));
         }
     }
         

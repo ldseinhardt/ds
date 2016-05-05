@@ -4,6 +4,9 @@ import java.time.LocalDate;
 
 public class Payment {
     
+    // Transação a qual pertence
+    private Transaction transaction;
+    
     // Valor
     private double value;
     
@@ -13,7 +16,8 @@ public class Payment {
     //Pagamento contretizado (Pago/Recebido)
     private boolean concretized;   
     
-    public Payment(double value, LocalDate date, boolean concretized) {
+    public Payment(Transaction transaction, double value, LocalDate date, boolean concretized) {
+        this.transaction = transaction;
         this.value = value;
         this.date = date;
         this.concretized = concretized;
@@ -30,6 +34,10 @@ public class Payment {
     public void setConcretized(boolean concretized) {
         this.concretized = concretized;
     }    
+    
+    public Transaction getTransaction() {
+        return this.transaction;
+    }
     
     public double getValue() {
         return this.value;

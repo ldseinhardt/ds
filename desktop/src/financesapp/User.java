@@ -72,6 +72,7 @@ public class User extends Observable {
                         while (itp.hasNext()) {
                             JSONObject paymentJSON = (JSONObject) itp.next();
                             transaction.addPayment(new Payment(
+                                transaction,
                                 paymentJSON.getDouble("value"),
                                 LocalDate.parse(paymentJSON.getString("date")),
                                 paymentJSON.getBoolean("concretized")

@@ -76,6 +76,7 @@ public class FinancesApp extends Application {
         // Dados padrões para um usuário novo
         this.user.setName("Usuário Padrão");
         this.user.addAccount(new DefaultAccount("Carteira"));
+        this.user.update();
         
         // Carrega os dados do usuário se possível
         this.open();
