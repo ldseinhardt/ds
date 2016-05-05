@@ -1,4 +1,4 @@
-package financesapp;
+package financesapp.model;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -129,4 +129,5 @@ public abstract class Account {
         }
         return total;
     }
+    
 }

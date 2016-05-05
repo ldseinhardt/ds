@@ -1,13 +1,14 @@
-package financesapp.interfaces;
+package financesapp.controller;
 
 import financesapp.*;
+import financesapp.model.*;
 import java.net.URL;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 
-public class AccountsGestorFormController implements Initializable {
+public class AccountsGestorForm implements Initializable {
     
     //Referência da classe principal
     private FinancesApp app;
@@ -26,9 +27,9 @@ public class AccountsGestorFormController implements Initializable {
     
     @FXML
     private void onSave() {
-        if (!this.name.getText().equalsIgnoreCase("")) {
+        if (!this.name.getText().equals("")) {
             double balance = 0;
-            if (!this.name.getText().equalsIgnoreCase("")) {
+            if (!this.name.getText().equals("")) {
                 try {
                     balance = Double.parseDouble(
                         this.openingBalance.getText()

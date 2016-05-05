@@ -1,4 +1,4 @@
-package financesapp;
+package financesapp.model;
  
 public class ExpenseCategory extends Category {
     

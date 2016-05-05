@@ -1,6 +1,7 @@
 package financesapp;
 
-import financesapp.interfaces.*;
+import financesapp.model.*;
+import financesapp.controller.*;
 import java.io.*;
 import java.util.*;
 import javafx.application.Application;
@@ -15,6 +16,10 @@ public class FinancesApp extends Application {
     
     //Nome padrão do arquivo
     private final String data_filename = "data_user.json"; 
+    
+    //Padrão
+    private final String default_user = "Usuário Padrão"; 
+    private final String default_account = "Carteira"; 
     
     //Referência janela principal
     private Stage window;
@@ -64,22 +69,21 @@ public class FinancesApp extends Application {
             this.incomeCategories.get(this.incomeCategories.size()-1)
                 .setColor("#"+String.format("%06x", new Random().nextInt(0xFFFFFF)));
         }
-        
+                
         this.user = new User();
-        
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("interfaces/MainView.fxml")
-        );        
+            this.getClass().getResource("/financesapp/view/Main.fxml")
+        );      
         Parent root = loader.load();
       
-        MainController main = loader.getController();
+        Main main = loader.getController();
         main.init(this);
         
         this.user.addObserver((Observer) main);
         
         // Dados padrões para um usuário novo
-        this.user.setName("Usuário Padrão");
-        this.user.addAccount(new DefaultAccount("Carteira"));
+        this.user.setName(this.default_user);
+        this.user.addAccount(new DefaultAccount(this.default_account));
         this.user.update();
         
         // Carrega os dados do usuário se possível
@@ -106,11 +110,11 @@ public class FinancesApp extends Application {
             stage.setResizable(false);
 
             FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("interfaces/AccountsGestorView.fxml")
+                getClass().getResource("/financesapp/view/AccountsGestor.fxml")
             );        
             Parent root = loader.load();
 
-            AccountsGestorController accountsGestor = loader.getController();
+            AccountsGestor accountsGestor = loader.getController();
             accountsGestor.init(this);            
             
             stage.setOnCloseRequest(e ->
@@ -162,6 +166,10 @@ public class FinancesApp extends Application {
     
     public String getDefaultFileName() {
         return this.data_filename;
+    }
+    
+    public String getDefaultAccountName() {
+        return this.default_account;
     }
     
     private void saveFile(String filename, String content) {

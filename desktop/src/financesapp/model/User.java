@@ -1,4 +1,4 @@
-package financesapp;
+package financesapp.model;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -213,4 +213,5 @@ public class User extends Observable {
         }
         return total;
     }
+    
 }

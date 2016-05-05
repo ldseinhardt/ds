@@ -1,6 +1,7 @@
-package financesapp.interfaces;
+package financesapp.controller;
 
 import financesapp.*;
+import financesapp.model.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
@@ -8,11 +9,11 @@ import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.layout.*;
 
-public class TransactionsFormController implements Initializable {
+public class TransactionsForm implements Initializable {
 
     //Referências para o relatório de contas
     private Parent accountsView;
-    private AccountsController accountsController;
+    private Accounts accountsController;
 
     //Referência da classe principal
     private FinancesApp app;
@@ -76,7 +77,7 @@ public class TransactionsFormController implements Initializable {
         this.app = app;
         try {
             FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("AccountsView.fxml")
+                getClass().getResource("/financesapp/view/Accounts.fxml")
             );
             this.accountsView = loader.load();
             this.accountsController = loader.getController();

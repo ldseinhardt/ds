@@ -1,4 +1,4 @@
-package financesapp;
+package financesapp.model;
  
 public abstract class Category {
     
@@ -26,4 +26,5 @@ public abstract class Category {
     public String getColor() {
         return this.color;
     }
+    
 }

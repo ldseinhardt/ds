@@ -1,4 +1,4 @@
-package financesapp;
+package financesapp.model;
 
 public class DefaultAccount extends Account {
 

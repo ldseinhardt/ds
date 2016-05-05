@@ -1,6 +1,7 @@
-package financesapp.interfaces;
+package financesapp.controller;
 
 import financesapp.*;
+import financesapp.model.*;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -15,7 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-public class AccountsController implements Initializable, Observer {
+public class Accounts implements Initializable, Observer {
     
     //Referência da classe principal
     private FinancesApp app;

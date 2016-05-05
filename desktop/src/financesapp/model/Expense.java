@@ -1,31 +1,31 @@
-package financesapp;
+package financesapp.model;
  
 import java.time.LocalDate;
 import java.util.Iterator;
 
-public class Income extends Transaction {
- 
+public class Expense extends Transaction {
+    
     //Categoria
-    private IncomeCategory category;
-
-    public Income() {
+    private ExpenseCategory category;
+    
+    public Expense() {
         super(LocalDate.now(), "", "");
         this.category = null;
-    }    
+    }
     
-    public Income(LocalDate date, String description, String information) {
+    public Expense(LocalDate date, String description, String information) {
         super(date, description, information);
         this.category = null;
     }
     
     public void setCategory(Category category) {
-        this.category = (IncomeCategory) category;
+        this.category = (ExpenseCategory) category;
     }
     
-    public IncomeCategory getCategory() {
+    public ExpenseCategory getCategory() {
         return this.category;
     }
-    
+          
     public double getTotalValue() {
         double value = 0;
         
@@ -36,9 +36,9 @@ public class Income extends Transaction {
             if (payment.hasConcretized() && (payment.getDate().isBefore(today) || payment.getDate().isEqual(today))) {
                 value += payment.getValue();
             }
-        }     
+        }           
         
-        return value;
-    }
+        return value * - 1;
+    }  
     
 }

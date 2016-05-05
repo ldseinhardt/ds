@@ -1,6 +1,7 @@
-package financesapp.interfaces;
+package financesapp.controller;
 
 import financesapp.*;
+import financesapp.model.*;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.util.*;
@@ -14,14 +15,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.*;
 import javafx.util.Callback;
 
-public class AccountsGestorController implements Initializable, Observer {
+public class AccountsGestor implements Initializable, Observer {
     
     //Tabela de contas
     private TableView<Account> tableView;
     
     //Referências para o formulário
     private Parent form;
-    private AccountsGestorFormController formController;
+    private AccountsGestorForm formController;
     
     //Referência da classe principal
     private FinancesApp app;
@@ -54,7 +55,7 @@ public class AccountsGestorController implements Initializable, Observer {
         if (account != null) {
             this.app.getUser().getAccounts().remove(account);
             if (this.app.getUser().getAccounts().isEmpty()) {
-                this.app.getUser().addAccount(new DefaultAccount("Carteira"));                
+                this.app.getUser().addAccount(new DefaultAccount(this.app.getDefaultAccountName()));                
             }
             this.app.getUser().update();
         }    
@@ -101,13 +102,13 @@ public class AccountsGestorController implements Initializable, Observer {
         ContextMenu contextMenu = new ContextMenu();
 
         MenuItem addOption = new MenuItem("Adicionar");
-        addOption.setOnAction((e)-> this.onAdd());
+        addOption.setOnAction((e) -> this.onAdd());
 
         MenuItem editOption = new MenuItem("Editar");
-        editOption.setOnAction((e)-> this.onEdit());
+        editOption.setOnAction((e) -> this.onEdit());
         
         MenuItem deleteOption = new MenuItem("Remover");
-        deleteOption.setOnAction((e)-> this.onDelete());
+        deleteOption.setOnAction((e) -> this.onDelete());
         
         contextMenu.getItems().addAll(addOption, editOption, deleteOption);
         
@@ -117,7 +118,7 @@ public class AccountsGestorController implements Initializable, Observer {
                 
         try {
             FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("AccountsGestorFormView.fxml")
+                getClass().getResource("/financesapp/view/AccountsGestorForm.fxml")
             );
             this.form = loader.load();
             this.formController = loader.getController();
