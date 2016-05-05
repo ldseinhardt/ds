@@ -15,12 +15,9 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Reflection;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
 import javafx.scene.text.Font;
 import javafx.stage.*;
 import javafx.util.Callback;
@@ -97,12 +94,12 @@ public class MainController implements Initializable, Observer {
                 
                 Rectangle rect = new Rectangle();
                 
-            AnchorPane anchorPane = new AnchorPane();
-            anchorPane.getChildren().add(lb);
+                AnchorPane anchorPane = new AnchorPane();
+                anchorPane.getChildren().add(lb);
                 anchorPane.getChildren().add(rect);
-            
-            lb.setLayoutX(14);
-            lb.setLayoutY(14);
+                
+                lb.setLayoutX(14);
+                lb.setLayoutY(14);
                 lb.setTextFill(Color.web(expCateg.getColor()).darker().darker());
                 lb.setFont(new Font(13));
                 
@@ -124,7 +121,7 @@ public class MainController implements Initializable, Observer {
                 rect.setWidth(total*1000/max);
                 
                 vBox.getChildren().add(anchorPane);
-        }
+            }
         }
         vBox.getChildren().add(new Label()); //Espaço vazio
     }
@@ -149,12 +146,12 @@ public class MainController implements Initializable, Observer {
                 
                 Rectangle rect = new Rectangle();
                 
-            AnchorPane anchorPane = new AnchorPane();
-            anchorPane.getChildren().add(lb);
+                AnchorPane anchorPane = new AnchorPane();
+                anchorPane.getChildren().add(lb);
                 anchorPane.getChildren().add(rect);
                 
-            lb.setLayoutX(14);
-            lb.setLayoutY(14);
+                lb.setLayoutX(14);
+                lb.setLayoutY(14);
                 lb.setTextFill(Color.web(incCateg.getColor()).darker().darker());
                 lb.setFont(new Font(13));
                 
@@ -176,8 +173,8 @@ public class MainController implements Initializable, Observer {
                 rect.setWidth(total*1000/max);
                 
                 vBox.getChildren().add(anchorPane);
-        }
-    }    
+            }
+        }    
         vBox.getChildren().add(new Label()); //Espaço vazio
     }
     
