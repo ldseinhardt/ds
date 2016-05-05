@@ -174,21 +174,34 @@ public class User extends Observable {
         return balance;
     }
     
-    public double getGeneralMaxBalance(){
-        double maxBalance = 0;
+    public double getBalance(LocalDate untilDate) {
+        double balance = 0;
        
         Iterator<Account> it = this.accounts.iterator();
         while (it.hasNext()) {
             Account account = it.next();                  
             
-            if(Math.abs(account.getMaxBalance()) > maxBalance){
-                maxBalance = account.getMaxBalance();
+            balance += account.getBalance(untilDate);
+        }
+        return balance;
+    }
+    
+    public double getGeneralMaxBalance(int month, int year){
+        double genMaxBalance = 0;
+        
+        Iterator<Account> it = this.accounts.iterator();
+        while (it.hasNext()) {
+            Account account = it.next();
+            
+            double maxBal = Math.abs(account.getMaxBalance(month, year));
+            
+            if(maxBal > genMaxBalance){
+                genMaxBalance = maxBal;
             }
         }
-        
-        return maxBalance;
+        return genMaxBalance;
     }
-   
+    
     public Account getAccount(int i) {
         if (i < this.accounts.size()) {
             return this.accounts.get(i);

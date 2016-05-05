@@ -1,5 +1,6 @@
 package financesapp;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public abstract class Account {  
@@ -10,16 +11,12 @@ public abstract class Account {
     // Saldo inicial da conta
     protected double openingBalance;
     
-    //Maior saldo já obtido (por enquanto geral, depois no mês corrente)
-    protected double maxBalance;
-    
     // Lista de transações
     protected ArrayList<Transaction> transactions;
 
     public Account(String name, double openingBalance) {
         this.name = name;
         this.openingBalance = openingBalance;
-        this.maxBalance = openingBalance;
         this.transactions = new ArrayList();
     }
     
@@ -33,26 +30,9 @@ public abstract class Account {
     
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
-        
-        int currentMonth = 1 + Calendar.getInstance().get(Calendar.MONTH);
-        for(Payment p : transaction.getPayments()){
-            if(p.getDate().getMonthValue() == currentMonth)
-                if(p.getValue() > 0 &&
-                   p.hasConcretized()){ //ver como atualizar quando editar
-                    maxBalance += p.getValue();
-                    //System.out.println(maxBalance);
                 }
-        }
-    }
     
     public void deleteTransaction(int i) {
-        int currentMonth = 1 + Calendar.getInstance().get(Calendar.MONTH);
-        for(Payment p : transactions.get(i).getPayments()){
-            if(p.getDate().getMonthValue() == currentMonth)
-                if(p.getValue() > 0 &&
-                   p.hasConcretized()) //ver como atualizar quando editar
-                    maxBalance -= p.getValue();
-        }
         this.transactions.remove(i);
     }
     
@@ -64,8 +44,19 @@ public abstract class Account {
         return this.openingBalance;
     }
     
-    public double getMaxBalance() {
-        return this.maxBalance;
+    public double getMaxBalance(int month, int year) {
+        //Saldo no 1º dia deste mês
+        double maxBalance = this.getBalance(LocalDate.of(
+            year, month, 1)
+        );
+        
+        for(Payment p : getPayments(month, year)){
+            if(p.getValue() > 0 &&
+               p.hasConcretized()){
+                maxBalance += p.getValue();
+            }
+        }
+        return maxBalance;
     }
     
     public double getBalance() {
@@ -81,6 +72,24 @@ public abstract class Account {
         return balance;
     }
     
+    public double getBalance(LocalDate untilDate) {
+        double balance = this.openingBalance;
+        
+        Iterator<Transaction> it = this.transactions.iterator();
+        while (it.hasNext()) {
+            Transaction transaction = it.next();
+            
+            for(Payment payment : transaction.getPayments()){
+                if(payment.getDate().isBefore(untilDate.plusDays(1))){
+                    if(payment.hasConcretized()){
+                        balance += payment.getValue();
+                    }
+                }
+            }
+        }
+        return balance;
+    }
+    
     public Transaction getTransaction(int i) {
         if (i < this.transactions.size()) {
             return this.transactions.get(i);
@@ -91,6 +100,30 @@ public abstract class Account {
    
     public ArrayList<Transaction> getTransactions() {        
         return this.transactions;
+    }
+    
+    public ArrayList<Payment> getPayments(int month, int year) {
+        ArrayList<Payment> payments = new ArrayList();
+        
+        Calendar last = Calendar.getInstance();
+        last.set(Calendar.YEAR, year);
+        last.set(Calendar.MONTH, month-1); //Calendar: mês de 0 a 11
+        last.set(Calendar.DAY_OF_MONTH, last.getActualMaximum(Calendar.DAY_OF_MONTH));
+        
+        LocalDate initialDate = LocalDate.of(year, month, 1);
+        LocalDate finalDate   = LocalDate.of(year, month,
+            last.get(Calendar.DAY_OF_MONTH)
+        );
+        
+        for(Transaction trans : this.transactions){
+            for(Payment paym : trans.getPayments()){
+                if(paym.getDate().isAfter(initialDate.minusDays(1)) &&
+                   paym.getDate().isBefore(finalDate.plusDays(1))){
+                    payments.add(paym);
+                }
+            }
+        }
+        return payments;
     }
     
     public double getTotalByCategory(Category categ){

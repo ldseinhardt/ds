@@ -2,6 +2,7 @@ package financesapp.interfaces;
 
 import financesapp.*;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.scene.Parent;
@@ -45,7 +46,7 @@ public class TransactionsFormController implements Initializable {
                 //Payments
             } else {
                 //add
-                //this.transaction.setDate();
+                this.transaction.setDate(LocalDate.now());
                 this.transaction.setDescription("teste");
                 //this.transaction.setInformation();
                 try {

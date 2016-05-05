@@ -3,6 +3,7 @@ package financesapp.interfaces;
 import financesapp.*;
 import java.net.URL;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.geometry.Insets;
@@ -34,17 +35,21 @@ public class AccountsController implements Initializable, Observer {
         vBox.getChildren().add(title);        
         
         double bal, prog, generalMaxBalance;
-        Color balColor = Color.GREEN;
+        Color balColor;
         NodeOrientation nodeOr;
         ColorAdjust colorAdj;
         
-        generalMaxBalance = this.app.getUser().getGeneralMaxBalance();
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        int currentYear  = Calendar.getInstance().get(Calendar.YEAR);
+        
+        generalMaxBalance = this.app.getUser()
+            .getGeneralMaxBalance(currentMonth, currentYear);
         Iterator<Account> ac = this.app.getUser().getAccounts().iterator();
         while (ac.hasNext()) {
             
             Account account = ac.next();
             
-            bal      = account.getBalance();
+            bal      = account.getBalance(LocalDate.now());
             balColor = Color.GREEN;
             prog     = bal/(generalMaxBalance*1.05);
             nodeOr   = NodeOrientation.LEFT_TO_RIGHT;
@@ -85,11 +90,11 @@ public class AccountsController implements Initializable, Observer {
             vBox.getChildren().add(new Label()); //Espaço entre contas
         } 
         
-        double totalBalance = this.app.getUser().getBalance();
+        double totalBalance = this.app.getUser().getBalance(LocalDate.now());
         
         Label st = new Label("Saldo total: ");
         Label total = new Label(NumberFormat.getCurrencyInstance().format(
-            this.app.getUser().getBalance()
+            totalBalance
         ));
         
         if(totalBalance < 0)
