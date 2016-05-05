@@ -34,40 +34,76 @@
     {
       "name": "Conta de teste",
       "type": "DefaultAccount",
-      "transactions": [{
-        "date": "2016-04-26",
-        "payments": [
-          {
-            "date": "2016-04-26",
-            "concretized": true,
-            "value": 10
-          },
-          {
-            "date": "2016-05-26",
-            "concretized": true,
-            "value": 10
-          },
-          {
-            "date": "2016-06-26",
-            "concretized": true,
-            "value": 10
-          },
-          {
-            "date": "2016-07-26",
-            "concretized": true,
-            "value": 10
-          },
-          {
-            "date": "2016-08-26",
-            "concretized": true,
-            "value": 10
-          }
-        ],
-        "description": "Compras de supermercado",
-        "information": "blah... blah... blah...",
-        "type": "Income",
-        "category": ""
-      }],
+      "transactions": [
+        {
+          "date": "2016-04-26",
+          "payments": [
+            {
+              "date": "2016-04-01",
+              "concretized": true,
+              "value": 10
+            },
+            {
+              "date": "2016-05-26",
+              "concretized": true,
+              "value": 10
+            },
+            {
+              "date": "2016-06-26",
+              "concretized": true,
+              "value": 10
+            },
+            {
+              "date": "2016-07-26",
+              "concretized": true,
+              "value": 10
+            },
+            {
+              "date": "2016-08-26",
+              "concretized": true,
+              "value": 10
+            }
+          ],
+          "description": "Compras de supermercado",
+          "information": "blah... blah... blah...",
+          "type": "Income",
+          "category": "test"
+        },
+        {
+          "date": "2016-04-27",
+          "payments": [
+            {
+              "date": "2016-04-01",
+              "concretized": true,
+              "value": 105
+            },
+            {
+              "date": "2016-05-26",
+              "concretized": true,
+              "value": 10
+            },
+            {
+              "date": "2016-06-26",
+              "concretized": true,
+              "value": 105
+            },
+            {
+              "date": "2016-07-26",
+              "concretized": true,
+              "value": 10
+            },
+            {
+              "date": "2016-08-26",
+              "concretized": true,
+              "value": 10
+            }
+          ],
+          "description": "Compras de supermercado5",
+          "information": "blah... blah... blah...5",
+          "type": "Income",
+          "category": ""
+        }
+      ],
       "openingBalance": 200
     }
   ]
