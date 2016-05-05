@@ -53,6 +53,9 @@ public class AccountsGestorController implements Initializable, Observer {
         Account account = this.tableView.getSelectionModel().getSelectedItem();
         if (account != null) {
             this.app.getUser().getAccounts().remove(account);
+            if (this.app.getUser().getAccounts().isEmpty()) {
+                this.app.getUser().addAccount(new DefaultAccount("Carteira"));                
+            }
             this.app.getUser().update();
         }    
     }  
