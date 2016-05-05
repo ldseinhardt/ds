@@ -45,7 +45,12 @@ public class MainController implements Initializable, Observer {
     //Tabela de Transações
     private TableView<Payment> tableView;
     
-    ObservableList<Payment> transactions;   
+    private ObservableList<Payment> transactions;   
+    
+    // Filtros
+    private String accountFilter;
+    private String typeFilter;
+    private String categoryFilter;
     
     @FXML
     private Tab transactionsTab;
@@ -62,20 +67,22 @@ public class MainController implements Initializable, Observer {
     @FXML
     private void onAddIncome() {
         if (this.form != null && this.formController != null) { 
-            this.formController.setTransaction(new Income());
-            this.showForm();        
+            this.showForm();  
+            this.formController.setTransaction(new Income());      
         }    
     }
     
-    private void onEdit() {
-        Transaction transaction = this.tableView.getSelectionModel().getSelectedItem().getTransaction();
-        if (this.form != null && this.formController != null && transaction != null) {
-            this.formController.setTransaction(transaction);
-            this.showForm();        
+    @FXML
+    private void onEditTransaction() {
+        Payment payment = this.tableView.getSelectionModel().getSelectedItem();
+        if (this.form != null && this.formController != null && payment != null) {
+            this.showForm();   
+            this.formController.setTransaction(payment.getTransaction());     
         }       
     }
     
-    private void onDelete() {
+    @FXML
+    private void onDeleteTransaction() {
         Payment payment = this.tableView.getSelectionModel().getSelectedItem();
         if (payment != null) {
             ArrayList<Payment> payments = payment.getTransaction().getPayments();
@@ -89,6 +96,24 @@ public class MainController implements Initializable, Observer {
             this.app.getUser().update();        
         }
     }
+    
+    @FXML
+    private void onFilterTypeByExpense() {  
+        this.typeFilter = "Expense";
+        this.showTransactions();        
+    }
+    
+    @FXML
+    private void onFilterTypeByIncome() {
+        this.typeFilter = "Income";
+        this.showTransactions();               
+    }
+    
+    @FXML
+    private void onFilterTypeByNone() { 
+        this.typeFilter = "";
+        this.showTransactions();             
+    }  
     
     private void showExpensesByCategory(Calendar initialDate, Calendar finalDate) {
         
@@ -245,6 +270,10 @@ public class MainController implements Initializable, Observer {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        this.accountFilter = "";
+        this.typeFilter = "";
+        this.categoryFilter = "";
      
         this.tableView = new TableView();      
 
@@ -252,8 +281,6 @@ public class MainController implements Initializable, Observer {
         
         TableColumn dateColunm = new TableColumn("Data");
         dateColunm.setStyle("-fx-alignment: CENTER");
-        dateColunm.setMinWidth(100);
-        dateColunm.setMaxWidth(100);
         dateColunm.setPrefWidth(100);
         dateColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
@@ -266,8 +293,6 @@ public class MainController implements Initializable, Observer {
         });
         
         TableColumn descriptionColunm = new TableColumn("Descrição");
-        descriptionColunm.setMinWidth(250);
-        descriptionColunm.setMaxWidth(250);
         descriptionColunm.setPrefWidth(250);
         descriptionColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
@@ -279,8 +304,6 @@ public class MainController implements Initializable, Observer {
         });
         
         TableColumn valueColunm = new TableColumn("Valor");
-        valueColunm.setMinWidth(125);
-        valueColunm.setMaxWidth(125);
         valueColunm.setPrefWidth(125);
         valueColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
@@ -294,8 +317,6 @@ public class MainController implements Initializable, Observer {
         
         TableColumn concretizedColunm = new TableColumn("Concretizado");
         concretizedColunm.setStyle("-fx-alignment: CENTER");
-        concretizedColunm.setMinWidth(125);
-        concretizedColunm.setMaxWidth(125);
         concretizedColunm.setPrefWidth(125);
         concretizedColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
@@ -307,8 +328,6 @@ public class MainController implements Initializable, Observer {
         });
         
         TableColumn accountColunm = new TableColumn("Conta");
-        accountColunm.setMinWidth(150);
-        accountColunm.setMaxWidth(150);
         accountColunm.setPrefWidth(150);
         accountColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
@@ -320,8 +339,6 @@ public class MainController implements Initializable, Observer {
         });
         
         TableColumn typeColunm = new TableColumn("Tipo");
-        typeColunm.setMinWidth(75);
-        typeColunm.setMaxWidth(75);
         typeColunm.setPrefWidth(75);
         typeColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
@@ -333,8 +350,6 @@ public class MainController implements Initializable, Observer {
         });
         
         TableColumn categoryColunm = new TableColumn("Categoria");
-        categoryColunm.setMinWidth(180);
-        categoryColunm.setMaxWidth(180);
         categoryColunm.setPrefWidth(180);
         categoryColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
@@ -359,24 +374,47 @@ public class MainController implements Initializable, Observer {
         this.tableView.setItems(this.transactions);
                 
         ContextMenu contextMenu = new ContextMenu();
+        
+        Menu addOption = new Menu("Adicionar");
 
-        MenuItem addIncomeOption = new MenuItem("Adicionar Receita");
-        addIncomeOption.setOnAction((e)-> this.onAddIncome());
-
-        MenuItem addExpenseOption = new MenuItem("Adicionar Despesa");
+        MenuItem addExpenseOption = new MenuItem("Despesa");
         addExpenseOption.setOnAction((e)-> this.onAddExpense());
 
+        MenuItem addIncomeOption = new MenuItem("Receita");
+        addIncomeOption.setOnAction((e)-> this.onAddIncome());
+        
+        addOption.getItems().addAll(addExpenseOption, addIncomeOption);
+
         MenuItem editOption = new MenuItem("Editar");
-        editOption.setOnAction((e)-> this.onEdit());
+        editOption.setOnAction((e)-> this.onEditTransaction());
         
         MenuItem deleteOption = new MenuItem("Remover");
-        deleteOption.setOnAction((e)-> this.onDelete());
+        deleteOption.setOnAction((e)-> this.onDeleteTransaction());
+        
+        Menu filterOption = new Menu("Filtrar");
+        
+        Menu filterTypeOption = new Menu("Por Tipo");
+        
+        filterOption.getItems().addAll(filterTypeOption);
+
+        MenuItem filterTypeExpenseOption = new MenuItem("Despensas");
+        filterTypeExpenseOption.setOnAction((e)-> this.onFilterTypeByExpense());
+        MenuItem filterTypeIncomeOption = new MenuItem("Receitas");
+        filterTypeIncomeOption.setOnAction((e)-> this.onFilterTypeByIncome());
+        MenuItem filterTypeNoneOption = new MenuItem("Receitas e Despensas");
+        filterTypeNoneOption.setOnAction((e)-> this.onFilterTypeByNone());
+        
+        filterTypeOption.getItems().addAll(
+            filterTypeExpenseOption,
+            filterTypeIncomeOption,
+            filterTypeNoneOption
+        );
         
         contextMenu.getItems().addAll(
-            addIncomeOption,
-            addExpenseOption,
+            addOption,
             editOption,
-            deleteOption
+            deleteOption,
+            filterOption
         );
         
         this.tableView.setContextMenu(contextMenu);       
@@ -405,33 +443,19 @@ public class MainController implements Initializable, Observer {
         }
     }
     
-    //accountFilter Nome de uma conta ou ""
-    //typeFilter Receitas, Despesas ou ""
-    //categoryFilter Nome de uma categoria ou ""
     //falta o filtro de período
-    //ex showTransactions("", "Receitas", "Salário") (chamar no botão que filtra)
-    public void showTransactions(String accountFilter, String typeFilter, String categoryFilter) {
-        
-        if (typeFilter.equalsIgnoreCase("Receitas")) {
-            typeFilter = "Income";
-        } else if (typeFilter.equalsIgnoreCase("Despesas")) {
-            typeFilter = "Expense";
-        }
-        
-        //exemplo abaixo
-        // fazer um filtro com o pagamento de transações necessárias de acordo com os filtros
-        // e por os os pagamentos em transactions
+    public void showTransactions() {
         this.transactions.clear();
         
         for (Account account : this.app.getUser().getAccounts()) {
-            if (!accountFilter.equalsIgnoreCase("") && !account.getName().equalsIgnoreCase(accountFilter)) {
+            if (!this.accountFilter.equalsIgnoreCase("") && !account.getName().equalsIgnoreCase(this.accountFilter)) {
                 continue;
             }
             for (Transaction transaction : account.getTransactions()) {
-                if (!typeFilter.equalsIgnoreCase("") && !transaction.getClass().getSimpleName().equalsIgnoreCase(typeFilter)) {
+                if (!this.typeFilter.equalsIgnoreCase("") && !transaction.getClass().getSimpleName().equalsIgnoreCase(this.typeFilter)) {
                     continue;
                 }                
-                if (!categoryFilter.equalsIgnoreCase("") && !transaction.getCategory().getName().equalsIgnoreCase(categoryFilter)) {
+                if (!this.categoryFilter.equalsIgnoreCase("") && !transaction.getCategory().getName().equalsIgnoreCase(this.categoryFilter)) {
                     continue;
                 }
                 this.transactions.addAll(transaction.getPayments());
@@ -451,7 +475,7 @@ public class MainController implements Initializable, Observer {
         ////////////////////////////////////////
         this.showExpensesByCategory(first, last);
         this.showIncomesByCategory(first, last);
-        this.showTransactions("", "", "");
+        this.showTransactions();
     }
     
 }

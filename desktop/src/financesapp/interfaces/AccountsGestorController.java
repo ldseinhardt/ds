@@ -73,16 +73,12 @@ public class AccountsGestorController implements Initializable, Observer {
         this.tableView.setPrefHeight(400);
         
         TableColumn accountColunm = new TableColumn("Conta");
-        accountColunm.setMinWidth(200);
-        accountColunm.setMaxWidth(200);
         accountColunm.setPrefWidth(200);
         accountColunm.setCellValueFactory(
             new PropertyValueFactory("name")
         );
         
         TableColumn balanceColunm = new TableColumn("Saldo");
-        balanceColunm.setMinWidth(100);
-        balanceColunm.setMaxWidth(100);
         balanceColunm.setPrefWidth(100);
         balanceColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Account, String>, ObservableValue<String>>() {
             @Override
