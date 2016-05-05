@@ -54,7 +54,7 @@ public class MainController implements Initializable, Observer {
     private void onAddExpense() { 
         if (this.form != null && this.formController != null) { 
             // exemplo (passar conta selecionada de fato)
-            this.formController.setTransaction(new Expense(null));
+            this.formController.setTransaction(new Expense());
             this.showForm();
         }       
     }
@@ -62,7 +62,7 @@ public class MainController implements Initializable, Observer {
     @FXML
     private void onAddIncome() {
         if (this.form != null && this.formController != null) { 
-            this.formController.setTransaction(new Income(null));
+            this.formController.setTransaction(new Income());
             this.showForm();        
         }    
     }

@@ -8,13 +8,13 @@ public class Expense extends Transaction {
     //Categoria
     private ExpenseCategory category;
     
-    public Expense(Account account) {
-        super(account, LocalDate.now(), "", "");
+    public Expense() {
+        super(LocalDate.now(), "", "");
         this.category = null;
     }
     
-    public Expense(Account account, LocalDate date, String description, String information) {
-        super(account, date, description, information);
+    public Expense(LocalDate date, String description, String information) {
+        super(date, description, information);
         this.category = null;
     }
     

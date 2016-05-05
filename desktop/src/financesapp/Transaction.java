@@ -20,8 +20,8 @@ public abstract class Transaction {
     //Lista de pagamentos
     protected ArrayList<Payment> payments;
         
-    public Transaction(Account account, LocalDate date, String description, String information) {
-        this.account = account;
+    public Transaction(LocalDate date, String description, String information) {
+        this.account = null;
         this.date = date;
         this.description = description;
         this.information = information;
@@ -50,11 +50,12 @@ public abstract class Transaction {
     
     public void addPayments(double value, LocalDate date, boolean concretized, int number) {        
         for (int i = 0; i < number; i++) {
-            this.payments.add(new Payment(this, value, date.plusMonths(i), concretized));
+            this.addPayment(new Payment(value, date.plusMonths(i), concretized));
         }
     }
         
     public void addPayment(Payment payment) {
+        payment.setTransaction(this);
         this.payments.add(payment);
     }
     

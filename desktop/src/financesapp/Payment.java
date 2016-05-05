@@ -16,11 +16,15 @@ public class Payment {
     //Pagamento contretizado (Pago/Recebido)
     private boolean concretized;   
     
-    public Payment(Transaction transaction, double value, LocalDate date, boolean concretized) {
-        this.transaction = transaction;
+    public Payment(double value, LocalDate date, boolean concretized) {
+        this.transaction = null;
         this.value = value;
         this.date = date;
         this.concretized = concretized;
+    }
+    
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
     }
     
     public void setValue(double value) {

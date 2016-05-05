@@ -56,10 +56,10 @@ public class User extends Observable {
                     Transaction transaction = null;
 
                     if (transactionJSON.getString("type").equalsIgnoreCase("Expense")) {
-                        transaction = new Expense(account);
+                        transaction = new Expense();
                         transaction.setCategory(new ExpenseCategory(categoryName));
                     } else if (transactionJSON.getString("type").equalsIgnoreCase("Income")) {
-                        transaction = new Income(account);    
+                        transaction = new Income();    
                         transaction.setCategory(new IncomeCategory(categoryName));
                     }
                     
@@ -72,7 +72,6 @@ public class User extends Observable {
                         while (itp.hasNext()) {
                             JSONObject paymentJSON = (JSONObject) itp.next();
                             transaction.addPayment(new Payment(
-                                transaction,
                                 paymentJSON.getDouble("value"),
                                 LocalDate.parse(paymentJSON.getString("date")),
                                 paymentJSON.getBoolean("concretized")

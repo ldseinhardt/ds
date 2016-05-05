@@ -45,7 +45,6 @@ public class TransactionsFormController implements Initializable {
                 //conta em que sera adicionado ! IMPORTANTE
                 //no caso test para conta 0
                 Account account = this.app.getUser().getAccounts().get(0);
-                this.transaction.setAccount(account);
                 account.addTransaction(this.transaction);
             } else {
                 //edit

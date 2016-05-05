@@ -8,13 +8,13 @@ public class Income extends Transaction {
     //Categoria
     private IncomeCategory category;
 
-    public Income(Account account) {
-        super(account, LocalDate.now(), "", "");
+    public Income() {
+        super(LocalDate.now(), "", "");
         this.category = null;
     }    
     
-    public Income(Account account, LocalDate date, String description, String information) {
-        super(account, date, description, information);
+    public Income(LocalDate date, String description, String information) {
+        super(date, description, information);
         this.category = null;
     }
     
