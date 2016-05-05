@@ -17,18 +17,11 @@ public class TransactionsFormController implements Initializable {
     //Referência da classe principal
     private FinancesApp app;
 
-    //Conta para add transações
-    private Account account;
-
     //Transação para add/edit
     private Transaction transaction;
 
     @FXML
     private BorderPane borderPane;
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
 
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
@@ -37,14 +30,7 @@ public class TransactionsFormController implements Initializable {
     @FXML
     private void onSave() {
         if (this.transaction != null) {
-            if (this.account == null && !this.transaction.getDescription().equalsIgnoreCase("") && this.transaction.getPayments().size() > 0) {
-                //edit
-                //this.transaction.setDate();
-                //this.transaction.setDescription();
-                //this.transaction.setInformation();
-                //this.transaction.setCategory();
-                //Payments
-            } else {
+            if (this.transaction.getAccount() == null) {
                 //add
                 this.transaction.setDate(LocalDate.now());
                 this.transaction.setDescription("teste");
@@ -55,10 +41,22 @@ public class TransactionsFormController implements Initializable {
                     this.transaction.setCategory(this.app.getIncomeCategories().get(0));
                 }
                 this.transaction.addPayments(50, transaction.getDate(), true);
-                this.account.addTransaction(transaction);
+                
+                //conta em que sera adicionado ! IMPORTANTE
+                //no caso test para conta 0
+                Account account = this.app.getUser().getAccounts().get(0);
+                this.transaction.setAccount(account);
+                account.addTransaction(this.transaction);
+            } else {
+                //edit
+                //this.transaction.setDate();
+                //this.transaction.setDescription();
+                //this.transaction.setInformation();
+                //this.transaction.setCategory();
+                //Payments
             }
+            this.app.getUser().update();
         }
-        this.app.getUser().update();
         this.close();
     }
 
@@ -91,7 +89,6 @@ public class TransactionsFormController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.account = null;
         this.transaction = null;
     }
 

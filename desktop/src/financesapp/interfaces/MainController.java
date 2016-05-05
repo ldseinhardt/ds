@@ -67,6 +67,29 @@ public class MainController implements Initializable, Observer {
         }    
     }
     
+    private void onEdit() {
+        Transaction transaction = this.tableView.getSelectionModel().getSelectedItem().getTransaction();
+        if (this.form != null && this.formController != null && transaction != null) {
+            this.formController.setTransaction(transaction);
+            this.showForm();        
+        }       
+    }
+    
+    private void onDelete() {
+        Payment payment = this.tableView.getSelectionModel().getSelectedItem();
+        if (payment != null) {
+            ArrayList<Payment> payments = payment.getTransaction().getPayments();
+            if (payments.size() > 1) {
+                payments.remove(payment);
+            } else {
+                payment.getTransaction().getAccount().getTransactions().remove(
+                    payment.getTransaction()
+                );
+            }
+            this.app.getUser().update();        
+        }
+    }
+    
     private void showExpensesByCategory(Calendar initialDate, Calendar finalDate) {
         
         double max = 1000;//temporario
@@ -280,8 +303,6 @@ public class MainController implements Initializable, Observer {
                 return property;      
             }
         });
-        // add nome da conta?? 
-        // colocar uma ref em Transaction da conta
         
         TableColumn accountColunm = new TableColumn("Conta");
         accountColunm.setMinWidth(150);
@@ -334,8 +355,29 @@ public class MainController implements Initializable, Observer {
             categoryColunm
         );
         this.tableView.setItems(this.transactions);
+                
+        ContextMenu contextMenu = new ContextMenu();
+
+        MenuItem addIncomeOption = new MenuItem("Adicionar Receita");
+        addIncomeOption.setOnAction((e)-> this.onAddIncome());
+
+        MenuItem addExpenseOption = new MenuItem("Adicionar Despesa");
+        addExpenseOption.setOnAction((e)-> this.onAddExpense());
+
+        MenuItem editOption = new MenuItem("Editar");
+        editOption.setOnAction((e)-> this.onEdit());
         
-        //add menus de contexto para adicionar despesas e receitas, editar e remover
+        MenuItem deleteOption = new MenuItem("Remover");
+        deleteOption.setOnAction((e)-> this.onDelete());
+        
+        contextMenu.getItems().addAll(
+            addIncomeOption,
+            addExpenseOption,
+            editOption,
+            deleteOption
+        );
+        
+        this.tableView.setContextMenu(contextMenu);       
         
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -361,7 +403,19 @@ public class MainController implements Initializable, Observer {
         }
     }
     
-    public void showTransactions(String accountFilter) {
+    //accountFilter Nome de uma conta ou ""
+    //typeFilter Receitas, Despesas ou ""
+    //categoryFilter Nome de uma categoria ou ""
+    //falta o filtro de período
+    //ex showTransactions("", "Receitas", "Salário") (chamar no botão que filtra)
+    public void showTransactions(String accountFilter, String typeFilter, String categoryFilter) {
+        
+        if (typeFilter.equalsIgnoreCase("Receitas")) {
+            typeFilter = "Income";
+        } else if (typeFilter.equalsIgnoreCase("Despesas")) {
+            typeFilter = "Expense";
+        }
+        
         //exemplo abaixo
         // fazer um filtro com o pagamento de transações necessárias de acordo com os filtros
         // e por os os pagamentos em transactions
@@ -372,6 +426,12 @@ public class MainController implements Initializable, Observer {
                 continue;
             }
             for (Transaction transaction : account.getTransactions()) {
+                if (!typeFilter.equalsIgnoreCase("") && !transaction.getClass().getSimpleName().equalsIgnoreCase(typeFilter)) {
+                    continue;
+                }                
+                if (!categoryFilter.equalsIgnoreCase("") && !transaction.getCategory().getName().equalsIgnoreCase(categoryFilter)) {
+                    continue;
+                }
                 this.transactions.addAll(transaction.getPayments());
             }
         }
@@ -389,7 +449,7 @@ public class MainController implements Initializable, Observer {
         ////////////////////////////////////////
         this.showExpensesByCategory(first, last);
         this.showIncomesByCategory(first, last);
-        this.showTransactions("");
+        this.showTransactions("", "", "");
     }
     
 }

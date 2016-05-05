@@ -2,13 +2,10 @@ package financesapp.interfaces;
 
 import financesapp.*;
 import java.net.URL;
-import java.text.NumberFormat;
 import java.util.*;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
-import javafx.util.converter.FormatStringConverter;
 
 public class AccountsGestorFormController implements Initializable {
     

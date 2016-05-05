@@ -32,10 +32,6 @@ public abstract class Account {
         transactions.add(transaction);
     }
     
-    public void deleteTransaction(int i) {
-        this.transactions.remove(i);
-    }
-    
     public String getName() {
         return this.name;
     }
@@ -91,14 +87,6 @@ public abstract class Account {
             }
         }
         return balance;
-    }
-    
-    public Transaction getTransaction(int i) {
-        if (i < this.transactions.size()) {
-            return this.transactions.get(i);
-        } 
-        
-        return null;
     }
    
     public ArrayList<Transaction> getTransactions() {        
