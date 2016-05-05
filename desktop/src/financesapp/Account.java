@@ -50,9 +50,9 @@ public abstract class Account {
             year, month, 1)
         );
         
-        for(Payment p : getPayments(month, year)){
-            if(p.getValue() > 0 &&
-               p.hasConcretized()){
+        for (Payment p : getPayments(month, year)) {
+            if (p.getValue() > 0 &&
+               p.hasConcretized()) {
                 maxBalance += p.getValue();
             }
         }
@@ -79,10 +79,10 @@ public abstract class Account {
         while (it.hasNext()) {
             Transaction transaction = it.next();
             
-            for(Payment payment : transaction.getPayments()){
-                if(payment.getDate().isBefore(untilDate.plusDays(1))){
-                    if(payment.hasConcretized()){
-                        if(payment.getTransaction().getType().equals("Income"))
+            for (Payment payment : transaction.getPayments()) {
+                if (payment.getDate().isBefore(untilDate.plusDays(1))) {
+                    if (payment.hasConcretized()) {
+                        if (payment.getTransaction().getClass().getSimpleName().equals("Income"))
                             balance += payment.getValue();
                         else //Expense
                             balance -= payment.getValue();
@@ -118,10 +118,10 @@ public abstract class Account {
             last.get(Calendar.DAY_OF_MONTH)
         );
         
-        for(Transaction trans : this.transactions){
-            for(Payment paym : trans.getPayments()){
-                if(paym.getDate().isAfter(initialDate.minusDays(1)) &&
-                   paym.getDate().isBefore(finalDate.plusDays(1))){
+        for (Transaction trans : this.transactions) {
+            for (Payment paym : trans.getPayments()) {
+                if (paym.getDate().isAfter(initialDate.minusDays(1)) &&
+                   paym.getDate().isBefore(finalDate.plusDays(1))) {
                     payments.add(paym);
                 }
             }
@@ -129,12 +129,12 @@ public abstract class Account {
         return payments;
     }
     
-    public double getTotalByCategory(Category categ){
+    public double getTotalByCategory(Category categ) {
         double total = 0.0;
         
         for (Transaction transaction : transactions) {
-            if(transaction.getCategory().getName().equals(categ.getName())){
-                total += transaction.getPayment(0).getValue();
+            if (transaction.getCategory().getName().equals(categ.getName())) {
+                total += transaction.getPayments().get(0).getValue();
                 //Por enquanto pegando so o primeiro pagamento.
             }
         }

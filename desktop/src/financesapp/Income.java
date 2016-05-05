@@ -8,16 +8,14 @@ public class Income extends Transaction {
     //Categoria
     private IncomeCategory category;
 
-    public Income() {
-        super(LocalDate.now(), "", "");
+    public Income(Account account) {
+        super(account, LocalDate.now(), "", "");
         this.category = null;
-        super.type = "Income";
     }    
     
-    public Income(LocalDate date, String description, String information) {
-        super(date, description, information);
+    public Income(Account account, LocalDate date, String description, String information) {
+        super(account, date, description, information);
         this.category = null;
-        super.type = "Income";
     }
     
     public void setCategory(Category category) {

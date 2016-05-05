@@ -5,6 +5,9 @@ import java.util.*;
 
 public abstract class Transaction {
     
+    // Conta a qual pertence
+    private Account account;
+    
     //Data
     protected LocalDate date;
     
@@ -16,15 +19,17 @@ public abstract class Transaction {
     
     //Lista de pagamentos
     protected ArrayList<Payment> payments;
-    
-    //Despesa ou Receita
-    protected String type;
-    
-    public Transaction(LocalDate date, String description, String information) {
+        
+    public Transaction(Account account, LocalDate date, String description, String information) {
+        this.account = account;
         this.date = date;
         this.description = description;
         this.information = information;
         this.payments = new ArrayList(); 
+    }
+    
+    public void setAccount(Account account) {
+        this.account = account;
     }
     
     public void setDate(LocalDate date) {
@@ -53,15 +58,15 @@ public abstract class Transaction {
         this.payments.add(payment);
     }
     
-    public void deletePayment(int i) {
-        this.payments.remove(i); 
-    }
-    
     public abstract void setCategory(Category category);
     
     public abstract Category getCategory();
     
     public abstract double getTotalValue();
+    
+    public Account getAccount() {
+        return this.account;
+    }
     
     public LocalDate getDate() {
         return this.date;
@@ -74,18 +79,6 @@ public abstract class Transaction {
     public String getInformation() {
         return this.information;
     }
-   
-    public String getType(){
-        return this.type;
-    }
-    
-    public Payment getPayment(int i) {
-        if (i < this.payments.size()) {
-            return this.payments.get(i);
-        }     
-        
-        return null;
-    }   
    
     public ArrayList<Payment> getPayments() {        
         return this.payments;

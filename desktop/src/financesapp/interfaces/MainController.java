@@ -3,7 +3,6 @@ package financesapp.interfaces;
 import financesapp.*;
 import java.io.File;
 import java.net.*;
-import java.text.NumberFormat;
 import java.text.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -13,7 +12,6 @@ import javafx.collections.*;
 import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -56,20 +54,15 @@ public class MainController implements Initializable, Observer {
     private void onAddExpense() { 
         if (this.form != null && this.formController != null) { 
             // exemplo (passar conta selecionada de fato)
-            Account selectedAccount = this.app.getUser().getAccount(this.app.getUser().getAccounts().size()-1);
-            this.formController.setAccount(selectedAccount);
-            this.formController.setTransaction(new Expense());
-            this.showForm();       
+            this.formController.setTransaction(new Expense(null));
+            this.showForm();
         }       
     }
     
     @FXML
     private void onAddIncome() {
         if (this.form != null && this.formController != null) { 
-            // exemplo (passar conta selecionada de fato)
-            Account selectedAccount = this.app.getUser().getAccount(this.app.getUser().getAccounts().size()-1);
-            this.formController.setAccount(selectedAccount);
-            this.formController.setTransaction(new Income());
+            this.formController.setTransaction(new Income(null));
             this.showForm();        
         }    
     }
@@ -81,10 +74,10 @@ public class MainController implements Initializable, Observer {
         VBox vBox = new VBox(8);
         this.expScrollPane.setContent(vBox);
         
-        for(ExpenseCategory expCateg : this.app.getExpenseCategories()){
+        for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
             
             double total = this.app.getUser().getTotalByCategory(expCateg);
-            if(total != 0){
+            if (total != 0) {
             
                 Label lb = new Label(expCateg.getName()
                     + ":   "
@@ -133,10 +126,10 @@ public class MainController implements Initializable, Observer {
         VBox vBox = new VBox(8);
         this.incScrollPane.setContent(vBox);
         
-        for(IncomeCategory incCateg : this.app.getIncomeCategories()){
+        for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
             
             double total = this.app.getUser().getTotalByCategory(incCateg);
-            if(total != 0){
+            if (total != 0) {
                 
                 Label lb = new Label(incCateg.getName()
                     + ":   "
@@ -235,9 +228,9 @@ public class MainController implements Initializable, Observer {
         transactionsTab.setContent(this.tableView);
         
         TableColumn dateColunm = new TableColumn("Data");
-        dateColunm.setMinWidth(150);
-        dateColunm.setMaxWidth(150);
-        dateColunm.setPrefWidth(150);
+        dateColunm.setMinWidth(100);
+        dateColunm.setMaxWidth(100);
+        dateColunm.setPrefWidth(100);
         dateColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
@@ -262,9 +255,9 @@ public class MainController implements Initializable, Observer {
         });
         
         TableColumn valueColunm = new TableColumn("Valor");
-        valueColunm.setMinWidth(150);
-        valueColunm.setMaxWidth(150);
-        valueColunm.setPrefWidth(150);
+        valueColunm.setMinWidth(125);
+        valueColunm.setMaxWidth(125);
+        valueColunm.setPrefWidth(125);
         valueColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
@@ -275,15 +268,51 @@ public class MainController implements Initializable, Observer {
             }
         });
         
-        //add concretizado ??
-        
+        TableColumn concretizedColunm = new TableColumn("Concretizado");
+        concretizedColunm.setMinWidth(125);
+        concretizedColunm.setMaxWidth(125);
+        concretizedColunm.setPrefWidth(125);
+        concretizedColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
+                SimpleStringProperty property = new SimpleStringProperty();
+                property.setValue(payment.getValue().hasConcretized() ? "Sim" : "Não");
+                return property;      
+            }
+        });
         // add nome da conta?? 
         // colocar uma ref em Transaction da conta
         
+        TableColumn accountColunm = new TableColumn("Conta");
+        accountColunm.setMinWidth(150);
+        accountColunm.setMaxWidth(150);
+        accountColunm.setPrefWidth(150);
+        accountColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
+                SimpleStringProperty property = new SimpleStringProperty();
+                property.setValue(payment.getValue().getTransaction().getAccount().getName());
+                return property;      
+            }
+        });
+        
+        TableColumn typeColunm = new TableColumn("Tipo");
+        typeColunm.setMinWidth(75);
+        typeColunm.setMaxWidth(75);
+        typeColunm.setPrefWidth(75);
+        typeColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
+                SimpleStringProperty property = new SimpleStringProperty();
+                property.setValue(payment.getValue().getTransaction().getClass().getSimpleName().equalsIgnoreCase("Income") ? "Receita" : "Despesa");
+                return property;      
+            }
+        });
+        
         TableColumn categoryColunm = new TableColumn("Categoria");
-        categoryColunm.setMinWidth(200);
-        categoryColunm.setMaxWidth(200);
-        categoryColunm.setPrefWidth(200);
+        categoryColunm.setMinWidth(180);
+        categoryColunm.setMaxWidth(180);
+        categoryColunm.setPrefWidth(180);
         categoryColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
@@ -296,7 +325,13 @@ public class MainController implements Initializable, Observer {
         this.transactions = FXCollections.observableArrayList();
         
         this.tableView.getColumns().addAll(
-            dateColunm, descriptionColunm, valueColunm, categoryColunm
+            dateColunm,
+            descriptionColunm,
+            valueColunm,
+            concretizedColunm,
+            accountColunm,
+            typeColunm,
+            categoryColunm
         );
         this.tableView.setItems(this.transactions);
         
@@ -326,16 +361,20 @@ public class MainController implements Initializable, Observer {
         }
     }
     
-    public void showTransactions() {
+    public void showTransactions(String accountFilter) {
         //exemplo abaixo
         // fazer um filtro com o pagamento de transações necessárias de acordo com os filtros
         // e por os os pagamentos em transactions
         this.transactions.clear();
         
-        for(Account acc : this.app.getUser().getAccounts() )
-            for(Transaction tr : acc.getTransactions())
-                this.transactions.addAll(tr.getPayments());
-              
+        for (Account account : this.app.getUser().getAccounts()) {
+            if (!accountFilter.equalsIgnoreCase("") && !account.getName().equalsIgnoreCase(accountFilter)) {
+                continue;
+            }
+            for (Transaction transaction : account.getTransactions()) {
+                this.transactions.addAll(transaction.getPayments());
+            }
+        }
     }
     
     @Override
@@ -350,7 +389,7 @@ public class MainController implements Initializable, Observer {
         ////////////////////////////////////////
         this.showExpensesByCategory(first, last);
         this.showIncomesByCategory(first, last);
-        this.showTransactions();
+        this.showTransactions("");
     }
     
 }

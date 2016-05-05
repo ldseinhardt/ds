@@ -56,10 +56,10 @@ public class User extends Observable {
                     Transaction transaction = null;
 
                     if (transactionJSON.getString("type").equalsIgnoreCase("Expense")) {
-                        transaction = new Expense();
+                        transaction = new Expense(account);
                         transaction.setCategory(new ExpenseCategory(categoryName));
                     } else if (transactionJSON.getString("type").equalsIgnoreCase("Income")) {
-                        transaction = new Income();    
+                        transaction = new Income(account);    
                         transaction.setCategory(new IncomeCategory(categoryName));
                     }
                     
@@ -201,14 +201,6 @@ public class User extends Observable {
         }
         return genMaxBalance;
     }
-    
-    public Account getAccount(int i) {
-        if (i < this.accounts.size()) {
-            return this.accounts.get(i);
-        }     
-        
-        return null;
-    }   
    
     public ArrayList<Account> getAccounts() {        
         return this.accounts;
