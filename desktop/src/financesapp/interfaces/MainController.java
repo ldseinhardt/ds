@@ -332,17 +332,10 @@ public class MainController implements Initializable, Observer {
         // e por os os pagamentos em transactions
         this.transactions.clear();
         
-        Account a = this.app.getUser().getAccount(5);
-        
-        if (a != null) {
-            Transaction t = a.getTransaction(0);
-            
-            ArrayList<Payment> pays = a.getTransaction(0).getPayments();
-  
-            this.transactions.addAll(a.getTransaction(0).getPayments());
-            this.transactions.addAll(a.getTransaction(1).getPayments());
-            
-        }        
+        for(Account acc : this.app.getUser().getAccounts() )
+            for(Transaction tr : acc.getTransactions())
+                this.transactions.addAll(tr.getPayments());
+              
     }
     
     @Override
