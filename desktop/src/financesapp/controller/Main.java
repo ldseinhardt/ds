@@ -59,7 +59,7 @@ public class Main implements Initializable, Observer {
     @FXML
     private void onAddExpense() { 
         if (this.form != null && this.formController != null) { 
-            this.formController.setTransaction(new Expense());
+            this.formController.setTransaction(new Expense(),"Despesa");
             this.showForm();
         }       
     }
@@ -68,7 +68,7 @@ public class Main implements Initializable, Observer {
     private void onAddIncome() {
         if (this.form != null && this.formController != null) { 
             this.showForm();  
-            this.formController.setTransaction(new Income());      
+            this.formController.setTransaction(new Income(),"Receita");      
         }    
     }
     
@@ -76,8 +76,8 @@ public class Main implements Initializable, Observer {
     private void onEditTransaction() {
         Payment payment = this.tableView.getSelectionModel().getSelectedItem();
         if (this.form != null && this.formController != null && payment != null) {
-            this.showForm();   
-            this.formController.setTransaction(payment.getTransaction());     
+            this.formController.setTransaction(payment.getTransaction(),payment.getTransaction().getClass().getSimpleName().equalsIgnoreCase("Income") ? "Receita" : "Despesa");     
+            this.showForm();  
         }       
     }
     
