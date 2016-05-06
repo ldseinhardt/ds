@@ -92,16 +92,14 @@ public class TransactionsForm implements Initializable {
                 this.category.getItems().add(category.getName());
             }
         }
-        
-        Iterator<Account> accounts = this.app.getUser().getAccounts().iterator();
-        while (accounts.hasNext()) {
-            Account account = accounts.next();
-            this.account.getItems().add(account.getName());
+
+        // limpa itens existente no comboBox Contas
+        this.account.getItems().clear();
+        // insere contas do usuário
+        for(Account acc : this.app.getUser().getAccounts()){
+            this.account.getItems().add(acc.getName());
         }
-        
-        //APAGA E INSERE DENOVO?
-        
-        
+
         //caso venha para editar umas transacao
         if(transaction.getCategory() != null){
             //carregar dados para editar
