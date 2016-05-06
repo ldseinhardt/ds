@@ -205,11 +205,11 @@ public class User extends Observable {
         return this.accounts;
     }
     
-    public double getTotalByCategory(Category categ){
+    public double getTotalByCategory(Category categ, String type){
         double total = 0.0;
         
         for (Account account : accounts) {
-            total += account.getTotalByCategory(categ);
+            total += account.getTotalByCategory(categ, type);
         }
         return total;
     }

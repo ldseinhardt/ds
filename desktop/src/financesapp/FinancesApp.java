@@ -7,6 +7,8 @@ import java.util.*;
 import javafx.application.Application;
 import javafx.fxml.*;
 import javafx.scene.*;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 
 public class FinancesApp extends Application {
@@ -36,9 +38,16 @@ public class FinancesApp extends Application {
     //Nomes das categorias de receita
     private String[] incCategName;
     
+    private Color[] colors;
+    
     @Override
     public void start(Stage stage) throws Exception {
         this.window = stage;
+        
+        window.getIcons()
+                .add(new Image(getClass()
+                .getResourceAsStream("icon.jpg")
+        ));
         
         // Lista de categorias para ambos tipos de transações
         this.expenseCategories = new ArrayList();
@@ -58,18 +67,28 @@ public class FinancesApp extends Application {
             "Terceiros"
         };
         
+        this.colors = new Color[]{
+            Color.CORAL, Color.FUCHSIA, Color.RED, Color.BLUEVIOLET,
+            Color.YELLOW, Color.BISQUE, Color.CADETBLUE, Color.CRIMSON,
+            Color.LIGHTGRAY, Color.KHAKI, Color.LIGHTGREEN, Color.LAVENDER,
+            Color.ROYALBLUE, Color.BROWN, Color.PINK, Color.BLUE, Color.GREEN,
+            Color.GOLD, Color.ORANGE, Color.DARKSLATEGRAY, Color.TOMATO,
+            Color.DODGERBLUE
+        };
+        
+        int c = 0;
         for (String name : expCategName) {
             this.expenseCategories.add(new ExpenseCategory(name));
             this.expenseCategories.get(this.expenseCategories.size()-1)
-                .setColor("#"+String.format("%06x", new Random().nextInt(0xFFFFFF)));
+                .setColor(colors[c++]);
         }
         
         for (String name : incCategName) {
             this.incomeCategories.add(new IncomeCategory(name));
             this.incomeCategories.get(this.incomeCategories.size()-1)
-                .setColor("#"+String.format("%06x", new Random().nextInt(0xFFFFFF)));
+                .setColor(colors[--c]);
         }
-                
+        
         this.user = new User();
         FXMLLoader loader = new FXMLLoader(
             this.getClass().getResource("/financesapp/view/Main.fxml")

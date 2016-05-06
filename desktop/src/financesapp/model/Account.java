@@ -118,13 +118,15 @@ public abstract class Account {
         return payments;
     }
     
-    public double getTotalByCategory(Category categ) {
+    public double getTotalByCategory(Category categ, String type) {
         double total = 0.0;
         
         for (Transaction transaction : transactions) {
-            if (transaction.getCategory().getName().equals(categ.getName())) {
-                total += transaction.getPayments().get(0).getValue();
-                //Por enquanto pegando so o primeiro pagamento.
+            if (transaction.getClass().getSimpleName().equals(type)){
+                if (transaction.getCategory().getName().equals(categ.getName())) {
+                    total += transaction.getPayments().get(0).getValue();
+                    //Por enquanto pegando so o primeiro pagamento.
+                }
             }
         }
         return total;

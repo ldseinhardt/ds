@@ -4,7 +4,32 @@
     {
       "name": "Carteira",
       "type": "DefaultAccount",
-      "transactions": [],
+      "transactions": [
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 50
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Alimentação"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 50
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Income",
+          "category": "Empréstimo"
+        }
+      ],
       "openingBalance": 23.25
     },
     {
@@ -198,6 +223,258 @@
           "information": "",
           "type": "Expense",
           "category": "Alimentação"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 51
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Beleza"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 52
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Dívida"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 53
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Educação"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 54
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Eletricidade"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 55
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Higiene"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 56
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Internet"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 57
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Investimento"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 58
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Item Pessoal"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 59
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Justiça"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 60
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Lazer"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 61
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Limpeza"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 62
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Moradia"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 63
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Pet"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 64
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Presente"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 65
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Saneamento"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 66
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Saúde"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 67
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Telefonia"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 68
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Terceiros"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 69
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Transporte"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 70
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "TV a Cabo"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 71
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Vestuário"
         },
         {
           "date": "2016-05-05",

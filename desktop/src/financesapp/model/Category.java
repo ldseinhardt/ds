@@ -1,11 +1,13 @@
 package financesapp.model;
  
+import javafx.scene.paint.Color;
+
 public abstract class Category {
     
     // Nome da categoria
     protected String name;
     
-    protected String color;
+    protected Color color;
     
     public Category(String name) {
         this.name = name;
@@ -15,7 +17,7 @@ public abstract class Category {
         this.name = name;
     }
     
-    public void setColor(String color){
+    public void setColor(Color color){
         this.color = color;
     }
     
@@ -23,7 +25,7 @@ public abstract class Category {
         return this.name;
     }
     
-    public String getColor() {
+    public Color getColor() {
         return this.color;
     }
     

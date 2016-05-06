@@ -124,7 +124,7 @@ public class Main implements Initializable, Observer {
         
         for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
             
-            double total = this.app.getUser().getTotalByCategory(expCateg);
+            double total = this.app.getUser().getTotalByCategory(expCateg, "Expense");
             if (total != 0) {
             
                 Label lb = new Label(expCateg.getName()
@@ -141,7 +141,7 @@ public class Main implements Initializable, Observer {
                 
                 lb.setLayoutX(14);
                 lb.setLayoutY(14);
-                lb.setTextFill(Color.web(expCateg.getColor()).darker().darker());
+                lb.setTextFill(expCateg.getColor().darker().darker());
                 lb.setFont(new Font(13));
                 
                 rect.setLayoutX(14);
@@ -156,7 +156,7 @@ public class Main implements Initializable, Observer {
                 ds.setOffsetX(5.0);
                 ds.setColor(Color.GRAY);
                 rect.setEffect(ds);
-                rect.setFill(Color.web(expCateg.getColor()).brighter());
+                rect.setFill(expCateg.getColor());
                 //////////////////////
                 
                 rect.setWidth(total*1000/max);
@@ -176,7 +176,7 @@ public class Main implements Initializable, Observer {
         
         for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
             
-            double total = this.app.getUser().getTotalByCategory(incCateg);
+            double total = this.app.getUser().getTotalByCategory(incCateg, "Income");
             if (total != 0) {
                 
                 Label lb = new Label(incCateg.getName()
@@ -193,7 +193,7 @@ public class Main implements Initializable, Observer {
                 
                 lb.setLayoutX(14);
                 lb.setLayoutY(14);
-                lb.setTextFill(Color.web(incCateg.getColor()).darker().darker());
+                lb.setTextFill(incCateg.getColor().darker().darker());
                 lb.setFont(new Font(13));
                 
                 rect.setLayoutX(14);
@@ -208,7 +208,7 @@ public class Main implements Initializable, Observer {
                 ds.setOffsetX(5.0);
                 ds.setColor(Color.GRAY);
                 rect.setEffect(ds);
-                rect.setFill(Color.web(incCateg.getColor()).brighter());
+                rect.setFill(incCateg.getColor());
                 //////////////////////
                 
                 rect.setWidth(total*1000/max);
