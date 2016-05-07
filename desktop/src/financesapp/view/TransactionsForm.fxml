@@ -26,11 +26,16 @@
                                 <Font size="24.0" />
                             </font>
                         </Label>
-                        <DatePicker fx:id="date" editable="false" maxWidth="1.7976931348623157E308" onAction="#hideError" prefHeight="40.0" promptText="Data" />
                         <HBox spacing="10.0">
                             <children>
-                                <TextField fx:id="value" maxWidth="1.7976931348623157E308" onAction="#hideError" promptText="Valor" />
-                                <ToggleButton fx:id="status" minWidth="100.0" mnemonicParsing="false" text="Pago" />
+                                <DatePicker fx:id="date" editable="false" maxWidth="1.7976931348623157E308" onAction="#hideError" prefWidth="150.0" promptText="Data" />
+                                <ComboBox fx:id="freq" maxWidth="120.0" minWidth="120.0" onAction="#hideError" prefWidth="120.0" promptText="Ocorrência" />
+                            </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                            <children>
+                                <TextField fx:id="value" maxWidth="1.7976931348623157E308" onAction="#hideError" prefWidth="150.0" promptText="Valor" />
+                                <ToggleButton fx:id="status" maxWidth="120.0" minWidth="120.0" mnemonicParsing="false" prefWidth="120.0" text="Pago" />
                             </children>
                         </HBox>
                         <ComboBox fx:id="category" maxWidth="1.7976931348623157E308" onAction="#hideError" promptText="Categoria" />
