@@ -1,6 +1,6 @@
 package financesapp.model;
 
-import java.time.LocalDate;
+import java.time.*;
 import java.util.*;
 import org.json.*;
 
@@ -39,6 +39,7 @@ public class User extends Observable {
             this.name = json.getString("name");
 
             Iterator<Object> ita = json.getJSONArray("accounts").iterator();
+       
             while (ita.hasNext()) {
                 JSONObject accountJSON = (JSONObject) ita.next();
                         
@@ -55,10 +56,10 @@ public class User extends Observable {
                     
                     Transaction transaction = null;
 
-                    if (transactionJSON.getString("type").equalsIgnoreCase("Expense")) {
+                    if (transactionJSON.getString("type").equalsIgnoreCase(Expense.class.getSimpleName())) {
                         transaction = new Expense();
                         transaction.setCategory(new ExpenseCategory(categoryName));
-                    } else if (transactionJSON.getString("type").equalsIgnoreCase("Income")) {
+                    } else if (transactionJSON.getString("type").equalsIgnoreCase(Income.class.getSimpleName())) {
                         transaction = new Income();    
                         transaction.setCategory(new IncomeCategory(categoryName));
                     }
@@ -91,69 +92,70 @@ public class User extends Observable {
     }
     
     public String toJSONString() {
-        JSONObject JSON = new JSONObject();
-        
-        JSON.put("name", this.name);
-        
-        JSONArray accountsJSON = new JSONArray();
-        
-        Iterator<Account> ita = this.accounts.iterator();
-        while (ita.hasNext()) {
-            Account account = ita.next();                                       
-            
-            JSONObject accountJSON = new JSONObject();
-            
-            accountJSON.put("type", account.getClass().getSimpleName());        
-            accountJSON.put("name", account.getName());
-            accountJSON.put("openingBalance", account.getOpeningBalance());
-            
-            JSONArray transactionsJSON = new JSONArray();
-        
-            Iterator<Transaction> itt = account.getTransactions().iterator();
-            while (itt.hasNext()) {
-                Transaction transaction = itt.next();                                       
-            
-                JSONObject transactionJSON = new JSONObject();
-                
-                transactionJSON.put("type", transaction.getClass().getSimpleName());
-                transactionJSON.put("date", transaction.getDate().toString());
-                transactionJSON.put("description", transaction.getDescription());
-                transactionJSON.put("information", transaction.getInformation());
-                
-                Category category = transaction.getCategory();
-                String categoryName = "";
-                
-                if (category != null) {
-                    categoryName = category.getName();
-                }
-                
-                transactionJSON.put("category", categoryName);
-                
-                JSONArray paymentsJSON = new JSONArray();
-                
-                Iterator<Payment> itp = transaction.getPayments().iterator();
-                while (itp.hasNext()) {
-                    Payment payment = itp.next();                                       
-                    JSONObject paymentJSON = new JSONObject();                
-                    paymentJSON.put("value", payment.getValue());
-                    paymentJSON.put("date", payment.getDate().toString());
-                    paymentJSON.put("concretized", payment.hasConcretized());                    
-                    paymentsJSON.put(paymentJSON);
-                }
-                
-                transactionJSON.put("payments", paymentsJSON);
-                
-                transactionsJSON.put(transactionJSON);
-            }
-            
-            accountJSON.put("transactions", transactionsJSON);
-            
-            accountsJSON.put(accountJSON);
-        } 
-        
-        JSON.put("accounts", accountsJSON);
+        try {
+            JSONObject JSON = new JSONObject();
 
-        return JSON.toString(2);
+            JSON.put("name", this.name);
+
+            JSONArray accountsJSON = new JSONArray();
+
+            for (Account account : this.getAccounts()) {                                  
+
+                JSONObject accountJSON = new JSONObject();
+
+                accountJSON.put("type", account.getClass().getSimpleName());        
+                accountJSON.put("name", account.getName());
+                accountJSON.put("openingBalance", account.getOpeningBalance());
+
+                JSONArray transactionsJSON = new JSONArray();
+
+                for (Transaction transaction : account.getTransactions()) {                                  
+
+                    JSONObject transactionJSON = new JSONObject();
+
+                    transactionJSON.put("type", transaction.getClass().getSimpleName());
+                    transactionJSON.put("date", transaction.getDate().toString());
+                    transactionJSON.put("description", transaction.getDescription());
+                    transactionJSON.put("information", transaction.getInformation());
+
+                    Category category = transaction.getCategory();
+                    String categoryName = "";
+
+                    if (category != null) {
+                        categoryName = category.getName();
+                    }
+
+                    transactionJSON.put("category", categoryName);
+
+                    JSONArray paymentsJSON = new JSONArray();
+
+                    for (Payment payment : transaction.getPayments()) {                                     
+                        JSONObject paymentJSON = new JSONObject();                
+                        paymentJSON.put("value", payment.getValue());
+                        paymentJSON.put("date", payment.getDate().toString());
+                        paymentJSON.put("concretized", payment.hasConcretized());                    
+                        paymentsJSON.put(paymentJSON);
+                    }
+
+                    transactionJSON.put("payments", paymentsJSON);
+
+                    transactionsJSON.put(transactionJSON);
+                }
+
+                accountJSON.put("transactions", transactionsJSON);
+
+                accountsJSON.put(accountJSON);
+            } 
+
+            JSON.put("accounts", accountsJSON);
+
+            return JSON.toString(2);   
+            
+        } catch(Exception e) {
+            
+        }
+        
+        return "";
     }
     
     public String getName() {
@@ -162,11 +164,8 @@ public class User extends Observable {
         
     public double getBalance() {
         double balance = 0;
-       
-        Iterator<Account> it = this.accounts.iterator();
-        while (it.hasNext()) {
-            Account account = it.next();                  
-            
+        
+        for (Account account : this.getAccounts()) {
             balance += account.getBalance();
         }        
         
@@ -175,26 +174,20 @@ public class User extends Observable {
     
     public double getBalance(LocalDate untilDate) {
         double balance = 0;
-       
-        Iterator<Account> it = this.accounts.iterator();
-        while (it.hasNext()) {
-            Account account = it.next();                  
-            
+        
+        for (Account account : this.getAccounts()) {
             balance += account.getBalance(untilDate);
         }
         return balance;
     }
     
-    public double getGeneralMaxBalance(int month, int year){
+    public double getGeneralMaxBalance(int month, int year) {
         double genMaxBalance = 0;
         
-        Iterator<Account> it = this.accounts.iterator();
-        while (it.hasNext()) {
-            Account account = it.next();
-            
+        for (Account account : this.getAccounts()) {
             double maxBal = Math.abs(account.getMaxBalance(month, year));
             
-            if(maxBal > genMaxBalance){
+            if (maxBal > genMaxBalance) {
                 genMaxBalance = maxBal;
             }
         }
@@ -205,12 +198,13 @@ public class User extends Observable {
         return this.accounts;
     }
     
-    public double getTotalByCategory(Category categ, String type){
+    public double getTotalByCategory(Category categ, String type) {
         double total = 0.0;
         
-        for (Account account : accounts) {
+        for (Account account : this.getAccounts()) {
             total += account.getTotalByCategory(categ, type);
         }
+        
         return total;
     }
     

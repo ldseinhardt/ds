@@ -21,6 +21,7 @@ public class FinancesApp extends Application {
     
     //Padrão
     private final String default_user = "Usuário Padrão"; 
+    
     private final String default_account = "Carteira"; 
     
     //Referência janela principal
@@ -44,16 +45,15 @@ public class FinancesApp extends Application {
     public void start(Stage stage) throws Exception {
         this.window = stage;
         
-        window.getIcons()
-                .add(new Image(getClass()
-                .getResourceAsStream("icon.jpg")
+        this.window.getIcons().add(new Image(
+            getClass().getResourceAsStream("icon.png")
         ));
         
         // Lista de categorias para ambos tipos de transações
         this.expenseCategories = new ArrayList();
         this.incomeCategories = new ArrayList();
         
-        this.expCategName = new String[]{
+        this.expCategName = new String[] {
             "Alimentação", "Beleza", "Dívida", "Educação", "Eletricidade",
             "Higiene", "Internet", "Investimento", "Item Pessoal", "Justiça",
             "Lazer", "Limpeza", "Moradia", "Pet", "Presente", "Saneamento",
@@ -61,13 +61,13 @@ public class FinancesApp extends Application {
             "Vestuário"
         };
         
-        this.incCategName = new String[]{
+        this.incCategName = new String[] {
             "Empréstimo", "Justiça", "Presente",
             "Renda", "Salário", "Serviço",
             "Terceiros"
         };
         
-        this.colors = new Color[]{
+        this.colors = new Color[] {
             Color.CORAL, Color.FUCHSIA, Color.RED, Color.BLUEVIOLET,
             Color.YELLOW, Color.BISQUE, Color.CADETBLUE, Color.CRIMSON,
             Color.LIGHTGRAY, Color.KHAKI, Color.LIGHTGREEN, Color.LAVENDER,
@@ -90,15 +90,18 @@ public class FinancesApp extends Application {
         }
         
         this.user = new User();
+        
         FXMLLoader loader = new FXMLLoader(
             this.getClass().getResource("/financesapp/view/Main.fxml")
-        );      
+        );    
+        
         Parent root = loader.load();
       
         Main main = loader.getController();
+        
         main.init(this);
         
-        this.user.addObserver((Observer) main);
+        this.user.addObserver(main);
         
         // Dados padrões para um usuário novo
         this.user.setName(this.default_user);
@@ -113,7 +116,9 @@ public class FinancesApp extends Application {
         this.window.setMaximized(true);
         this.window.setScene(scene);
         this.window.show();
-        this.window.setOnCloseRequest(e -> this.save());
+        this.window.setOnCloseRequest(e ->
+            this.save()
+        );
     }
 
     public static void main(String[] args) {
@@ -156,11 +161,11 @@ public class FinancesApp extends Application {
         return this.window;
     }
     
-    public ArrayList<ExpenseCategory> getExpenseCategories(){
+    public ArrayList<ExpenseCategory> getExpenseCategories() {
         return this.expenseCategories;
     }
     
-    public ArrayList<IncomeCategory> getIncomeCategories(){
+    public ArrayList<IncomeCategory> getIncomeCategories() {
         return this.incomeCategories;
     }
     
@@ -209,7 +214,7 @@ public class FinancesApp extends Application {
             FileReader fr = new FileReader(file); 
             BufferedReader br = new BufferedReader(fr); 
             String line, content = ""; 
-            while((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 content += line;
             }
             return content;

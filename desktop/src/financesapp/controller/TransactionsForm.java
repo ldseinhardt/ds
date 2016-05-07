@@ -1,24 +1,15 @@
 package financesapp.controller;
 
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import financesapp.*;
-import static java.lang.Thread.sleep;
 import financesapp.model.*;
 import java.net.URL;
-import java.time.LocalDate;
+import java.time.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.*;
-import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
+import javafx.scene.text.*;
 
 public class TransactionsForm implements Initializable {
 
@@ -31,9 +22,6 @@ public class TransactionsForm implements Initializable {
 
     //Transação para add/edit
     private Transaction transaction;
-    
-    //tipo de transacao
-    private String tipo;
     
     @FXML
     private BorderPane borderPane;
@@ -54,67 +42,58 @@ public class TransactionsForm implements Initializable {
     private ComboBox account;
     
     @FXML
-    private TextField descricao;
+    private TextField description;
     
     @FXML
-    private TextArea informacoes;
+    private TextArea information;
     
     @FXML
-    private DatePicker data;
+    private DatePicker date;
     
     @FXML
-    private ToggleButton buttonStatus;
+    private ToggleButton status;
     
-    public void setTransaction(Transaction transaction, String Tipo) {
-        
-        this.limpar();
-        this.tipo = Tipo;
+    public void setTransaction(Transaction transaction) {        
         this.transaction = transaction;
         
-        this.label.setText(Tipo);
-        this.label.setFont(new Font(24));
+        this.clearForm();
+         
+        String type = "Despesa";         
+        String concretized = "Pago";
+        if (this.transaction.getClass().getSimpleName().equals(Income.class.getSimpleName())) {
+            type = "Receita";
+            concretized = "Recebido";
+            for (IncomeCategory category : this.app.getIncomeCategories()) {
+                this.category.getItems().add(category.getName());                
+            } 
+        } else {  
+            for (ExpenseCategory category : this.app.getExpenseCategories()) {
+                this.category.getItems().add(category.getName());
+            }         
+        }
         
-        this.error.setVisible(false);
-        this.category.getItems().clear();  //deletar categorias do comboboxif(Tipo.equals("Despesa")){
-
-        if(Tipo.equals("Despesa")){
-            this.buttonStatus.setText("Pago");
-            Iterator<ExpenseCategory> categorys = this.app.getExpenseCategories().iterator();
-            while (categorys.hasNext()) {
-                Category category = categorys.next();
-                this.category.getItems().add(category.getName());
-            }
-        }else{
-            this.buttonStatus.setText("Recebido");
-            Iterator<IncomeCategory> categorys = this.app.getIncomeCategories().iterator();
-            while (categorys.hasNext()) {
-                Category category = categorys.next();
-                this.category.getItems().add(category.getName());
-            }
-        }
-
-        // limpa itens existente no comboBox Contas
-        this.account.getItems().clear();
-        // insere contas do usuário
-        for(Account acc : this.app.getUser().getAccounts()){
-            this.account.getItems().add(acc.getName());
-        }
-
-        //caso venha para editar umas transacao
-        if(transaction.getCategory() != null){
-            //carregar dados para editar
-            this.data.setValue(transaction.getDate());  //data
-            this.value.setText(String.valueOf(transaction.getPayments().get(0).getValue())); //valor
+        this.label.setText(type);
+        this.status.setText(concretized); 
+        
+        for (Account account : this.app.getUser().getAccounts()){
+            this.account.getItems().add(account.getName());
+        }  
+        
+        if (this.transaction.getAccount() != null) {
+            this.date.setValue(transaction.getDate());
             this.category.setValue(transaction.getCategory().getName());
             this.account.setValue(transaction.getAccount().getName());
-            this.descricao.setText(transaction.getDescription());  //descricao
-            this.informacoes.setText(transaction.getInformation()); //informacoes
-            this.buttonStatus.setSelected(transaction.getPayments().get(0).hasConcretized());
+            this.description.setText(transaction.getDescription());
+            this.information.setText(transaction.getInformation());
+   
+            this.value.setText(String.valueOf(transaction.getPayments().get(0).getValue()));
+            this.status.setSelected(transaction.getPayments().get(0).hasConcretized());
         }
     }
 
     @FXML
     private void onSave() {
+        /*
         if (this.transaction != null) {
             if(this.value.getText() != null){ //valor
                 if(this.category.getValue() != null){   //categoria selecionada
@@ -175,16 +154,17 @@ public class TransactionsForm implements Initializable {
                 this.error.setVisible(true);
             }
         }
+*/
     }
     
     @FXML
-    private void ocultarError(){
+    private void hideError() {
        this.error.setVisible(false); 
     }
     
     @FXML
-    private void onLimpar() {
-        this.limpar();
+    private void onClear() {
+        this.clearForm();
     }
     
     @FXML
@@ -192,14 +172,17 @@ public class TransactionsForm implements Initializable {
         this.close();
     }
     
-    private void limpar(){
-        this.data.setValue(null);
-        this.value.setText(null);
-        this.category.setValue(null);
+    private void clearForm() {
+        this.date.setValue(null);
+        this.value.setText("");
+        this.category.setValue("");
         this.account.setValue(null);
-        this.descricao.setText(null);
-        this.informacoes.setText(null);
-        this.buttonStatus.setSelected(false);
+        this.description.setText("");
+        this.information.setText("");
+        this.status.setSelected(false);
+        this.account.getItems().clear();
+        this.category.getItems().clear();
+        this.error.setVisible(false);
     }
     
     private void close() {
@@ -226,6 +209,8 @@ public class TransactionsForm implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        this.label.setFont(new Font(24));
+        
         this.transaction = null;
     }
 

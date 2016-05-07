@@ -2,7 +2,7 @@ package financesapp.controller;
 
 import financesapp.*;
 import financesapp.model.*;
-import java.net.URL;
+import java.net.*;
 import java.util.*;
 import javafx.fxml.*;
 import javafx.scene.layout.*;
@@ -27,9 +27,9 @@ public class AccountsGestorForm implements Initializable {
     
     @FXML
     private void onSave() {
-        if (!this.name.getText().equals("")) {
+        if (!this.name.getText().isEmpty()) {
             double balance = 0;
-            if (!this.name.getText().equals("")) {
+            if (!this.name.getText().isEmpty()) {
                 try {
                     balance = Double.parseDouble(
                         this.openingBalance.getText()

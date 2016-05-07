@@ -5,21 +5,21 @@ import financesapp.model.*;
 import java.io.*;
 import java.net.*;
 import java.text.*;
-import java.time.format.DateTimeFormatter;
+import java.time.format.*;
 import java.util.*;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.*;
+import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.fxml.*;
-import javafx.scene.Parent;
+import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
+import javafx.scene.paint.*;
+import javafx.scene.shape.*;
+import javafx.scene.text.*;
 import javafx.stage.*;
-import javafx.util.Callback;
+import javafx.util.*;
 
 public class Main implements Initializable, Observer {
     
@@ -59,7 +59,7 @@ public class Main implements Initializable, Observer {
     @FXML
     private void onAddExpense() { 
         if (this.form != null && this.formController != null) { 
-            this.formController.setTransaction(new Expense(),"Despesa");
+            this.formController.setTransaction(new Expense());
             this.showForm();
         }       
     }
@@ -68,7 +68,7 @@ public class Main implements Initializable, Observer {
     private void onAddIncome() {
         if (this.form != null && this.formController != null) { 
             this.showForm();  
-            this.formController.setTransaction(new Income(),"Receita");      
+            this.formController.setTransaction(new Income());      
         }    
     }
     
@@ -76,7 +76,7 @@ public class Main implements Initializable, Observer {
     private void onEditTransaction() {
         Payment payment = this.tableView.getSelectionModel().getSelectedItem();
         if (this.form != null && this.formController != null && payment != null) {
-            this.formController.setTransaction(payment.getTransaction(),payment.getTransaction().getClass().getSimpleName().equalsIgnoreCase("Income") ? "Receita" : "Despesa");     
+            this.formController.setTransaction(payment.getTransaction());     
             this.showForm();  
         }       
     }
@@ -85,14 +85,11 @@ public class Main implements Initializable, Observer {
     private void onDeleteTransaction() {
         Payment payment = this.tableView.getSelectionModel().getSelectedItem();
         if (payment != null) {
-            ArrayList<Payment> payments = payment.getTransaction().getPayments();
-            if (payments.size() > 1) {
-                payments.remove(payment);
-            } else {
-                payment.getTransaction().getAccount().getTransactions().remove(
-                    payment.getTransaction()
-                );
-            }
+            Transaction transaction = payment.getTransaction();            
+            transaction.getPayments().remove(payment);            
+            if (transaction.getPayments().isEmpty()) {
+                transaction.getAccount().getTransactions().remove(transaction);
+            }            
             this.app.getUser().update();        
         }
     }
@@ -124,7 +121,7 @@ public class Main implements Initializable, Observer {
         
         for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
             
-            double total = this.app.getUser().getTotalByCategory(expCateg, "Expense");
+            double total = this.app.getUser().getTotalByCategory(expCateg, Expense.class.getSimpleName());
             if (total != 0) {
             
                 Label lb = new Label(expCateg.getName()
@@ -176,7 +173,7 @@ public class Main implements Initializable, Observer {
         
         for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
             
-            double total = this.app.getUser().getTotalByCategory(incCateg, "Income");
+            double total = this.app.getUser().getTotalByCategory(incCateg, Income.class.getSimpleName());
             if (total != 0) {
                 
                 Label lb = new Label(incCateg.getName()
@@ -382,18 +379,18 @@ public class Main implements Initializable, Observer {
         Menu addOption = new Menu("Adicionar");
 
         MenuItem addExpenseOption = new MenuItem("Despesa");
-        addExpenseOption.setOnAction((e) -> this.onAddExpense());
+        addExpenseOption.setOnAction(e -> this.onAddExpense());
 
         MenuItem addIncomeOption = new MenuItem("Receita");
-        addIncomeOption.setOnAction((e) -> this.onAddIncome());
+        addIncomeOption.setOnAction(e -> this.onAddIncome());
         
         addOption.getItems().addAll(addExpenseOption, addIncomeOption);
 
         MenuItem editOption = new MenuItem("Editar");
-        editOption.setOnAction((e) -> this.onEditTransaction());
+        editOption.setOnAction(e -> this.onEditTransaction());
         
         MenuItem deleteOption = new MenuItem("Remover");
-        deleteOption.setOnAction((e) -> this.onDeleteTransaction());
+        deleteOption.setOnAction(e -> this.onDeleteTransaction());
         
         Menu filterOption = new Menu("Filtrar");
         
@@ -402,11 +399,11 @@ public class Main implements Initializable, Observer {
         filterOption.getItems().addAll(filterTypeOption);
 
         MenuItem filterTypeExpenseOption = new MenuItem("Despensas");
-        filterTypeExpenseOption.setOnAction((e) -> this.onFilterTypeByExpense());
+        filterTypeExpenseOption.setOnAction(e -> this.onFilterTypeByExpense());
         MenuItem filterTypeIncomeOption = new MenuItem("Receitas");
-        filterTypeIncomeOption.setOnAction((e) -> this.onFilterTypeByIncome());
+        filterTypeIncomeOption.setOnAction(e -> this.onFilterTypeByIncome());
         MenuItem filterTypeNoneOption = new MenuItem("Receitas e Despensas");
-        filterTypeNoneOption.setOnAction((e) -> this.onFilterTypeByNone());
+        filterTypeNoneOption.setOnAction(e -> this.onFilterTypeByNone());
         
         filterTypeOption.getItems().addAll(
             filterTypeExpenseOption,
@@ -452,14 +449,14 @@ public class Main implements Initializable, Observer {
         this.transactions.clear();
         
         for (Account account : this.app.getUser().getAccounts()) {
-            if (!this.accountFilter.equals("") && !account.getName().equalsIgnoreCase(this.accountFilter)) {
+            if (!this.accountFilter.isEmpty() && !account.getName().equalsIgnoreCase(this.accountFilter)) {
                 continue;
             }
             for (Transaction transaction : account.getTransactions()) {
-                if (!this.typeFilter.equals("") && !transaction.getClass().getSimpleName().equalsIgnoreCase(this.typeFilter)) {
+                if (!this.typeFilter.isEmpty() && !transaction.getClass().getSimpleName().equalsIgnoreCase(this.typeFilter)) {
                     continue;
                 }                
-                if (!this.categoryFilter.equals("") && !transaction.getCategory().getName().equalsIgnoreCase(this.categoryFilter)) {
+                if (!this.categoryFilter.isEmpty() && !transaction.getCategory().getName().equalsIgnoreCase(this.categoryFilter)) {
                     continue;
                 }
                 this.transactions.addAll(transaction.getPayments());

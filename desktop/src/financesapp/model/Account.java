@@ -1,6 +1,6 @@
 package financesapp.model;
 
-import java.time.LocalDate;
+import java.time.*;
 import java.util.*;
 
 public abstract class Account {  
@@ -43,14 +43,11 @@ public abstract class Account {
     
     public double getMaxBalance(int month, int year) {
         //Saldo no 1º dia deste mês
-        double maxBalance = this.getBalance(LocalDate.of(
-            year, month, 1)
-        );
+        double maxBalance = this.getBalance(LocalDate.of(year, month, 1));
         
-        for (Payment p : getPayments(month, year)) {
-            if (p.getValue() > 0 &&
-               p.hasConcretized()) {
-                maxBalance += p.getValue();
+        for (Payment payment : this.getPayments(month, year)) {
+            if (payment.getValue() > 0 && payment.hasConcretized()) {
+                maxBalance += payment.getValue();
             }
         }
         return maxBalance;
@@ -59,11 +56,8 @@ public abstract class Account {
     public double getBalance() {
         double balance = this.openingBalance;
         
-        Iterator<Transaction> it = this.transactions.iterator();
-        while (it.hasNext()) {
-            Transaction transaction = it.next();                  
-            
-            balance += transaction.getTotalValue();
+        for (Transaction transaction : this.getTransactions()) {
+            balance += transaction.getTotalValue();  
         }
         
         return balance;
@@ -72,10 +66,7 @@ public abstract class Account {
     public double getBalance(LocalDate untilDate) {
         double balance = this.openingBalance;
         
-        Iterator<Transaction> it = this.transactions.iterator();
-        while (it.hasNext()) {
-            Transaction transaction = it.next();
-            
+        for (Transaction transaction : this.getTransactions()) {            
             for (Payment payment : transaction.getPayments()) {
                 if (payment.getDate().isBefore(untilDate.plusDays(1))) {
                     if (payment.hasConcretized()) {
@@ -87,6 +78,7 @@ public abstract class Account {
                 }
             }
         }
+        
         return balance;
     }
    
@@ -107,11 +99,11 @@ public abstract class Account {
             last.get(Calendar.DAY_OF_MONTH)
         );
         
-        for (Transaction trans : this.transactions) {
-            for (Payment paym : trans.getPayments()) {
-                if (paym.getDate().isAfter(initialDate.minusDays(1)) &&
-                   paym.getDate().isBefore(finalDate.plusDays(1))) {
-                    payments.add(paym);
+        for (Transaction transaction : this.getTransactions()) {
+            for (Payment payment : transaction.getPayments()) {
+                if (payment.getDate().isAfter(initialDate.minusDays(1)) &&
+                   payment.getDate().isBefore(finalDate.plusDays(1))) {
+                    payments.add(payment);
                 }
             }
         }
@@ -119,10 +111,10 @@ public abstract class Account {
     }
     
     public double getTotalByCategory(Category categ, String type) {
-        double total = 0.0;
+        double total = 0;
         
-        for (Transaction transaction : transactions) {
-            if (transaction.getClass().getSimpleName().equals(type)){
+        for (Transaction transaction : this.getTransactions()) {
+            if (transaction.getClass().getSimpleName().equals(type)) {
                 if (transaction.getCategory().getName().equals(categ.getName())) {
                     total += transaction.getPayments().get(0).getValue();
                     //Por enquanto pegando so o primeiro pagamento.

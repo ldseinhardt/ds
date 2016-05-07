@@ -1,7 +1,6 @@
 package financesapp.model;
  
-import java.time.LocalDate;
-import java.util.Iterator;
+import java.time.*;
 
 public class Income extends Transaction {
  
@@ -29,10 +28,9 @@ public class Income extends Transaction {
     public double getTotalValue() {
         double value = 0;
         
-        Iterator<Payment> itp = this.payments.iterator();
-        while (itp.hasNext()) {
-            Payment payment = itp.next();
-            LocalDate today = LocalDate.now();
+        LocalDate today = LocalDate.now();
+        
+        for (Payment payment : this.getPayments()) {
             if (payment.hasConcretized() && (payment.getDate().isBefore(today) || payment.getDate().isEqual(today))) {
                 value += payment.getValue();
             }

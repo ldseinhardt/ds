@@ -3,18 +3,16 @@ package financesapp.controller;
 import financesapp.*;
 import financesapp.model.*;
 import java.net.URL;
-import java.text.NumberFormat;
-import java.time.LocalDate;
+import java.text.*;
+import java.time.*;
 import java.util.*;
 import javafx.fxml.*;
-import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
-import javafx.geometry.Pos;
+import javafx.geometry.*;
 import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import javafx.scene.paint.*;
+import javafx.scene.text.*;
 
 public class Accounts implements Initializable, Observer {
     
@@ -43,13 +41,11 @@ public class Accounts implements Initializable, Observer {
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int currentYear  = Calendar.getInstance().get(Calendar.YEAR);
         
-        generalMaxBalance = this.app.getUser()
-            .getGeneralMaxBalance(currentMonth, currentYear);
-        Iterator<Account> ac = this.app.getUser().getAccounts().iterator();
-        while (ac.hasNext()) {
-            
-            Account account = ac.next();
-            
+        generalMaxBalance = this.app.getUser().getGeneralMaxBalance(
+            currentMonth, currentYear
+        );
+        
+        for (Account account : this.app.getUser().getAccounts()) {            
             bal      = account.getBalance(LocalDate.now());
             balColor = Color.GREEN;
             prog     = bal/(generalMaxBalance*1.05);
@@ -60,7 +56,7 @@ public class Accounts implements Initializable, Observer {
             /* Saldo positivo: progresso VERDE da ESQUERDA PRA DIREITA.
              * Saldo negativo: progresso VERMELHO da DIREITA PRA ESQUERDA. */
             
-            if(prog < 0){
+            if (prog < 0) {
                 prog = -prog;
                 balColor = Color.RED;
                 nodeOr = NodeOrientation.RIGHT_TO_LEFT;
@@ -98,11 +94,11 @@ public class Accounts implements Initializable, Observer {
             totalBalance
         ));
         
-        if(totalBalance < 0)
-            total.setTextFill(Color.RED);
-        else
-            total.setTextFill(Color.GREEN);
-        
+        total.setTextFill((totalBalance < 0)
+            ? Color.RED
+            : Color.GREEN
+        );
+               
         HBox hBox = new HBox();
         hBox.getChildren().add(st);
         hBox.getChildren().add(total);

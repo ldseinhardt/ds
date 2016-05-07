@@ -16,4 +16,4 @@ desktop/nbproject/configs
 **/*.lock
 **/*.orig
 **/*~
-
+**/.DS_Store

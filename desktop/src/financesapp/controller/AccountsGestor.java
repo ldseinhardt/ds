@@ -3,17 +3,17 @@ package financesapp.controller;
 import financesapp.*;
 import financesapp.model.*;
 import java.net.URL;
-import java.text.NumberFormat;
+import java.text.*;
 import java.util.*;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
+import javafx.beans.property.*;
+import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.fxml.*;
-import javafx.scene.Parent;
+import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.*;
 import javafx.scene.layout.*;
-import javafx.util.Callback;
+import javafx.util.*;
 
 public class AccountsGestor implements Initializable, Observer {
     
@@ -78,9 +78,7 @@ public class AccountsGestor implements Initializable, Observer {
         
         TableColumn accountColunm = new TableColumn("Conta");
         accountColunm.setPrefWidth(200);
-        accountColunm.setCellValueFactory(
-            new PropertyValueFactory("name")
-        );
+        accountColunm.setCellValueFactory(new PropertyValueFactory("name"));
         
         TableColumn balanceColunm = new TableColumn("Saldo");
         balanceColunm.setPrefWidth(100);
@@ -102,13 +100,13 @@ public class AccountsGestor implements Initializable, Observer {
         ContextMenu contextMenu = new ContextMenu();
 
         MenuItem addOption = new MenuItem("Adicionar");
-        addOption.setOnAction((e) -> this.onAdd());
+        addOption.setOnAction(e -> this.onAdd());
 
         MenuItem editOption = new MenuItem("Editar");
-        editOption.setOnAction((e) -> this.onEdit());
+        editOption.setOnAction(e -> this.onEdit());
         
         MenuItem deleteOption = new MenuItem("Remover");
-        deleteOption.setOnAction((e) -> this.onDelete());
+        deleteOption.setOnAction(e -> this.onDelete());
         
         contextMenu.getItems().addAll(addOption, editOption, deleteOption);
         

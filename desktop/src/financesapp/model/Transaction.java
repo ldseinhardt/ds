@@ -1,6 +1,6 @@
 package financesapp.model;
  
-import java.time.LocalDate;
+import java.time.*;
 import java.util.*;
 
 public abstract class Transaction {

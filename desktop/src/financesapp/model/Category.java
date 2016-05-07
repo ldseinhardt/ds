@@ -17,7 +17,7 @@ public abstract class Category {
         this.name = name;
     }
     
-    public void setColor(Color color){
+    public void setColor(Color color) {
         this.color = color;
     }
     
