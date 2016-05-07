@@ -13,14 +13,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.controller.TransactionsForm">
     <center>
         <ScrollPane BorderPane.alignment="CENTER">
             <content>
-                <VBox minWidth="298.0" spacing="10.0">
+                <VBox alignment="CENTER" minWidth="298.0" spacing="10.0">
                     <children>
-                        <Label fx:id="label" prefHeight="26.0" prefWidth="124.0" text="Tipo" />
+                        <Label fx:id="transactionType" text="Despesa">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
                         <DatePicker fx:id="date" editable="false" maxWidth="1.7976931348623157E308" onAction="#hideError" prefHeight="40.0" promptText="Data" />
                         <HBox spacing="10.0">
                             <children>
@@ -32,7 +37,7 @@
                         <ComboBox fx:id="account" maxWidth="1.7976931348623157E308" onAction="#hideError" promptText="Conta" />
                         <TextField fx:id="description" maxWidth="1.7976931348623157E308" promptText="Descrição" />
                         <TextArea fx:id="information" maxWidth="280.0" prefHeight="150.0" promptText="Informações" />
-                        <Label fx:id="error" prefHeight="17.0" prefWidth="271.0" text="*" textFill="#f20808" />
+                        <Label fx:id="error" prefWidth="271.0" text="*" textFill="#f20808" visible="false" />
                         <HBox prefHeight="29.0" prefWidth="202.0" spacing="10.0">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onSave" prefWidth="90.0" text="Salvar" />

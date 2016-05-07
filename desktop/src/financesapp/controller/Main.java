@@ -71,6 +71,24 @@ public class Main implements Initializable, Observer {
     @FXML
     private TableColumn categoryColunm;
     
+    @FXML
+    private Menu menuFilterExpenseCategory;
+    
+    @FXML
+    private Menu menuFilterIncomeCategory;
+    
+    @FXML
+    private Menu menuFilterAccount;
+    
+    @FXML
+    private Menu contextFilterExpenseCategory;
+    
+    @FXML
+    private Menu contextFilterIncomeCategory;
+    
+    @FXML
+    private Menu contextFilterAccount;   
+    
     private ObservableList<Payment> transactions;   
     
     // Filtros
@@ -131,7 +149,31 @@ public class Main implements Initializable, Observer {
     private void onFilterTypeByNone() { 
         this.typeFilter = "";
         this.showTransactions();             
-    }  
+    }
+        
+    @FXML
+    private void onDeleteCategoryFilter() { 
+        this.filterCategory("");   
+        this.showTransactions();              
+    }
+        
+    @FXML
+    private void onDeleteFilters() {
+        this.accountFilter = "";
+        this.typeFilter = "";
+        this.categoryFilter = "";
+        this.showTransactions();              
+    }
+    
+    private void filterCategory(String category) {
+        this.categoryFilter = category;
+        this.showTransactions();               
+    } 
+    
+    private void filterAccount(String account) {
+        this.accountFilter = account;
+        this.showTransactions();               
+    } 
     
     private void editTransaction(Payment payment) {
         if (this.form != null && this.formController != null && payment != null) { 
@@ -290,7 +332,35 @@ public class Main implements Initializable, Observer {
         this.app = app;
         this.update(null, null);
         this.accountsController.init(this.app);
-        this.formController.init(this.app);
+        this.formController.init(this.app);   
+        
+        for (Category category : this.app.getExpenseCategories()) {
+            MenuItem menuItem = new MenuItem(category.getName());   
+            menuItem.setOnAction(e ->
+                this.filterCategory(category.getName())
+            );
+            this.menuFilterExpenseCategory.getItems().add(menuItem);
+            
+            MenuItem menuItemContext = new MenuItem(category.getName());   
+            menuItemContext.setOnAction(e ->
+                this.filterCategory(category.getName())
+            ); 
+            this.contextFilterExpenseCategory.getItems().add(menuItemContext);            
+        }
+        
+        for (Category category : this.app.getIncomeCategories()) {
+            MenuItem menuItem = new MenuItem(category.getName());   
+            menuItem.setOnAction(e ->
+                this.filterCategory(category.getName())
+            );
+            this.menuFilterIncomeCategory.getItems().add(menuItem);
+            
+            MenuItem menuItemContext = new MenuItem(category.getName());   
+            menuItemContext.setOnAction(e ->
+                this.filterCategory(category.getName())
+            );
+            this.contextFilterIncomeCategory.getItems().add(menuItemContext);          
+        }
     }
     
     @Override
@@ -306,6 +376,21 @@ public class Main implements Initializable, Observer {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");              
                 property.setValue(formatter.format(payment.getValue().getDate()));
                 return property;      
+            }
+        });
+        
+        this.dateColunm.setComparator(new Comparator<String>(){
+            @Override 
+            public int compare(String a, String b) {
+                try {
+                    SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+                    Date d1 = format.parse(a);                
+                    Date d2 = format.parse(b);
+                    return Long.compare(d1.getTime(), d2.getTime());
+                } catch(ParseException p) {
+                    
+                }                
+                return -1;
             }
         });
         
@@ -386,7 +471,7 @@ public class Main implements Initializable, Observer {
         
         this.transactions = FXCollections.observableArrayList();
         
-        this.tableView.setItems(this.transactions);
+        this.tableView.setItems(this.transactions); 
 
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -445,6 +530,30 @@ public class Main implements Initializable, Observer {
         this.showExpensesByCategory(first, last);
         this.showIncomesByCategory(first, last);
         this.showTransactions();
+        
+        this.menuFilterAccount.getItems().clear();            
+        MenuItem allAcocunts = new MenuItem("Todas as Contas");   
+        allAcocunts.setOnAction(e -> this.filterAccount(""));
+        this.menuFilterAccount.getItems().add(allAcocunts);
+            
+        this.contextFilterAccount.getItems().clear();
+        MenuItem allAcocuntsContext = new MenuItem("Todas as Contas");   
+        allAcocuntsContext.setOnAction(e -> this.filterAccount(""));
+        this.contextFilterAccount.getItems().add(allAcocuntsContext);
+    
+        for (Account account : this.app.getUser().getAccounts()) {
+            MenuItem menuItem = new MenuItem(account.getName());   
+            menuItem.setOnAction(e ->
+                this.filterAccount(account.getName())
+            );
+            this.menuFilterAccount.getItems().add(menuItem);
+            
+            MenuItem menuItemContext = new MenuItem(account.getName());   
+            menuItemContext.setOnAction(e ->
+                this.filterAccount(account.getName())
+            );
+            this.contextFilterAccount.getItems().add(menuItemContext);          
+        }
     }
     
 }

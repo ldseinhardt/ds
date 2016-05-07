@@ -38,7 +38,7 @@ public class TransactionsForm implements Initializable, Observer {
     private TextField value;
     
     @FXML
-    private Label label;
+    private Label transactionType;
     
     @FXML
     private Label error;
@@ -77,7 +77,7 @@ public class TransactionsForm implements Initializable, Observer {
             this.category.getItems().setAll(this.expenseCategories);            
         }
         
-        this.label.setText(type);
+        this.transactionType.setText(type);
         this.status.setText(concretized); 
                 
         if (this.transaction.getAccount() != null) {
@@ -216,9 +216,7 @@ public class TransactionsForm implements Initializable, Observer {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        this.label.setFont(new Font(24));
-        
+    public void initialize(URL url, ResourceBundle rb) {        
         this.category.setCellFactory(new Callback<ListView<Category>, ListCell<Category>>(){
             @Override
             public ListCell<Category> call(ListView<Category> category){

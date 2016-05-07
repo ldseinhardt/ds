@@ -58,6 +58,21 @@
                                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Receitas e Despensas" />
                                                             </items>
                                                         </Menu>
+                                                        <Menu mnemonicParsing="false" text="Por Categoria">
+                                                            <items>
+                                                                <Menu fx:id="contextFilterExpenseCategory" mnemonicParsing="false" text="Categorias de Despesas" />
+                                                                <Menu fx:id="contextFilterIncomeCategory" mnemonicParsing="false" text="Categorias de Receitas" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#onDeleteCategoryFilter" text="Todas as Categorias" />
+                                                            </items>
+                                                        </Menu>
+                                                        <Menu fx:id="contextFilterAccount" mnemonicParsing="false" text="Por Conta">
+                                                            <items>
+                                                                <Menu fx:id="menuFilterExpenseCategory11" mnemonicParsing="false" text="Categorias de Despesas" />
+                                                                <Menu fx:id="menuFilterIncomeCategory11" mnemonicParsing="false" text="Categorias de Receitas" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#onDeleteCategoryFilter" text="Todas as Categorias" />
+                                                            </items>
+                                                        </Menu>
+                                                        <MenuItem mnemonicParsing="false" onAction="#onDeleteFilters" text="Remover Filtros" />
                                                     </items>
                                                 </Menu>
                                             </items>
@@ -120,7 +135,6 @@
                                     </items>
                                 </Menu>
                                 <MenuItem mnemonicParsing="false" onAction="#onEditTransaction" text="Editar" />
-                                <MenuItem mnemonicParsing="false" onAction="#onDeleteTransaction" text="Remover" />
                                 <Menu mnemonicParsing="false" text="Filtrar">
                                     <items>
                                         <Menu mnemonicParsing="false" text="Por Tipo">
@@ -130,6 +144,21 @@
                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Receitas e Despensas" />
                                             </items>
                                         </Menu>
+                                        <Menu mnemonicParsing="false" text="Por Categoria">
+                                            <items>
+                                                <Menu fx:id="menuFilterExpenseCategory" mnemonicParsing="false" text="Categorias de Despesas" />
+                                                <Menu fx:id="menuFilterIncomeCategory" mnemonicParsing="false" text="Categorias de Receitas" />
+                                                <MenuItem mnemonicParsing="false" onAction="#onDeleteCategoryFilter" text="Todas as Categorias" />
+                                            </items>
+                                        </Menu>
+                                        <Menu fx:id="menuFilterAccount" mnemonicParsing="false" text="Por Conta">
+                                            <items>
+                                                <Menu fx:id="menuFilterExpenseCategory1" mnemonicParsing="false" text="Categorias de Despesas" />
+                                                <Menu fx:id="menuFilterIncomeCategory1" mnemonicParsing="false" text="Categorias de Receitas" />
+                                                <MenuItem mnemonicParsing="false" onAction="#onDeleteCategoryFilter" text="Todas as Categorias" />
+                                            </items>
+                                        </Menu>
+                                        <MenuItem mnemonicParsing="false" onAction="#onDeleteFilters" text="Remover Filtros" />
                                     </items>
                                 </Menu>
                             </items>
