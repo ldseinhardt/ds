@@ -198,11 +198,16 @@ public class User extends Observable {
         return this.accounts;
     }
     
-    public double getTotalByCategory(Category categ, String type) {
-        double total = 0.0;
+    public double getTotalByCategory(
+        Category categ,
+        String type,
+        LocalDate initialDate,
+        LocalDate finalDate) {
+        
+        double total = 0;
         
         for (Account account : this.getAccounts()) {
-            total += account.getTotalByCategory(categ, type);
+            total += account.getTotalByCategory(categ, type, initialDate, finalDate);
         }
         
         return total;

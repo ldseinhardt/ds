@@ -5,6 +5,7 @@ import financesapp.model.*;
 import java.io.*;
 import java.net.*;
 import java.text.*;
+import java.time.LocalDate;
 import java.time.format.*;
 import java.util.*;
 import javafx.beans.property.*;
@@ -182,16 +183,28 @@ public class Main implements Initializable, Observer {
         }       
     }
     
-    private void showExpensesByCategory(Calendar initialDate, Calendar finalDate) {
-        
-        double max = 1000;//temporario
+    private void showExpensesByCategory(LocalDate initialDate, LocalDate finalDate) {
         
         VBox vBox = new VBox(8);
         this.expScrollPane.setContent(vBox);
         
+        double max = 0;
+        for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
+            double total = this.app.getUser().getTotalByCategory(
+                expCateg, Expense.class.getSimpleName(),
+                initialDate, finalDate
+            );
+            if (total > max)
+                max = total;
+        }
+        
         for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
             
-            double total = this.app.getUser().getTotalByCategory(expCateg, Expense.class.getSimpleName());
+            double total = this.app.getUser().getTotalByCategory(
+                expCateg, Expense.class.getSimpleName(),
+                initialDate, finalDate
+            );
+            
             if (total != 0) {
             
                 Label lb = new Label(expCateg.getName()
@@ -234,16 +247,28 @@ public class Main implements Initializable, Observer {
         vBox.getChildren().add(new Label()); //Espaço vazio
     }
         
-    private void showIncomesByCategory(Calendar initialDate, Calendar finalDate) {
-        
-        double max = 2500;//temporario
+    private void showIncomesByCategory(LocalDate initialDate, LocalDate finalDate) {
         
         VBox vBox = new VBox(8);
         this.incScrollPane.setContent(vBox);
         
+        double max = 0;
+        for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
+            double total = this.app.getUser().getTotalByCategory(
+                incCateg, Income.class.getSimpleName(),
+                initialDate, finalDate
+            );
+            if (total > max)
+                max = total;
+        }
+        
         for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
             
-            double total = this.app.getUser().getTotalByCategory(incCateg, Income.class.getSimpleName());
+            double total = this.app.getUser().getTotalByCategory(
+                incCateg, Income.class.getSimpleName(),
+                initialDate, finalDate
+            );
+            
             if (total != 0) {
                 
                 Label lb = new Label(incCateg.getName()
@@ -520,13 +545,16 @@ public class Main implements Initializable, Observer {
     @Override
     public void update(Observable o, Object arg) {  
         // Teste ///////////////////////////////
-        Calendar first = Calendar.getInstance();
-        Calendar last  = first;
-        first.set(Calendar.DAY_OF_MONTH, 1);
-            // 01/MES/ANO
-        last .set(Calendar.DAY_OF_MONTH, last.getActualMaximum(Calendar.DAY_OF_MONTH));
-            // <ultimo dia do mes>/MES/ANO
+        LocalDate first = LocalDate.of(
+            LocalDate.now().getYear(),
+            LocalDate.now().getMonthValue(),
+            1
+        );
+        LocalDate last = first.withDayOfMonth(
+            first.lengthOfMonth()
+        );
         ////////////////////////////////////////
+        
         this.showExpensesByCategory(first, last);
         this.showIncomesByCategory(first, last);
         this.showTransactions();

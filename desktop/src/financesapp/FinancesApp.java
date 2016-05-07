@@ -17,7 +17,7 @@ public class FinancesApp extends Application {
     private User user;
     
     //Nome padrão do arquivo
-    private final String data_filename = "data_user.json"; 
+    private final String data_filename = "user_data.json";
     
     //Padrão
     private final String default_user = "Usuário Padrão"; 
@@ -46,7 +46,7 @@ public class FinancesApp extends Application {
         this.window = stage;
         
         this.window.getIcons().add(new Image(
-            getClass().getResourceAsStream("icon.png")
+            getClass().getResourceAsStream("cifrao.png")
         ));
         
         // Lista de categorias para ambos tipos de transações
@@ -112,7 +112,7 @@ public class FinancesApp extends Application {
         this.open();
         
         Scene scene = new Scene(root);
-        this.window.setTitle("FinancesApp");
+        this.window.setTitle("Oráculo da Mascada");
         this.window.setMaximized(true);
         this.window.setScene(scene);
         this.window.show();

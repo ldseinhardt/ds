@@ -55,7 +55,7 @@
                                                             <items>
                                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByExpense" text="Despesas" />
                                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByIncome" text="Receitas" />
-                                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Receitas e Despensas" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Receitas e Despesas" />
                                                             </items>
                                                         </Menu>
                                                         <Menu mnemonicParsing="false" text="Por Categoria">
@@ -141,7 +141,7 @@
                                             <items>
                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByExpense" text="Despesas" />
                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByIncome" text="Receitas" />
-                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Receitas e Despensas" />
+                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Receitas e Despesas" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Por Categoria">

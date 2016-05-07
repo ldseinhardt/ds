@@ -107,20 +107,31 @@ public abstract class Account {
                 }
             }
         }
+        
         return payments;
     }
     
-    public double getTotalByCategory(Category categ, String type) {
+    public double getTotalByCategory(
+        Category categ,
+        String type,
+        LocalDate initialDate,
+        LocalDate finalDate) {
+        
         double total = 0;
         
         for (Transaction transaction : this.getTransactions()) {
             if (transaction.getClass().getSimpleName().equals(type)) {
                 if (transaction.getCategory().getName().equals(categ.getName())) {
-                    total += transaction.getPayments().get(0).getValue();
-                    //Por enquanto pegando so o primeiro pagamento.
+                    for (Payment payment : transaction.getPayments()){
+                        if (payment.getDate().isAfter(initialDate.minusDays(1)) &&
+                            payment.getDate().isBefore(finalDate.plusDays(1))) {
+                                total += payment.getValue();
+                        }
+                    }
                 }
             }
         }
+        
         return total;
     }
     
