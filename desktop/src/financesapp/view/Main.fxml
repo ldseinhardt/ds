@@ -48,7 +48,8 @@
                                                     </items>
                                                 </Menu>
                                                 <MenuItem mnemonicParsing="false" onAction="#onEditTransaction" text="Editar" />
-                                                <MenuItem mnemonicParsing="false" onAction="#onDeleteTransaction" text="Remover" />
+                                                <MenuItem mnemonicParsing="false" onAction="#onDeletePayment" text="Remover" />
+                                                <MenuItem mnemonicParsing="false" onAction="#onDeleteTransaction" text="Remover transações associadas" />
                                                 <Menu mnemonicParsing="false" text="Filtrar">
                                                     <items>
                                                         <Menu mnemonicParsing="false" text="Por Tipo">

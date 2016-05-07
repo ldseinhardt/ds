@@ -125,6 +125,16 @@ public class Main implements Initializable, Observer {
     private void onDeleteTransaction() {
         Payment payment = this.tableView.getSelectionModel().getSelectedItem();
         if (payment != null) {
+            Transaction transaction = payment.getTransaction();
+            transaction.getAccount().getTransactions().remove(transaction);
+            this.app.getUser().update();        
+        }
+    }
+    
+    @FXML
+    private void onDeletePayment() {
+        Payment payment = this.tableView.getSelectionModel().getSelectedItem();
+        if (payment != null) {
             Transaction transaction = payment.getTransaction();            
             transaction.getPayments().remove(payment);            
             if (transaction.getPayments().isEmpty()) {
