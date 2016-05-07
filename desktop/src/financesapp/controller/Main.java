@@ -5,7 +5,7 @@ import financesapp.model.*;
 import java.io.*;
 import java.net.*;
 import java.text.*;
-import java.time.LocalDate;
+import java.time.*;
 import java.time.format.*;
 import java.util.*;
 import javafx.beans.property.*;
@@ -137,6 +137,16 @@ public class Main implements Initializable, Observer {
     
     @FXML
     private void onDeleteTransaction() {
+        Payment payment = this.tableView.getSelectionModel().getSelectedItem();
+        if (payment != null) {
+            Transaction transaction = payment.getTransaction();
+            transaction.getAccount().getTransactions().remove(transaction);
+            this.app.getUser().update();        
+        }
+    }
+    
+    @FXML
+    private void onDeletePayment() {
         Payment payment = this.tableView.getSelectionModel().getSelectedItem();
         if (payment != null) {
             Transaction transaction = payment.getTransaction();            
@@ -429,7 +439,7 @@ public class Main implements Initializable, Observer {
             }
         });
         
-        this.dateColunm.setComparator(new Comparator<String>(){
+        this.dateColunm.setComparator(new Comparator<String>() {
             @Override 
             public int compare(String a, String b) {
                 try {
@@ -437,7 +447,7 @@ public class Main implements Initializable, Observer {
                     Date d1 = format.parse(a);                
                     Date d2 = format.parse(b);
                     return Long.compare(d1.getTime(), d2.getTime());
-                } catch(ParseException p) {
+                } catch(Exception p) {
                     
                 }                
                 return -1;
@@ -494,7 +504,7 @@ public class Main implements Initializable, Observer {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();
-                property.setValue(payment.getValue().getTransaction().getClass().getSimpleName().equalsIgnoreCase("Income") ? "Receita" : "Despesa");
+                property.setValue(payment.getValue().getTransaction().getClass().getSimpleName().equals(Expense.class.getSimpleName()) ? "Despesa" : "Receita");
                 return property;      
             }
         });

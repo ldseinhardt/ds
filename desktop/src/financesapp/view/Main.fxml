@@ -49,7 +49,8 @@
                                                     </items>
                                                 </Menu>
                                                 <MenuItem mnemonicParsing="false" onAction="#onEditTransaction" text="Editar" />
-                                                <MenuItem mnemonicParsing="false" onAction="#onDeleteTransaction" text="Remover" />
+                                                <MenuItem mnemonicParsing="false" onAction="#onDeletePayment" text="Remover" />
+                                                <MenuItem mnemonicParsing="false" onAction="#onDeleteTransaction" text="Remover transações associadas" />
                                                 <Menu mnemonicParsing="false" text="Filtrar">
                                                     <items>
                                                         <Menu mnemonicParsing="false" text="Por Tipo">
@@ -100,12 +101,13 @@
                                 </BorderPane>
                             </content>
                         </Tab>
-                        <Tab text="Gráficos ">
+                        <Tab text="Gráficos">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <PieChart fx:id="chart" layoutX="100.0" layoutY="20.0" />
-                           </children></AnchorPane>
+                                    <children>
+                                        <PieChart fx:id="chart" layoutX="100.0" layoutY="20.0" />
+                                    </children>
+                                </AnchorPane>
                             </content>
                         </Tab>
                     </tabs>
