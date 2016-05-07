@@ -42,11 +42,7 @@ public class AccountsGestor implements Initializable, Observer {
     
     @FXML
     private void onEdit() {
-        Account account = this.tableView.getSelectionModel().getSelectedItem();
-        if (this.form != null && this.formController != null && account != null) {      
-            this.borderPane.setBottom(this.form);   
-            this.formController.setAccount(account);   
-        }
+        this.edit(this.tableView.getSelectionModel().getSelectedItem());
     }
     
     @FXML
@@ -60,6 +56,12 @@ public class AccountsGestor implements Initializable, Observer {
             this.app.getUser().update();
         }    
     }  
+    private void edit(Account account) {
+        if (this.form != null && this.formController != null && account != null) {      
+            this.borderPane.setBottom(this.form);   
+            this.formController.setAccount(account);   
+        }
+    }
     
     public void init(FinancesApp app) {
         this.app = app;
@@ -90,6 +92,17 @@ public class AccountsGestor implements Initializable, Observer {
                 property.setValue(formatter.format(account.getValue().getBalance()));
                 return property;      
             }
+        });
+        
+        this.tableView.setRowFactory(tv -> {
+            TableRow<Account> row = new TableRow<>();
+            row.setOnMouseClicked(e -> {
+                if (e.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    Account account = row.getItem();
+                    this.edit(account);
+                }
+            });
+            return row;
         });
         
         this.accounts = FXCollections.observableArrayList();

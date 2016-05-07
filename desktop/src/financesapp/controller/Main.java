@@ -74,11 +74,7 @@ public class Main implements Initializable, Observer {
     
     @FXML
     private void onEditTransaction() {
-        Payment payment = this.tableView.getSelectionModel().getSelectedItem();
-        if (this.form != null && this.formController != null && payment != null) { 
-            this.showForm();  
-            this.formController.setTransaction(payment.getTransaction());    
-        }       
+        this.editTransaction(this.tableView.getSelectionModel().getSelectedItem());     
     }
     
     @FXML
@@ -111,6 +107,13 @@ public class Main implements Initializable, Observer {
         this.typeFilter = "";
         this.showTransactions();             
     }  
+    
+    private void editTransaction(Payment payment) {
+        if (this.form != null && this.formController != null && payment != null) { 
+            this.showForm();  
+            this.formController.setTransaction(payment.getTransaction());    
+        }       
+    }
     
     private void showExpensesByCategory(Calendar initialDate, Calendar finalDate) {
         
@@ -359,6 +362,17 @@ public class Main implements Initializable, Observer {
                 property.setValue(payment.getValue().getTransaction().getCategory().getName());
                 return property;      
             }
+        });
+        
+        this.tableView.setRowFactory(tv -> {
+            TableRow<Payment> row = new TableRow<>();
+            row.setOnMouseClicked(e -> {
+                if (e.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    Payment payment = row.getItem();
+                    this.editTransaction(payment);
+                }
+            });
+            return row;
         });
         
         this.transactions = FXCollections.observableArrayList();
