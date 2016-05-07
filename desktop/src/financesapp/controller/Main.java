@@ -59,25 +59,25 @@ public class Main implements Initializable, Observer {
     @FXML
     private void onAddExpense() { 
         if (this.form != null && this.formController != null) { 
-            this.formController.setTransaction(new Expense());
             this.showForm();
+            this.formController.setTransaction(new Expense());
         }       
     }
     
     @FXML
     private void onAddIncome() {
         if (this.form != null && this.formController != null) { 
-            this.showForm();  
-            this.formController.setTransaction(new Income());      
+            this.showForm();     
+            this.formController.setTransaction(new Income());   
         }    
     }
     
     @FXML
     private void onEditTransaction() {
         Payment payment = this.tableView.getSelectionModel().getSelectedItem();
-        if (this.form != null && this.formController != null && payment != null) {
-            this.formController.setTransaction(payment.getTransaction());     
+        if (this.form != null && this.formController != null && payment != null) { 
             this.showForm();  
+            this.formController.setTransaction(payment.getTransaction());    
         }       
     }
     
