@@ -18,7 +18,14 @@ import javafx.util.*;
 public class AccountsGestor implements Initializable, Observer {
     
     //Tabela de contas
-    private TableView<Account> tableView;
+    @FXML
+    private TableView<Account> tableView;  
+    
+    @FXML   
+    private TableColumn accountColunm;
+    
+    @FXML
+    private TableColumn balanceColunm;
     
     //Referências para o formulário
     private Parent form;
@@ -71,19 +78,9 @@ public class AccountsGestor implements Initializable, Observer {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {                
-        this.tableView = new TableView();        
-        this.tableView.setMinWidth(302);
-        this.tableView.setMaxWidth(302);
-        this.tableView.setPrefWidth(302);
-        this.tableView.setPrefHeight(400);
-        
-        TableColumn accountColunm = new TableColumn("Conta");
-        accountColunm.setPrefWidth(200);
+    public void initialize(URL url, ResourceBundle rb) {      
         accountColunm.setCellValueFactory(new PropertyValueFactory("name"));
         
-        TableColumn balanceColunm = new TableColumn("Saldo");
-        balanceColunm.setPrefWidth(100);
         balanceColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Account, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Account, String> account) {
@@ -107,26 +104,8 @@ public class AccountsGestor implements Initializable, Observer {
         
         this.accounts = FXCollections.observableArrayList();
         
-        this.tableView.getColumns().addAll(accountColunm, balanceColunm);
-        this.tableView.setItems(this.accounts);
-                
-        ContextMenu contextMenu = new ContextMenu();
-
-        MenuItem addOption = new MenuItem("Adicionar");
-        addOption.setOnAction(e -> this.onAdd());
-
-        MenuItem editOption = new MenuItem("Editar");
-        editOption.setOnAction(e -> this.onEdit());
+        this.tableView.setItems(this.accounts);  
         
-        MenuItem deleteOption = new MenuItem("Remover");
-        deleteOption.setOnAction(e -> this.onDelete());
-        
-        contextMenu.getItems().addAll(addOption, editOption, deleteOption);
-        
-        this.tableView.setContextMenu(contextMenu);        
-        
-        this.borderPane.setCenter(this.tableView);   
-                
         try {
             FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/financesapp/view/AccountsGestorForm.fxml")

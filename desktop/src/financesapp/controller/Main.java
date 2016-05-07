@@ -44,7 +44,32 @@ public class Main implements Initializable, Observer {
     private ScrollPane incScrollPane;
     
     //Tabela de Transações
+    @FXML
     private TableView<Payment> tableView;
+    
+    @FXML
+    private TableColumn dateColunm;    
+    
+    @FXML 
+    private TableColumn descriptionColunm;
+    
+    @FXML 
+    private TableColumn informationColunm;
+    
+    @FXML       
+    private TableColumn valueColunm;
+    
+    @FXML
+    private TableColumn concretizedColunm;
+    
+    @FXML
+    private TableColumn accountColunm;
+    
+    @FXML
+    private TableColumn typeColunm;
+    
+    @FXML
+    private TableColumn categoryColunm;
     
     private ObservableList<Payment> transactions;   
     
@@ -272,16 +297,9 @@ public class Main implements Initializable, Observer {
     public void initialize(URL url, ResourceBundle rb) {
         this.accountFilter = "";
         this.typeFilter = "";
-        this.categoryFilter = "";
-     
-        this.tableView = new TableView();      
-
-        transactionsTab.setContent(this.tableView);
+        this.categoryFilter = "";  
         
-        TableColumn dateColunm = new TableColumn("Data");
-        dateColunm.setStyle("-fx-alignment: CENTER");
-        dateColunm.setPrefWidth(100);
-        dateColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+        this.dateColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();                  
@@ -291,10 +309,7 @@ public class Main implements Initializable, Observer {
             }
         });
         
-        TableColumn descriptionColunm = new TableColumn("Descrição");
-        descriptionColunm.setStyle("-fx-alignment: CENTER");
-        descriptionColunm.setPrefWidth(250);
-        descriptionColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+        this.descriptionColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();                  
@@ -303,10 +318,16 @@ public class Main implements Initializable, Observer {
             }
         });
         
-        TableColumn valueColunm = new TableColumn("Valor");
-        valueColunm.setStyle("-fx-alignment: CENTER");
-        valueColunm.setPrefWidth(125);
-        valueColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+        this.informationColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
+                SimpleStringProperty property = new SimpleStringProperty();                  
+                property.setValue(payment.getValue().getTransaction().getInformation());
+                return property;      
+            }
+        });
+        
+        this.valueColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();
@@ -316,10 +337,7 @@ public class Main implements Initializable, Observer {
             }
         });
         
-        TableColumn concretizedColunm = new TableColumn("Concretizado");
-        concretizedColunm.setStyle("-fx-alignment: CENTER");
-        concretizedColunm.setPrefWidth(125);
-        concretizedColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+        this.concretizedColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();
@@ -328,10 +346,7 @@ public class Main implements Initializable, Observer {
             }
         });
         
-        TableColumn accountColunm = new TableColumn("Conta");
-        accountColunm.setStyle("-fx-alignment: CENTER");
-        accountColunm.setPrefWidth(150);
-        accountColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+        this.accountColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();
@@ -340,10 +355,7 @@ public class Main implements Initializable, Observer {
             }
         });
         
-        TableColumn typeColunm = new TableColumn("Tipo");
-        typeColunm.setStyle("-fx-alignment: CENTER");
-        typeColunm.setPrefWidth(75);
-        typeColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+        this.typeColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();
@@ -352,10 +364,7 @@ public class Main implements Initializable, Observer {
             }
         });
         
-        TableColumn categoryColunm = new TableColumn("Categoria");
-        categoryColunm.setStyle("-fx-alignment: CENTER");
-        categoryColunm.setPrefWidth(180);
-        categoryColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
+        this.categoryColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();
@@ -377,63 +386,8 @@ public class Main implements Initializable, Observer {
         
         this.transactions = FXCollections.observableArrayList();
         
-        this.tableView.getColumns().addAll(
-            dateColunm,
-            descriptionColunm,
-            valueColunm,
-            concretizedColunm,
-            accountColunm,
-            typeColunm,
-            categoryColunm
-        );
         this.tableView.setItems(this.transactions);
-                
-        ContextMenu contextMenu = new ContextMenu();
-        
-        Menu addOption = new Menu("Adicionar");
 
-        MenuItem addExpenseOption = new MenuItem("Despesa");
-        addExpenseOption.setOnAction(e -> this.onAddExpense());
-
-        MenuItem addIncomeOption = new MenuItem("Receita");
-        addIncomeOption.setOnAction(e -> this.onAddIncome());
-        
-        addOption.getItems().addAll(addExpenseOption, addIncomeOption);
-
-        MenuItem editOption = new MenuItem("Editar");
-        editOption.setOnAction(e -> this.onEditTransaction());
-        
-        MenuItem deleteOption = new MenuItem("Remover");
-        deleteOption.setOnAction(e -> this.onDeleteTransaction());
-        
-        Menu filterOption = new Menu("Filtrar");
-        
-        Menu filterTypeOption = new Menu("Por Tipo");
-        
-        filterOption.getItems().addAll(filterTypeOption);
-
-        MenuItem filterTypeExpenseOption = new MenuItem("Despensas");
-        filterTypeExpenseOption.setOnAction(e -> this.onFilterTypeByExpense());
-        MenuItem filterTypeIncomeOption = new MenuItem("Receitas");
-        filterTypeIncomeOption.setOnAction(e -> this.onFilterTypeByIncome());
-        MenuItem filterTypeNoneOption = new MenuItem("Receitas e Despensas");
-        filterTypeNoneOption.setOnAction(e -> this.onFilterTypeByNone());
-        
-        filterTypeOption.getItems().addAll(
-            filterTypeExpenseOption,
-            filterTypeIncomeOption,
-            filterTypeNoneOption
-        );
-        
-        contextMenu.getItems().addAll(
-            addOption,
-            editOption,
-            deleteOption,
-            filterOption
-        );
-        
-        this.tableView.setContextMenu(contextMenu);    
-        
         try {
             FXMLLoader loader = new FXMLLoader(
                 getClass().getClassLoader().getClass().getResource("/financesapp/view/Accounts.fxml")

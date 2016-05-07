@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
@@ -9,6 +10,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -22,7 +25,47 @@
             <center>        
                 <TabPane prefHeight="512.0" prefWidth="646.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                     <tabs>
-                        <Tab fx:id="transactionsTab" text="Transações" />
+                        <Tab fx:id="transactionsTab" text="Transações">
+                            <content>
+                                <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true">
+                                    <columns>
+                                        <TableColumn fx:id="dateColunm" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" style="-fx-alignment: center;" text="Data" />
+                                        <TableColumn fx:id="descriptionColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="250.0" style="-fx-alignment: center;" text="Descrição" />
+                                        <TableColumn fx:id="informationColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="250.0" style="-fx-alignment: center;" text="Informações" visible="false" />
+                                        <TableColumn fx:id="valueColunm" maxWidth="-1.0" minWidth="125.0" prefWidth="125.0" style="-fx-alignment: center;" text="Valor" />
+                                        <TableColumn fx:id="concretizedColunm" maxWidth="-1.0" minWidth="125.0" prefWidth="125.0" style="-fx-alignment: center;" text="Concretizado" />
+                                        <TableColumn fx:id="accountColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" style="-fx-alignment: center;" text="Conta" />
+                                        <TableColumn fx:id="typeColunm" maxWidth="-1.0" minWidth="75.0" prefWidth="75.0" style="-fx-alignment: center;" text="Tipo" />
+                                        <TableColumn fx:id="categoryColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="180.0" style="-fx-alignment: center;" text="Categoria" />
+                                    </columns>
+                                    <contextMenu>
+                                        <ContextMenu>
+                                            <items>
+                                                <Menu mnemonicParsing="false" text="Adicionar">
+                                                    <items>
+                                                        <MenuItem mnemonicParsing="false" onAction="#onAddExpense" text="Despesa" />
+                                                        <MenuItem mnemonicParsing="false" onAction="#onAddIncome" text="Receita" />
+                                                    </items>
+                                                </Menu>
+                                                <MenuItem mnemonicParsing="false" onAction="#onEditTransaction" text="Editar" />
+                                                <MenuItem mnemonicParsing="false" onAction="#onDeleteTransaction" text="Remover" />
+                                                <Menu mnemonicParsing="false" text="Filtrar">
+                                                    <items>
+                                                        <Menu mnemonicParsing="false" text="Por Tipo">
+                                                            <items>
+                                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByExpense" text="Despesas" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByIncome" text="Receitas" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Receitas e Despensas" />
+                                                            </items>
+                                                        </Menu>
+                                                    </items>
+                                                </Menu>
+                                            </items>
+                                        </ContextMenu>
+                                    </contextMenu>
+                                </TableView>
+                            </content>
+                        </Tab>
                         <Tab text="Despesas por Categoria">
                             <content>
                                 <BorderPane maxHeight="1000.0" minHeight="300.0" prefHeight="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

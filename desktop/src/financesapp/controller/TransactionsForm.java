@@ -221,18 +221,18 @@ public class TransactionsForm implements Initializable, Observer {
         
         this.category.setCellFactory(new Callback<ListView<Category>, ListCell<Category>>(){
             @Override
-            public ListCell<Category> call(ListView<Category> l){
+            public ListCell<Category> call(ListView<Category> category){
                 return new ListCell<Category>(){
                     @Override
-                    protected void updateItem(Category item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
+                    protected void updateItem(Category category, boolean empty) {
+                        super.updateItem(category, empty);
+                        if (category == null || empty) {
                             setGraphic(null);
                         } else {
-                            setText(item.getName());
+                            setText(category.getName());
                         }
                     }
-                } ;
+                };
             }
         });
         
@@ -254,18 +254,18 @@ public class TransactionsForm implements Initializable, Observer {
         
         this.account.setCellFactory(new Callback<ListView<Account>, ListCell<Account>>(){
             @Override
-            public ListCell<Account> call(ListView<Account> l){
+            public ListCell<Account> call(ListView<Account> account){
                 return new ListCell<Account>(){
                     @Override
-                    protected void updateItem(Account item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (item == null || empty) {
+                    protected void updateItem(Account account, boolean empty) {
+                        super.updateItem(account, empty);
+                        if (account == null || empty) {
                             setGraphic(null);
                         } else {
-                            setText(item.getName());
+                            setText(account.getName());
                         }
                     }
-                } ;
+                };
             }
         });
         
