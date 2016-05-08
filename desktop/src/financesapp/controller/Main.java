@@ -5,7 +5,7 @@ import financesapp.model.*;
 import java.io.*;
 import java.net.*;
 import java.text.*;
-import java.time.*;
+import java.time.LocalDate;
 import java.time.format.*;
 import java.util.*;
 import javafx.beans.property.*;
@@ -13,6 +13,7 @@ import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.fxml.*;
 import javafx.scene.*;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
 import javafx.scene.layout.*;
@@ -34,6 +35,19 @@ public class Main implements Initializable, Observer {
     //Referências para o formulário
     private Parent form;
     private TransactionsForm formController;
+    
+    // Referências para o gráfico de Pizza
+    //Teste
+    @FXML
+    private PieChart chart;
+    
+    // Vai ser utilizado para ter uma interação com o mouse e o gráfico
+    // ex: mostrar % de cada pedaço do gráfico de pizza
+    @FXML
+    private TextField textField;
+    
+    // Dados que serão enviados para o gráfico
+    private ObservableList<PieChart.Data> pcData;
     
     @FXML
     private BorderPane borderPane;
@@ -125,16 +139,6 @@ public class Main implements Initializable, Observer {
     private void onDeleteTransaction() {
         Payment payment = this.tableView.getSelectionModel().getSelectedItem();
         if (payment != null) {
-            Transaction transaction = payment.getTransaction();
-            transaction.getAccount().getTransactions().remove(transaction);
-            this.app.getUser().update();        
-        }
-    }
-    
-    @FXML
-    private void onDeletePayment() {
-        Payment payment = this.tableView.getSelectionModel().getSelectedItem();
-        if (payment != null) {
             Transaction transaction = payment.getTransaction();            
             transaction.getPayments().remove(payment);            
             if (transaction.getPayments().isEmpty()) {
@@ -189,7 +193,7 @@ public class Main implements Initializable, Observer {
     private void editTransaction(Payment payment) {
         if (this.form != null && this.formController != null && payment != null) { 
             this.showForm();  
-            this.formController.setPayment(payment);    
+            this.formController.setTransaction(payment.getTransaction());    
         }       
     }
     
@@ -404,6 +408,17 @@ public class Main implements Initializable, Observer {
         this.typeFilter = "";
         this.categoryFilter = "";  
         
+        // Teste dos dados adicionados em forma de Pizza ( Pie Chart)
+        pcData = FXCollections.observableArrayList();
+        pcData.add(new PieChart.Data("Nokia", 77.3));
+        pcData.add(new PieChart.Data("RIM", 51.1));
+        pcData.add(new PieChart.Data("Apple", 93.2));
+        pcData.add(new PieChart.Data("HTC", 43.5));
+        pcData.add(new PieChart.Data("Samsung", 94.0));
+        pcData.add(new PieChart.Data("Others", 132.3));
+        chart.setData(pcData);
+        chart.setTitle("Smart Phone Sales 2011");
+        
         this.dateColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
@@ -414,7 +429,7 @@ public class Main implements Initializable, Observer {
             }
         });
         
-        this.dateColunm.setComparator(new Comparator<String>() {
+        this.dateColunm.setComparator(new Comparator<String>(){
             @Override 
             public int compare(String a, String b) {
                 try {
@@ -422,7 +437,7 @@ public class Main implements Initializable, Observer {
                     Date d1 = format.parse(a);                
                     Date d2 = format.parse(b);
                     return Long.compare(d1.getTime(), d2.getTime());
-                } catch(Exception e) {
+                } catch(ParseException p) {
                     
                 }                
                 return -1;
@@ -479,7 +494,7 @@ public class Main implements Initializable, Observer {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();
-                property.setValue(payment.getValue().getTransaction().getClass().getSimpleName().equals(Expense.class.getSimpleName()) ? "Despesa" : "Receita");
+                property.setValue(payment.getValue().getTransaction().getClass().getSimpleName().equalsIgnoreCase("Income") ? "Receita" : "Despesa");
                 return property;      
             }
         });
@@ -553,7 +568,7 @@ public class Main implements Initializable, Observer {
     }
     
     @Override
-    public void update(Observable o, Object arg) {    
+    public void update(Observable o, Object arg) {  
         // Teste ///////////////////////////////
         LocalDate first = LocalDate.of(
             LocalDate.now().getYear(),
