@@ -28,11 +28,11 @@
 }
 
 .income-text .table-cell {
-    -fx-text-fill: red;
+    -fx-text-fill: green;
 }
 
 .expense-text .table-cell {
-    -fx-text-fill: green;
+    -fx-text-fill: red;
 }
 
 .income-text:selected .table-cell,
