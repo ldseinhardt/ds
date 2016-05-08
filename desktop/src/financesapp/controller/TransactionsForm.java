@@ -68,6 +68,9 @@ public class TransactionsForm implements Initializable, Observer {
     @FXML
     private CheckBox status;
     
+    @FXML
+    private Button save;
+    
     public void setTransaction(Transaction transaction) {        
         this.transaction = transaction;
         this.payment = null;
@@ -82,9 +85,11 @@ public class TransactionsForm implements Initializable, Observer {
             concretized = "Recebido";
             this.category.getItems().setAll(this.incomeCategories);
             this.value.getStyleClass().add("income-text-color");
+            this.save.getStyleClass().add("income-button-color");
         } else {
             this.category.getItems().setAll(this.expenseCategories);  
-            this.value.getStyleClass().add("expense-text-color");          
+            this.value.getStyleClass().add("expense-text-color");  
+            this.save.getStyleClass().add("expense-button-color");          
         }
         
         this.transactionType.setText(type);
@@ -108,9 +113,11 @@ public class TransactionsForm implements Initializable, Observer {
             concretized = "Recebido";
             this.category.getItems().setAll(this.incomeCategories);
             this.value.getStyleClass().add("income-text-color");
+            this.save.getStyleClass().add("income-button-color");
         } else {
             this.category.getItems().setAll(this.expenseCategories); 
-            this.value.getStyleClass().add("expense-text-color");              
+            this.value.getStyleClass().add("expense-text-color"); 
+            this.save.getStyleClass().add("expense-button-color");              
         }
         
         this.transactionType.setText(type);
@@ -306,6 +313,7 @@ public class TransactionsForm implements Initializable, Observer {
             this.freq.setDisable(false);
         }        
         this.value.getStyleClass().removeAll("expense-text-color", "income-text-color");
+        this.save.getStyleClass().removeAll("expense-button-color", "income-button-color");
     }
     
     private void close() {

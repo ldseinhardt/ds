@@ -27,6 +27,15 @@
     -fx-opacity: 0.4;
 }
 
+.income-button-color {
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(#009900 0%, #007f00 25%, #007f00 75%, #009900 100%);
+}
+.expense-button-color {
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(#cc0000 0%, #b20000 25%, #b20000 75%, #cc0000 100%);
+}
+
 .income-text-color {
     -fx-text-fill: green;
 }

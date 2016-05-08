@@ -176,8 +176,8 @@
                 <Pane />
                 <ToolBar nodeOrientation="LEFT_TO_RIGHT" prefHeight="60.0" prefWidth="1000.0">
                     <items>
-                        <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddExpense" prefWidth="94.0" text="Adicionar Despesa" textAlignment="CENTER" wrapText="true" />
-                        <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddIncome" prefWidth="94.0" text="Adicionar Receita" textAlignment="CENTER" wrapText="true" />
+                        <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddExpense" prefWidth="94.0" styleClass="expense-button-color" text="Adicionar Despesa" textAlignment="CENTER" wrapText="true" />
+                        <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddIncome" prefWidth="94.0" styleClass="income-button-color" text="Adicionar Receita" textAlignment="CENTER" wrapText="true" />
                         <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAccountsGestor" prefWidth="94.0" text="Gerenciar Contas" textAlignment="CENTER" wrapText="true" />
                         <Pane HBox.hgrow="ALWAYS" />
                         <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Período" wrapText="true" />

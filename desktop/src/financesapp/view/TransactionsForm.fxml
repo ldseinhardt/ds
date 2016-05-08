@@ -32,10 +32,10 @@
                                 <ComboBox fx:id="freq" maxWidth="120.0" minWidth="120.0" onAction="#hideError" prefWidth="120.0" promptText="Ocorrência" />
                             </children>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" spacing="10.0" maxWidth="280" >
+                        <HBox alignment="CENTER_LEFT" maxWidth="280" spacing="10.0">
                             <children>
-                                <TextField fx:id="value" prefWidth="150" maxWidth="1000" onAction="#hideError" promptText="Valor" />
-                                <CheckBox fx:id="status" minWidth="80.0" prefWidth="80" mnemonicParsing="false" text="Pago" />
+                                <TextField fx:id="value" maxWidth="1000" onAction="#hideError" prefWidth="150" promptText="Valor" />
+                                <CheckBox fx:id="status" mnemonicParsing="false" text="Pago" />
                             </children>
                         </HBox>
                         <ComboBox fx:id="category" maxWidth="1000" onAction="#hideError" promptText="Categoria" />
@@ -45,7 +45,7 @@
                         <Label fx:id="error" prefWidth="271.0" text="*" textFill="#f20808" visible="false" />
                         <HBox prefHeight="29.0" prefWidth="202.0" spacing="10.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onSave" prefWidth="90.0" text="Salvar" />
+                                <Button fx:id="save" mnemonicParsing="false" onAction="#onSave" prefWidth="90.0" text="Salvar" />
                                 <Button mnemonicParsing="false" onAction="#onClear" prefWidth="80.0" text="Limpar" />
                                 <Button mnemonicParsing="false" onAction="#onCancel" prefWidth="90.0" text="Cancelar" />
                             </children>
