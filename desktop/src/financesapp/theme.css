@@ -52,7 +52,7 @@
     -fx-text-fill: red;
 }
 
-.income-text-color :selected .table-cell,
-.expense-text-color :selected .table-cell {
+.income-text-color:selected .table-cell,
+.expense-text-color:selected .table-cell {
     -fx-text-fill: white;
 }
