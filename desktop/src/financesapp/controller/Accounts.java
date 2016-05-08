@@ -25,7 +25,7 @@ public class Accounts implements Initializable, Observer {
 
     private static accountFilterObvervable accountsFilter;
 
-    private void onAccountClicked(String account){
+    public void onAccountClicked(String account){
         Accounts.accountsFilter.setValue(account);
         
         showAccounts();
@@ -171,8 +171,7 @@ class accountFilterObvervable extends Observable {
         } else {
             values.add(str);
         }
-        
-        
+                
         setChanged();
         notifyObservers();
     }

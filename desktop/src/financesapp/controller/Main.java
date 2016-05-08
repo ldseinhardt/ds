@@ -194,11 +194,7 @@ public class Main implements Initializable, Observer {
     } 
     
     private void filterAccount(String account) {
-        if(accountFilter.contains(account))
-            accountFilter.remove(account);
-        else
-            accountFilter.add(account);
-        
+        this.accountsController.onAccountClicked(account);
         showTransactions(new Period());          
     } 
     
