@@ -511,6 +511,31 @@ public class Main implements Initializable, Observer {
             }
         });
         
+        this.valueColunm.setCellFactory(c -> {
+             return new TableCell<Payment, String>() {
+                 @Override
+                 protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    
+                    this.setText(empty ? "" : this.getItem());
+                    this.setGraphic(null);
+                    
+                    TableRow<Payment> row = this.getTableRow();
+                    if (!(empty || row.isEmpty())) {
+                        row.getStyleClass().removeAll(
+                            "expense-text-color",
+                             "income-text-color"
+                        );
+                        row.getStyleClass().add(
+                            (row.getItem().getTransaction() instanceof Expense)
+                                ? "expense-text-color"
+                                : "income-text-color"
+                        );
+                    }
+                 }
+             };
+         });
+        
         this.concretizedColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
@@ -559,6 +584,7 @@ public class Main implements Initializable, Observer {
                     this.editTransaction(payment);
                 }
             });
+            /*
             row.setOnMouseExited(e -> {    
                 if (!row.isEmpty()) {        
                     row.getStyleClass().removeAll("expense-text-color", "income-text-color");
@@ -573,6 +599,7 @@ public class Main implements Initializable, Observer {
                     );
                 }
             });
+            */
             return row;
         });
         

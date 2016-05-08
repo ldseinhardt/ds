@@ -37,7 +37,7 @@
                                         <TableColumn fx:id="valueColunm" maxWidth="-1.0" minWidth="125.0" prefWidth="125.0" style="-fx-alignment: center;" text="Valor" />
                                         <TableColumn fx:id="concretizedColunm" maxWidth="-1.0" minWidth="125.0" prefWidth="125.0" style="-fx-alignment: center;" text="Concretizado" />
                                         <TableColumn fx:id="accountColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" style="-fx-alignment: center;" text="Conta" />
-                                        <TableColumn fx:id="typeColunm" maxWidth="-1.0" minWidth="75.0" prefWidth="75.0" style="-fx-alignment: center;" text="Tipo" />
+                                        <TableColumn fx:id="typeColunm" maxWidth="-1.0" minWidth="75.0" prefWidth="75.0" style="-fx-alignment: center;" text="Tipo" visible="false" />
                                         <TableColumn fx:id="categoryColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="180.0" style="-fx-alignment: center;" text="Categoria" />
                                     </columns>
                                     <contextMenu>
