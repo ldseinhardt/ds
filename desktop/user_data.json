@@ -47,35 +47,63 @@
     {
       "name": "Caixa",
       "type": "DefaultAccount",
-      "transactions": [{
-        "date": "2016-05-07",
-        "payments": [{
+      "transactions": [
+        {
           "date": "2016-05-07",
-          "concretized": false,
-          "value": 120
-        }],
-        "description": "NET",
-        "information": "",
-        "type": "Expense",
-        "category": "Internet"
-      }],
+          "payments": [{
+            "date": "2016-05-07",
+            "concretized": false,
+            "value": 120
+          }],
+          "description": "NET",
+          "information": "",
+          "type": "Expense",
+          "category": "Internet"
+        },
+        {
+          "date": "2016-05-08",
+          "payments": [{
+            "date": "2016-05-08",
+            "concretized": true,
+            "value": 50
+          }],
+          "description": "teste ",
+          "information": "sdf",
+          "type": "Expense",
+          "category": "Alimentação"
+        }
+      ],
       "openingBalance": -125.47
     },
     {
       "name": "Santander",
       "type": "DefaultAccount",
-      "transactions": [{
-        "date": "2016-05-07",
-        "payments": [{
+      "transactions": [
+        {
           "date": "2016-05-07",
-          "concretized": false,
-          "value": 50
-        }],
-        "description": "Barbearia",
-        "information": "",
-        "type": "Expense",
-        "category": "Beleza"
-      }],
+          "payments": [{
+            "date": "2016-05-07",
+            "concretized": false,
+            "value": 50
+          }],
+          "description": "Barbearia",
+          "information": "",
+          "type": "Expense",
+          "category": "Beleza"
+        },
+        {
+          "date": "2016-05-08",
+          "payments": [{
+            "date": "2016-05-08",
+            "concretized": true,
+            "value": 50
+          }],
+          "description": "testes",
+          "information": "testse",
+          "type": "Expense",
+          "category": "Alimentação"
+        }
+      ],
       "openingBalance": 215.05
     },
     {
@@ -98,18 +126,32 @@
     {
       "name": "Poupança",
       "type": "DefaultAccount",
-      "transactions": [{
-        "date": "2016-05-07",
-        "payments": [{
+      "transactions": [
+        {
           "date": "2016-05-07",
-          "concretized": false,
-          "value": 60
-        }],
-        "description": "teste",
-        "information": "",
-        "type": "Expense",
-        "category": "Justiça"
-      }],
+          "payments": [{
+            "date": "2016-05-07",
+            "concretized": false,
+            "value": 60
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Justiça"
+        },
+        {
+          "date": "2016-05-08",
+          "payments": [{
+            "date": "2016-05-08",
+            "concretized": true,
+            "value": 50
+          }],
+          "description": "TESTE",
+          "information": "WSDF",
+          "type": "Expense",
+          "category": "Alimentação"
+        }
+      ],
       "openingBalance": 398.89
     },
     {

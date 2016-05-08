@@ -221,9 +221,11 @@ public class Main implements Initializable, Observer {
         
         for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
             
-            double total = this.app.getUser().getTotalByCategory(
-                expCateg, Expense.class.getSimpleName(), period
-            );
+            double total = 0;
+            for (Account acc : this.app.getUser().getAccounts()) {
+                if (!this.accountFilter.contains(acc.getName())) 
+                    total += acc.getTotalByCategory(expCateg, Expense.class.getSimpleName(), period);
+            }
             
             if (total != 0) {
             
@@ -261,7 +263,7 @@ public class Main implements Initializable, Observer {
                 
                 rect.setWidth(total*1000/max);
                 
-                vBox.getChildren().add(anchorPane);
+                vBox.getChildren().add(anchorPane);                
             }
         }
         vBox.getChildren().add(new Label()); //Espaço vazio
@@ -308,11 +310,12 @@ public class Main implements Initializable, Observer {
         }
         
         for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
-            
-            double total = this.app.getUser().getTotalByCategory(
-                incCateg, Income.class.getSimpleName(), period
-            );
-             
+     
+            double total = 0;
+            for (Account acc : this.app.getUser().getAccounts()) {
+                if (!this.accountFilter.contains(acc.getName()))
+                    total += acc.getTotalByCategory(incCateg, Income.class.getSimpleName(), period);
+            }
             
             if (total != 0) {
                 
