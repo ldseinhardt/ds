@@ -47,25 +47,69 @@
     {
       "name": "Caixa",
       "type": "DefaultAccount",
-      "transactions": [],
+      "transactions": [{
+        "date": "2016-05-07",
+        "payments": [{
+          "date": "2016-05-07",
+          "concretized": false,
+          "value": 120
+        }],
+        "description": "NET",
+        "information": "",
+        "type": "Expense",
+        "category": "Internet"
+      }],
       "openingBalance": -125.47
     },
     {
       "name": "Santander",
       "type": "DefaultAccount",
-      "transactions": [],
+      "transactions": [{
+        "date": "2016-05-07",
+        "payments": [{
+          "date": "2016-05-07",
+          "concretized": false,
+          "value": 50
+        }],
+        "description": "Barbearia",
+        "information": "",
+        "type": "Expense",
+        "category": "Beleza"
+      }],
       "openingBalance": 215.05
     },
     {
       "name": "Bolsa",
       "type": "DefaultAccount",
-      "transactions": [],
+      "transactions": [{
+        "date": "2016-05-07",
+        "payments": [{
+          "date": "2016-05-07",
+          "concretized": false,
+          "value": 146
+        }],
+        "description": "teste",
+        "information": "",
+        "type": "Expense",
+        "category": "Investimento"
+      }],
       "openingBalance": 37.4
     },
     {
       "name": "Poupança",
       "type": "DefaultAccount",
-      "transactions": [],
+      "transactions": [{
+        "date": "2016-05-07",
+        "payments": [{
+          "date": "2016-05-07",
+          "concretized": false,
+          "value": 60
+        }],
+        "description": "teste",
+        "information": "",
+        "type": "Expense",
+        "category": "Justiça"
+      }],
       "openingBalance": 398.89
     },
     {

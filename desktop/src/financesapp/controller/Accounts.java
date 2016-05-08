@@ -10,6 +10,7 @@ import javafx.fxml.*;
 import javafx.geometry.*;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.*;
 import javafx.scene.text.*;
@@ -22,10 +23,22 @@ public class Accounts implements Initializable, Observer {
     @FXML
     private ScrollPane scrollPane;
 
+    private static accountFilterObvervable accountsFilter;
+
+    private void onAccountClicked(String account){
+        Accounts.accountsFilter.setValue(account);
+        
+        showAccounts();
+    }
+
+    public accountFilterObvervable getAccountsFilter(){
+        return Accounts.accountsFilter;
+    }
+    
     private void showAccounts() {
         VBox vBox = new VBox(3);
-        vBox.setPadding(new Insets(10, 10, 10, 10));
-        vBox.setAlignment(Pos.CENTER);
+        vBox.getStyleClass().add("sideBar");
+        vBox.setMaxWidth(300);
         this.scrollPane.setContent(vBox);
         
         Label title = new Label("Contas");
@@ -69,22 +82,35 @@ public class Accounts implements Initializable, Observer {
             Label accBalance = new Label(
                 NumberFormat.getCurrencyInstance().format(bal)
             );
-            accBalance.setPrefWidth(100);
+            accBalance.setPrefWidth(150);
             accBalance.setAlignment(Pos.CENTER_RIGHT);
             accBalance.setTextFill(balColor);
             
             ProgressBar accPb = new ProgressBar(prog);
             accPb.setNodeOrientation(nodeOr);
             accPb.setEffect(colorAdj);
-            accPb.setPrefWidth(260);
+            accPb.setPrefWidth(Double.MAX_VALUE);
             
-            HBox hBox = new HBox(5);            
-            hBox.getChildren().add(accName);            
+            HBox hBox = new HBox(10);
+            hBox.getStyleClass().add("customHBox");
+            hBox.getChildren().add(accName);         
             hBox.getChildren().add(accBalance);            
             
-            vBox.getChildren().add(hBox);
-            vBox.getChildren().add(accPb);
-            vBox.getChildren().add(new Label()); //Espaço entre contas
+              // VBox que funciona como botÃ£o toggle
+            VBox accButton = new VBox(5);
+            if(accountsFilter.values.contains(account.getName()))
+                accButton.getStyleClass().add("customVBox");
+            else
+                accButton.getStyleClass().add("customVBoxClicked");
+
+            accButton.getChildren().add(hBox);
+            accButton.getChildren().add(accPb);
+            accButton.setOnMouseClicked((MouseEvent event)
+                    -> onAccountClicked(account.getName())
+            );
+            
+            vBox.getChildren().add(accButton);
+            vBox.getChildren().add(new Label()); //EspaÃ§o entre contas
         } 
         
         double totalBalance = this.app.getUser().getBalance(LocalDate.now());
@@ -112,11 +138,13 @@ public class Accounts implements Initializable, Observer {
         this.app = app;
         this.app.getUser().addObserver(this);
         this.update(null, null);
+        this.scrollPane.setFitToWidth(true);
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
-        
+        Accounts.accountsFilter = new accountFilterObvervable();
     }  
 
     @Override
@@ -124,4 +152,25 @@ public class Accounts implements Initializable, Observer {
         this.showAccounts();   
     }
     
+}
+
+class accountFilterObvervable extends Observable{
+    ArrayList<String> values;
+    
+    public accountFilterObvervable(){
+        this.values = new ArrayList<>();
+    }
+    public void setValue(String str){
+        if(values.contains(str))
+            values.remove(str);
+        else
+            values.add(str);
+        
+        setChanged();
+        notifyObservers();
+    }
+    
+    public ArrayList<String> getValues(){
+        return this.values;
+    }
 }

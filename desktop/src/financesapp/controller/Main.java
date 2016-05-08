@@ -107,7 +107,7 @@ public class Main implements Initializable, Observer {
     private ObservableList<Payment> transactions;   
     
     // Filtros
-    private String accountFilter;
+    private ArrayList<String> accountFilter;
     private String typeFilter;
     private String categoryFilter;
     
@@ -184,7 +184,7 @@ public class Main implements Initializable, Observer {
         
     @FXML
     private void onDeleteFilters() {
-        this.accountFilter = "";
+        this.accountFilter.clear();
         this.typeFilter = "";
         this.categoryFilter = "";
         this.showTransactions();              
@@ -196,8 +196,12 @@ public class Main implements Initializable, Observer {
     } 
     
     private void filterAccount(String account) {
-        this.accountFilter = account;
-        this.showTransactions();               
+        if(accountFilter.contains(account))
+            accountFilter.remove(account);
+        else
+            accountFilter.add(account);
+        
+        showTransactions();          
     } 
     
     private void editTransaction(Payment payment) {
@@ -410,11 +414,13 @@ public class Main implements Initializable, Observer {
             );
             this.contextFilterIncomeCategory.getItems().add(menuItemContext);          
         }
+        
+        this.accountsController.getAccountsFilter().addObserver(this);
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.accountFilter = "";
+        this.accountFilter = new ArrayList<>();
         this.typeFilter = "";
         this.categoryFilter = "";  
         
@@ -562,7 +568,7 @@ public class Main implements Initializable, Observer {
         this.transactions.clear();
         
         for (Account account : this.app.getUser().getAccounts()) {
-            if (!this.accountFilter.isEmpty() && !account.getName().equalsIgnoreCase(this.accountFilter)) {
+            if (this.accountFilter.contains(account.getName())) {
                 continue;
             }
             for (Transaction transaction : account.getTransactions()) {
@@ -589,11 +595,7 @@ public class Main implements Initializable, Observer {
             first.lengthOfMonth()
         );
         ////////////////////////////////////////
-        
-        this.showExpensesByCategory(first, last);
-        this.showIncomesByCategory(first, last);
-        this.showTransactions();
-        
+
         this.menuFilterAccount.getItems().clear();            
         MenuItem allAcocunts = new MenuItem("Todas as Contas");   
         allAcocunts.setOnAction(e -> this.filterAccount(""));
@@ -603,7 +605,7 @@ public class Main implements Initializable, Observer {
         MenuItem allAcocuntsContext = new MenuItem("Todas as Contas");   
         allAcocuntsContext.setOnAction(e -> this.filterAccount(""));
         this.contextFilterAccount.getItems().add(allAcocuntsContext);
-    
+           
         for (Account account : this.app.getUser().getAccounts()) {
             MenuItem menuItem = new MenuItem(account.getName());   
             menuItem.setOnAction(e ->
@@ -615,8 +617,15 @@ public class Main implements Initializable, Observer {
             menuItemContext.setOnAction(e ->
                 this.filterAccount(account.getName())
             );
-            this.contextFilterAccount.getItems().add(menuItemContext);          
+            this.contextFilterAccount.getItems().add(menuItemContext);
         }
+
+        this.accountFilter.clear();
+        this.accountFilter.addAll(this.accountsController.getAccountsFilter().getValues());
+
+        this.showExpensesByCategory(first, last);
+        this.showIncomesByCategory(first, last);
+        this.showTransactions();
     }
     
 }

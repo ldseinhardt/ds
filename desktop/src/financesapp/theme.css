@@ -1,0 +1,22 @@
+
+.sideBar {
+    -fx-padding: 10;
+    -fx-alignment: CENTER;
+    -fx-fit-to-width: true;
+}
+
+.customVBox {
+    -fx-background-color: #dadada;
+    -fx-alignment: CENTER;
+    -fx-padding: 10;
+    
+}
+
+.customVBoxClicked {
+    -fx-background-color: #b5b5b5;
+    -fx-padding: 10;
+}
+
+.customHBox {
+    -fx-padding: 0 5 0 5;
+}

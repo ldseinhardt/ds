@@ -112,6 +112,7 @@ public class FinancesApp extends Application {
         this.open();
         
         Scene scene = new Scene(root);
+        scene.getStylesheets().add("financesapp/theme.css");
         this.window.setTitle("Oráculo da Mascada");
         this.window.setMaximized(true);
         this.window.setScene(scene);
