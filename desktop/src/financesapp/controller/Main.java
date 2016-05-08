@@ -8,6 +8,7 @@ import java.text.*;
 import java.time.LocalDate;
 import java.time.format.*;
 import java.util.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
@@ -673,6 +674,15 @@ public class Main implements Initializable, Observer {
         chart.setData(pcData);
         chart.setTitle("Relação Despesa X Receita ");
         
+        // Mostra valores na tela do Gráfico de Pizza - Receita X Despesa
+        pcData.forEach(data ->
+        data.nameProperty().bind(
+                Bindings.concat(
+                        data.getName(), " ", data.pieValueProperty(), " "
+                )
+        )
+        );        
+        
         categories = FXCollections.observableArrayList();
         for (ExpenseCategory categ : this.app.getExpenseCategories()) {
             categories.add(
@@ -686,6 +696,14 @@ public class Main implements Initializable, Observer {
         categoriesChart.setData(categories);
         categoriesChart.setTitle("Categorias");
         
+        // Mostra valores na tela do Gráfico de Pizza ( PieChart )  de Categorias
+        categories.forEach(data ->
+        data.nameProperty().bind(
+                Bindings.concat(
+                        data.getName(), " ", data.pieValueProperty(), " "
+                )
+        )
+        );        
         //////////////////////////////////////////
         this.menuFilterAccount.getItems().clear();            
         MenuItem allAcocunts = new MenuItem("Todas as Contas");   
