@@ -526,7 +526,11 @@ public class Main implements Initializable, Observer {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
                 SimpleStringProperty property = new SimpleStringProperty();
-                property.setValue(payment.getValue().getTransaction().getClass().getSimpleName().equals(Expense.class.getSimpleName()) ? "Despesa" : "Receita");
+                property.setValue(
+                    (payment.getValue().getTransaction() instanceof Expense)
+                        ? "Despesa"
+                        : "Receita"
+                );
                 return property;      
             }
         });
@@ -543,9 +547,23 @@ public class Main implements Initializable, Observer {
         this.tableView.setRowFactory(tv -> {
             TableRow<Payment> row = new TableRow<>();
             row.setOnMouseClicked(e -> {
-                if (e.getClickCount() == 2 && (!row.isEmpty()) ) {
+                if (e.getClickCount() == 2 && (!row.isEmpty())) {
                     Payment payment = row.getItem();
                     this.editTransaction(payment);
+                }
+            });
+            row.setOnMouseExited(e -> {    
+                if ((!row.isEmpty())) {        
+                    row.getStyleClass().removeAll("expense-text", "income-text");
+                }
+            });
+            row.setOnMouseEntered(e -> {    
+                if ((!row.isEmpty())) { 
+                    row.getStyleClass().add(
+                        (row.getItem().getTransaction() instanceof Expense)
+                            ? "expense-text"
+                            : "income-text"
+                    );
                 }
             });
             return row;

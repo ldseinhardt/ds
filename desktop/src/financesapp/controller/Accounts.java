@@ -158,23 +158,26 @@ public class Accounts implements Initializable, Observer {
     
 }
 
-class accountFilterObvervable extends Observable{
+class accountFilterObvervable extends Observable {
     ArrayList<String> values;
     
     public accountFilterObvervable(){
-        this.values = new ArrayList<>();
+        this.values = new ArrayList();
     }
-    public void setValue(String str){
-        if(values.contains(str))
+    
+    public void setValue(String str) {
+        if(values.contains(str)) {
             values.remove(str);
-        else
+        } else {
             values.add(str);
+        }
+        
         
         setChanged();
         notifyObservers();
     }
     
-    public ArrayList<String> getValues(){
+    public ArrayList<String> getValues() {
         return this.values;
     }
 }

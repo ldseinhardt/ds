@@ -14,6 +14,9 @@
 .customVBoxClicked {
     -fx-background-color: #e9e9f9;
     -fx-padding: 10;
+    -fx-border-width: 3px;
+    -fx-border-color: rgba(0, 0, 0, .1);
+    -fx-border-radius: 5px;
 }
 
 .customHBox {
@@ -22,4 +25,17 @@
 
 .unselected {
     -fx-opacity: 0.4;
+}
+
+.income-text .table-cell {
+    -fx-text-fill: red;
+}
+
+.expense-text .table-cell {
+    -fx-text-fill: green;
+}
+
+.income-text:selected .table-cell,
+.expense-text:selected .table-cell {
+    -fx-text-fill: white;
 }
