@@ -516,7 +516,8 @@ public class Main implements Initializable, Observer {
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);                        
-                    if (empty) {
+                    if (empty) {   
+                        this.setText(""); 
                         this.setGraphic(null);
                     } else {
                         this.setText(item);                        
