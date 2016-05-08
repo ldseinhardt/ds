@@ -189,6 +189,19 @@ public class FinancesApp extends Application {
         this.save(this.data_filename);
     }
     
+    public void newFile() {
+        this.save();
+        this.user.getAccounts().clear();
+        this.user.setName(this.default_user);
+        this.user.addAccount(new DefaultAccount(this.default_account));
+        this.user.update();
+    }
+    
+    public void exit() {
+        this.save();
+        this.window.close();
+    }
+    
     public String getDefaultFileName() {
         return this.data_filename;
     }
