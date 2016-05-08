@@ -27,23 +27,23 @@
     -fx-opacity: 0.4;
 }
 
-.income-text {
+.income-text-color {
     -fx-text-fill: green;
 }
 
-.income-text .table-cell {
+.income-text-color  .table-cell {
     -fx-text-fill: green;
 }
 
-.expense-text {
+.expense-text-color {
     -fx-text-fill: red;
 }
 
-.expense-text .table-cell {
+.expense-text-color  .table-cell {
     -fx-text-fill: red;
 }
 
-.income-text:selected .table-cell,
-.expense-text:selected .table-cell {
+.income-text-color :selected .table-cell,
+.expense-text-color :selected .table-cell {
     -fx-text-fill: white;
 }

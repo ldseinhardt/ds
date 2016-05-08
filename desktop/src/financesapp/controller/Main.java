@@ -211,20 +211,22 @@ public class Main implements Initializable, Observer {
         this.expScrollPane.setContent(vBox);
         
         double max = 0;
-        for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
+        for (Category expCateg : this.app.getExpenseCategories()) {
             double total = this.app.getUser().getTotalByCategory(
                 expCateg, Expense.class.getSimpleName(), period
             );
-            if (total > max)
+            if (total > max) {
                 max = total;
+            }
         }
         
-        for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
-            
+        for (Category expCateg : this.app.getExpenseCategories()) {            
             double total = 0;
+            
             for (Account acc : this.app.getUser().getAccounts()) {
-                if (!this.accountFilter.contains(acc.getName())) 
+                if (!this.accountFilter.contains(acc.getName())) {
                     total += acc.getTotalByCategory(expCateg, Expense.class.getSimpleName(), period);
+                }
             }
             
             if (total != 0) {
@@ -270,14 +272,13 @@ public class Main implements Initializable, Observer {
     }
     
     // Soma dos valores de todas as receitas
-    private double SumIncome(Period period) {
-          
+    private double SumIncome(Period period) {          
         double max = 0;
+        
         for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
-            double total = this.app.getUser().getTotalByCategory(
+            max += this.app.getUser().getTotalByCategory(
                 incCateg, Income.class.getSimpleName(), period
             );
-                max = total +max;
         }
         
         return max;
@@ -286,12 +287,13 @@ public class Main implements Initializable, Observer {
     // Soma dos valores de todas as despesas
     private double SumExpense(Period period) {
         double max = 0;
+        
         for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
-            double total = this.app.getUser().getTotalByCategory(
+            max += this.app.getUser().getTotalByCategory(
                 expCateg, Expense.class.getSimpleName(), period
             );
-            max = total +max;
         }
+        
         return max;
     }
         
@@ -305,16 +307,18 @@ public class Main implements Initializable, Observer {
             double total = this.app.getUser().getTotalByCategory(
                 incCateg, Income.class.getSimpleName(), period
             );
-            if (total > max)
+            if (total > max) {
                 max = total;
+            }
         }
         
-        for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
-     
+        for (IncomeCategory incCateg : this.app.getIncomeCategories()) {     
             double total = 0;
+            
             for (Account acc : this.app.getUser().getAccounts()) {
-                if (!this.accountFilter.contains(acc.getName()))
+                if (!this.accountFilter.contains(acc.getName())) {
                     total += acc.getTotalByCategory(incCateg, Income.class.getSimpleName(), period);
+                }
             }
             
             if (total != 0) {
@@ -448,7 +452,7 @@ public class Main implements Initializable, Observer {
     public void initialize(URL url, ResourceBundle rb) {
         this.accountFilter = new ArrayList<>();
         this.typeFilter = "";
-        this.categoryFilter = "";  
+        this.categoryFilter = "";
          
         this.dateColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
@@ -552,16 +556,16 @@ public class Main implements Initializable, Observer {
                 }
             });
             row.setOnMouseExited(e -> {    
-                if ((!row.isEmpty())) {        
-                    row.getStyleClass().removeAll("expense-text", "income-text");
+                if (!row.isEmpty()) {        
+                    row.getStyleClass().removeAll("expense-text-color", "income-text-color");
                 }
             });
             row.setOnMouseEntered(e -> {    
-                if ((!row.isEmpty())) { 
+                if (!row.isEmpty()) { 
                     row.getStyleClass().add(
                         (row.getItem().getTransaction() instanceof Expense)
-                            ? "expense-text"
-                            : "income-text"
+                            ? "expense-text-color"
+                            : "income-text-color"
                     );
                 }
             });

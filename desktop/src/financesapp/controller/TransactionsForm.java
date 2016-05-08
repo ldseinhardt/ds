@@ -76,17 +76,15 @@ public class TransactionsForm implements Initializable, Observer {
          
         String type = "Despesa";         
         String concretized = "Pago";
-        
-        this.value.getStyleClass().removeAll("expense-text", "income-text");
             
         if (this.transaction instanceof Income) {
             type = "Receita";
             concretized = "Recebido";
             this.category.getItems().setAll(this.incomeCategories);
-            this.value.getStyleClass().add("income-text");
+            this.value.getStyleClass().add("income-text-color");
         } else {
             this.category.getItems().setAll(this.expenseCategories);  
-            this.value.getStyleClass().add("expense-text");          
+            this.value.getStyleClass().add("expense-text-color");          
         }
         
         this.transactionType.setText(type);
@@ -109,8 +107,10 @@ public class TransactionsForm implements Initializable, Observer {
             type = "Receita";
             concretized = "Recebido";
             this.category.getItems().setAll(this.incomeCategories);
+            this.value.getStyleClass().add("income-text-color");
         } else {
-            this.category.getItems().setAll(this.expenseCategories);            
+            this.category.getItems().setAll(this.expenseCategories); 
+            this.value.getStyleClass().add("expense-text-color");              
         }
         
         this.transactionType.setText(type);
@@ -293,6 +293,7 @@ public class TransactionsForm implements Initializable, Observer {
     private void clearForm() {
         this.date.setValue(LocalDate.now());
         //this.value.setText(String.valueOf(0.0));
+        this.value.setText("");
         this.freq.setValue(this.periods.get(0));
         this.category.setValue(null);
         this.account.setValue(null);
@@ -303,7 +304,8 @@ public class TransactionsForm implements Initializable, Observer {
         this.date.requestFocus();
         if (this.payment == null) {
             this.freq.setDisable(false);
-        }
+        }        
+        this.value.getStyleClass().removeAll("expense-text-color", "income-text-color");
     }
     
     private void close() {

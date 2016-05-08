@@ -166,16 +166,16 @@ class accountFilterObvervable extends Observable {
     }
     
     public void setValue(String str) {
-        if(str.equals(""))
+        if (str.isEmpty()) {
             values.clear();
-        else if (values.contains(str)) {
+        } else if (values.contains(str)) {
             values.remove(str);
         } else {
             values.add(str);
         }
                 
-        setChanged();
-        notifyObservers();
+        this.setChanged();
+        this.notifyObservers();
     }
     
     public ArrayList<String> getValues() {
