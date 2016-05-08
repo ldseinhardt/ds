@@ -669,16 +669,16 @@ public class Main implements Initializable, Observer {
                 
         // Teste dos dados adicionados em forma de Pizza ( Pie Chart)
         pcData = FXCollections.observableArrayList();
-        pcData.add(new PieChart.Data("Despesa", this.SumExpense(new Period() ) ));
-        pcData.add(new PieChart.Data("Receita", this.SumIncome(new Period() ) ));
+        pcData.add(new PieChart.Data("Despesas", this.SumExpense(new Period() ) ));
+        pcData.add(new PieChart.Data("Receitas", this.SumIncome(new Period() ) ));
         chart.setData(pcData);
-        chart.setTitle("Relação Despesa X Receita ");
+        chart.setTitle("Relação Despesas X Receitas ");
         
         // Mostra valores na tela do Gráfico de Pizza - Receita X Despesa
         pcData.forEach(data ->
         data.nameProperty().bind(
                 Bindings.concat(
-                        data.getName(), " ", data.pieValueProperty(), " "
+                        data.getName(), " R$: ", data.pieValueProperty(), "  "
                 )
         )
         );        
@@ -694,13 +694,13 @@ public class Main implements Initializable, Observer {
             );
         }
         categoriesChart.setData(categories);
-        categoriesChart.setTitle("Categorias");
+        categoriesChart.setTitle("Categorias (Em R$) ");
         
         // Mostra valores na tela do Gráfico de Pizza ( PieChart )  de Categorias
         categories.forEach(data ->
         data.nameProperty().bind(
                 Bindings.concat(
-                        data.getName(), " ", data.pieValueProperty(), " "
+                        data.getName(), " ", data.pieValueProperty(), ""
                 )
         )
         );        
