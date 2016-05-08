@@ -110,7 +110,6 @@ public class Accounts implements Initializable, Observer {
             );
             
             vBox.getChildren().add(accButton);
-            vBox.getChildren().add(new Label()); //EspaÃ§o entre contas
         } 
         
         double totalBalance = this.app.getUser().getBalance(LocalDate.now());

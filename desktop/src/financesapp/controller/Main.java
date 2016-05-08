@@ -205,10 +205,10 @@ public class Main implements Initializable, Observer {
     } 
     
     private void editTransaction(Payment payment) {
-        if (this.form != null && this.formController != null && payment != null) { 
-            this.showForm();  
-            this.formController.setTransaction(payment.getTransaction());    
-        }       
+        if (this.form != null && this.formController != null && payment != null) {
+            this.showForm();
+            this.formController.setPayment(payment);
+        }
     }
     
     private void showExpensesByCategory(Period period) {

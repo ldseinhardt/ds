@@ -6,14 +6,13 @@
 }
 
 .customVBox {
-    -fx-background-color: #dadada;
     -fx-alignment: CENTER;
     -fx-padding: 10;
     
 }
 
 .customVBoxClicked {
-    -fx-background-color: #b5b5b5;
+    -fx-background-color: #e9e9f9;
     -fx-padding: 10;
 }
 
