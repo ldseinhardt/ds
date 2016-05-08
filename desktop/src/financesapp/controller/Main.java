@@ -512,29 +512,30 @@ public class Main implements Initializable, Observer {
         });
         
         this.valueColunm.setCellFactory(c -> {
-             return new TableCell<Payment, String>() {
-                 @Override
-                 protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
-                    
-                    this.setText(empty ? "" : this.getItem());
-                    this.setGraphic(null);
-                    
-                    TableRow<Payment> row = this.getTableRow();
-                    if (!(empty || row.isEmpty())) {
+            return new TableCell<Payment, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);                        
+                    if (empty) {
+                        this.setGraphic(null);
+                    } else {
+                        this.setText(item);                        
+                        TableRow<Payment> row = this.getTableRow();
                         row.getStyleClass().removeAll(
                             "expense-text-color",
-                             "income-text-color"
+                            "income-text-color"
                         );
-                        row.getStyleClass().add(
-                            (row.getItem().getTransaction() instanceof Expense)
-                                ? "expense-text-color"
-                                : "income-text-color"
-                        );
-                    }
-                 }
-             };
-         });
+                        if (row.getItem() != null) {
+                            row.getStyleClass().add(
+                                (row.getItem().getTransaction() instanceof Expense)
+                                    ? "expense-text-color"
+                                    : "income-text-color"
+                            );
+                        }
+                    }  
+                }
+            };
+        });
         
         this.concretizedColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override

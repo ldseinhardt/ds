@@ -29,16 +29,16 @@
                     <tabs>
                         <Tab fx:id="transactionsTab" text="Transações">
                             <content>
-                                <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true">
+                                <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0">
                                     <columns>
                                         <TableColumn fx:id="dateColunm" maxWidth="-1.0" minWidth="100.0" prefWidth="100.0" style="-fx-alignment: center;" text="Data" />
                                         <TableColumn fx:id="descriptionColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="250.0" style="-fx-alignment: center;" text="Descrição" />
-                                        <TableColumn fx:id="informationColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="250.0" style="-fx-alignment: center;" text="Informações" visible="false" />
                                         <TableColumn fx:id="valueColunm" maxWidth="-1.0" minWidth="125.0" prefWidth="125.0" style="-fx-alignment: center;" text="Valor" />
                                         <TableColumn fx:id="concretizedColunm" maxWidth="-1.0" minWidth="125.0" prefWidth="125.0" style="-fx-alignment: center;" text="Concretizado" />
                                         <TableColumn fx:id="accountColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="150.0" style="-fx-alignment: center;" text="Conta" />
                                         <TableColumn fx:id="typeColunm" maxWidth="-1.0" minWidth="75.0" prefWidth="75.0" style="-fx-alignment: center;" text="Tipo" visible="false" />
                                         <TableColumn fx:id="categoryColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="180.0" style="-fx-alignment: center;" text="Categoria" />
+                                        <TableColumn fx:id="informationColunm" maxWidth="-1.0" minWidth="150.0" prefWidth="250.0" style="-fx-alignment: center;" text="Informações" />
                                     </columns>
                                     <contextMenu>
                                         <ContextMenu>

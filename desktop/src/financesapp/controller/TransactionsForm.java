@@ -366,7 +366,7 @@ public class TransactionsForm implements Initializable, Observer {
         
         this.category.setCellFactory(new Callback<ListView<Category>, ListCell<Category>>() {
             @Override
-            public ListCell<Category> call(ListView<Category> category){
+            public ListCell<Category> call(ListView<Category> category) {
                 return new ListCell<Category>(){
                     @Override
                     protected void updateItem(Category category, boolean empty) {
@@ -398,7 +398,7 @@ public class TransactionsForm implements Initializable, Observer {
         
         this.account.setCellFactory(new Callback<ListView<Account>, ListCell<Account>>() {
             @Override
-            public ListCell<Account> call(ListView<Account> account){
+            public ListCell<Account> call(ListView<Account> account) {
                 return new ListCell<Account>(){
                     @Override
                     protected void updateItem(Account account, boolean empty) {
