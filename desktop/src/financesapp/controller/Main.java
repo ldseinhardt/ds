@@ -35,17 +35,11 @@ public class Main implements Initializable, Observer {
     //Referências para o formulário
     private Parent form;
     private TransactionsForm formController;
-    
-    // Referências para o gráfico de Pizza
-    //Teste
+       
+    // Referência para o gráfico de Pizza
     @FXML
     private PieChart chart;
-    
-    // Vai ser utilizado para ter uma interação com o mouse e o gráfico
-    // ex: mostrar % de cada pedaço do gráfico de pizza
-    @FXML
-    private TextField textField;
-    
+        
     // Dados que serão enviados para o gráfico
     private ObservableList<PieChart.Data> pcData;
     
@@ -272,6 +266,32 @@ public class Main implements Initializable, Observer {
         }
         vBox.getChildren().add(new Label()); //Espaço vazio
     }
+    
+    // Soma dos valores de todas as receitas
+    private double SumIncome(Period period) {
+          
+        double max = 0;
+        for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
+            double total = this.app.getUser().getTotalByCategory(
+                incCateg, Income.class.getSimpleName(), period
+            );
+                max = total +max;
+        }
+        
+        return max;
+    }
+    
+    // Soma dos valores de todas as despesas
+    private double SumExpense(Period period) {
+        double max = 0;
+        for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
+            double total = this.app.getUser().getTotalByCategory(
+                expCateg, Expense.class.getSimpleName(), period
+            );
+            max = total +max;
+        }
+        return max;
+    }
         
     private void showIncomesByCategory(Period period) {
         
@@ -292,6 +312,7 @@ public class Main implements Initializable, Observer {
             double total = this.app.getUser().getTotalByCategory(
                 incCateg, Income.class.getSimpleName(), period
             );
+             
             
             if (total != 0) {
                 
@@ -425,18 +446,7 @@ public class Main implements Initializable, Observer {
         this.accountFilter = new ArrayList<>();
         this.typeFilter = "";
         this.categoryFilter = "";  
-        
-        // Teste dos dados adicionados em forma de Pizza ( Pie Chart)
-        pcData = FXCollections.observableArrayList();
-        pcData.add(new PieChart.Data("Nokia", 77.3));
-        pcData.add(new PieChart.Data("RIM", 51.1));
-        pcData.add(new PieChart.Data("Apple", 93.2));
-        pcData.add(new PieChart.Data("HTC", 43.5));
-        pcData.add(new PieChart.Data("Samsung", 94.0));
-        pcData.add(new PieChart.Data("Others", 132.3));
-        chart.setData(pcData);
-        chart.setTitle("Smart Phone Sales 2011");
-        
+         
         this.dateColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Payment, String> payment) {
@@ -597,7 +607,15 @@ public class Main implements Initializable, Observer {
             first.lengthOfMonth()
         );
         //////////////////////////////////////////
-
+                
+        // Teste dos dados adicionados em forma de Pizza ( Pie Chart)
+        pcData = FXCollections.observableArrayList();
+        pcData.add(new PieChart.Data("Despesa", this.SumExpense(new Period() ) ));
+        pcData.add(new PieChart.Data("Receita", this.SumIncome(new Period() ) ));
+        chart.setData(pcData);
+        chart.setTitle("Relação Despesa X Receita ");
+      
+        //////////////////////////////////////////
         this.menuFilterAccount.getItems().clear();            
         MenuItem allAcocunts = new MenuItem("Todas as Contas");   
         allAcocunts.setOnAction(e -> this.filterAccount(""));
