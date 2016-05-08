@@ -377,6 +377,12 @@ public class Main implements Initializable, Observer {
         }
     }
     
+    // Ação para sair do programa
+    @FXML
+    private void onExit(){
+        System.exit(0);
+    }   
+    
     public void init(FinancesApp app) {
         this.app = app;
         this.update(null, null);

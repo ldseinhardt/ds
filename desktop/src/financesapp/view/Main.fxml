@@ -125,6 +125,7 @@
                                 <MenuItem mnemonicParsing="false" onAction="#onOpen" text="Abrir ..." />
                                 <MenuItem mnemonicParsing="false" onAction="#onSave" text="Salvar" />
                                 <MenuItem mnemonicParsing="false" onAction="#onSaveAs" text="Salvar como ..." />
+                                <MenuItem mnemonicParsing="false" onAction="#onExit" text="Sair do programa" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Contas">
