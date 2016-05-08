@@ -435,6 +435,11 @@ public class TransactionsForm implements Initializable, Observer {
     @Override
     public void update(Observable o, Object arg) {        
         this.accountList.setAll(this.app.getUser().getAccounts());
+        //Previne que o usuário adicione em uma conta removida
+        if (this.account.getValue() != null && 
+            !this.app.getUser().getAccounts().contains(this.account.getValue())) {            
+            this.account.setValue(null);
+        }
     }
 
 }
