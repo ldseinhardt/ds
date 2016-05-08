@@ -113,7 +113,7 @@ public class TransactionsForm implements Initializable, Observer {
         this.transactionType.setText(type);
         this.status.setText(concretized); 
         
-        this.date.setValue(this.payment.getTransaction().getDate());
+        this.date.setValue(this.payment.getDate());
         this.category.setValue(this.payment.getTransaction().getCategory());
         this.account.setValue(this.payment.getTransaction().getAccount());
         this.description.setText(this.payment.getTransaction().getDescription());
@@ -195,6 +195,8 @@ public class TransactionsForm implements Initializable, Observer {
             //add
             trans = this.transaction;
             
+            trans.setDate(date.getValue());  
+            
             if (this.freq.getValue() == this.periods.get(0)) {
                 trans.addPayment(new Payment(
                     transValue, this.date.getValue(), this.status.isSelected()
@@ -222,12 +224,12 @@ public class TransactionsForm implements Initializable, Observer {
         } else if (this.payment != null) {
             //edit
             trans = this.payment.getTransaction();
+            this.payment.setDate(date.getValue());
             this.payment.setValue(transValue);
             this.payment.setConcretized(this.status.isSelected());
         }
         
-        if (trans != null) {
-            trans.setDate(date.getValue());        
+        if (trans != null) {      
             trans.setCategory(this.category.getValue());
             trans.setDescription(this.description.getText());
             trans.setInformation(this.information.getText()); 
