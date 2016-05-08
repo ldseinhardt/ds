@@ -41,11 +41,11 @@ public abstract class Account {
         return this.openingBalance;
     }
     
-    public double getMaxBalance(int month, int year) {
+    public double getMaxBalance(Period period) {
         //Saldo no 1º dia deste mês
-        double maxBalance = this.getBalance(LocalDate.of(year, month, 1));
+        double maxBalance = this.getBalance(period.getInitialDate());
         
-        for (Payment payment : this.getPayments(month, year)) {
+        for (Payment payment : this.getPayments(period)) {
             if (payment.getValue() > 0 && payment.hasConcretized()) {
                 maxBalance += payment.getValue();
             }
@@ -86,23 +86,14 @@ public abstract class Account {
         return this.transactions;
     }
     
-    public ArrayList<Payment> getPayments(int month, int year) {
+    public ArrayList<Payment> getPayments(Period period) {
+        
         ArrayList<Payment> payments = new ArrayList();
-        
-        Calendar last = Calendar.getInstance();
-        last.set(Calendar.YEAR, year);
-        last.set(Calendar.MONTH, month-1); //Calendar: mês de 0 a 11
-        last.set(Calendar.DAY_OF_MONTH, last.getActualMaximum(Calendar.DAY_OF_MONTH));
-        
-        LocalDate initialDate = LocalDate.of(year, month, 1);
-        LocalDate finalDate   = LocalDate.of(year, month,
-            last.get(Calendar.DAY_OF_MONTH)
-        );
         
         for (Transaction transaction : this.getTransactions()) {
             for (Payment payment : transaction.getPayments()) {
-                if (payment.getDate().isAfter(initialDate.minusDays(1)) &&
-                   payment.getDate().isBefore(finalDate.plusDays(1))) {
+                if (payment.getDate().isAfter(period.getInitialDate().minusDays(1)) &&
+                   payment.getDate().isBefore(period.getFinalDate().plusDays(1))) {
                     payments.add(payment);
                 }
             }
@@ -112,10 +103,7 @@ public abstract class Account {
     }
     
     public double getTotalByCategory(
-        Category categ,
-        String type,
-        LocalDate initialDate,
-        LocalDate finalDate) {
+        Category categ, String type, Period period) {
         
         double total = 0;
         
@@ -123,8 +111,8 @@ public abstract class Account {
             if (transaction.getClass().getSimpleName().equals(type)) {
                 if (transaction.getCategory().getName().equals(categ.getName())) {
                     for (Payment payment : transaction.getPayments()){
-                        if (payment.getDate().isAfter(initialDate.minusDays(1)) &&
-                            payment.getDate().isBefore(finalDate.plusDays(1))) {
+                        if (payment.getDate().isAfter(period.getInitialDate().minusDays(1)) &&
+                            payment.getDate().isBefore(period.getFinalDate().plusDays(1))) {
                                 total += payment.getValue();
                         }
                     }

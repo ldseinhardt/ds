@@ -181,11 +181,11 @@ public class User extends Observable {
         return balance;
     }
     
-    public double getGeneralMaxBalance(int month, int year) {
+    public double getGeneralMaxBalance(Period period) {
         double genMaxBalance = 0;
         
         for (Account account : this.getAccounts()) {
-            double maxBal = Math.abs(account.getMaxBalance(month, year));
+            double maxBal = Math.abs(account.getMaxBalance(period));
             
             if (maxBal > genMaxBalance) {
                 genMaxBalance = maxBal;
@@ -201,13 +201,12 @@ public class User extends Observable {
     public double getTotalByCategory(
         Category categ,
         String type,
-        LocalDate initialDate,
-        LocalDate finalDate) {
+        Period period) {
         
         double total = 0;
         
         for (Account account : this.getAccounts()) {
-            total += account.getTotalByCategory(categ, type, initialDate, finalDate);
+            total += account.getTotalByCategory(categ, type, period);
         }
         
         return total;

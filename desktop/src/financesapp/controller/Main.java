@@ -5,7 +5,7 @@ import financesapp.model.*;
 import java.io.*;
 import java.net.*;
 import java.text.*;
-import java.time.*;
+import java.time.LocalDate;
 import java.time.format.*;
 import java.util.*;
 import javafx.beans.property.*;
@@ -161,25 +161,25 @@ public class Main implements Initializable, Observer {
     @FXML
     private void onFilterTypeByExpense() {  
         this.typeFilter = Expense.class.getSimpleName();
-        this.showTransactions();        
+        this.showTransactions(new Period());
     }
     
     @FXML
     private void onFilterTypeByIncome() {
         this.typeFilter = Income.class.getSimpleName();
-        this.showTransactions();               
+        this.showTransactions(new Period());
     }
     
     @FXML
     private void onFilterTypeByNone() { 
         this.typeFilter = "";
-        this.showTransactions();             
+        this.showTransactions(new Period());
     }
         
     @FXML
     private void onDeleteCategoryFilter() { 
         this.filterCategory("");   
-        this.showTransactions();              
+        this.showTransactions(new Period());
     }
         
     @FXML
@@ -187,12 +187,12 @@ public class Main implements Initializable, Observer {
         this.accountFilter.clear();
         this.typeFilter = "";
         this.categoryFilter = "";
-        this.showTransactions();              
+        this.showTransactions(new Period());
     }
     
     private void filterCategory(String category) {
         this.categoryFilter = category;
-        this.showTransactions();               
+        this.showTransactions(new Period());
     } 
     
     private void filterAccount(String account) {
@@ -201,7 +201,7 @@ public class Main implements Initializable, Observer {
         else
             accountFilter.add(account);
         
-        showTransactions();          
+        showTransactions(new Period());          
     } 
     
     private void editTransaction(Payment payment) {
@@ -211,7 +211,7 @@ public class Main implements Initializable, Observer {
         }       
     }
     
-    private void showExpensesByCategory(LocalDate initialDate, LocalDate finalDate) {
+    private void showExpensesByCategory(Period period) {
         
         VBox vBox = new VBox(8);
         this.expScrollPane.setContent(vBox);
@@ -219,8 +219,7 @@ public class Main implements Initializable, Observer {
         double max = 0;
         for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
             double total = this.app.getUser().getTotalByCategory(
-                expCateg, Expense.class.getSimpleName(),
-                initialDate, finalDate
+                expCateg, Expense.class.getSimpleName(), period
             );
             if (total > max)
                 max = total;
@@ -229,8 +228,7 @@ public class Main implements Initializable, Observer {
         for (ExpenseCategory expCateg : this.app.getExpenseCategories()) {
             
             double total = this.app.getUser().getTotalByCategory(
-                expCateg, Expense.class.getSimpleName(),
-                initialDate, finalDate
+                expCateg, Expense.class.getSimpleName(), period
             );
             
             if (total != 0) {
@@ -275,7 +273,7 @@ public class Main implements Initializable, Observer {
         vBox.getChildren().add(new Label()); //Espaço vazio
     }
         
-    private void showIncomesByCategory(LocalDate initialDate, LocalDate finalDate) {
+    private void showIncomesByCategory(Period period) {
         
         VBox vBox = new VBox(8);
         this.incScrollPane.setContent(vBox);
@@ -283,8 +281,7 @@ public class Main implements Initializable, Observer {
         double max = 0;
         for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
             double total = this.app.getUser().getTotalByCategory(
-                incCateg, Income.class.getSimpleName(),
-                initialDate, finalDate
+                incCateg, Income.class.getSimpleName(), period
             );
             if (total > max)
                 max = total;
@@ -293,8 +290,7 @@ public class Main implements Initializable, Observer {
         for (IncomeCategory incCateg : this.app.getIncomeCategories()) {
             
             double total = this.app.getUser().getTotalByCategory(
-                incCateg, Income.class.getSimpleName(),
-                initialDate, finalDate
+                incCateg, Income.class.getSimpleName(), period
             );
             
             if (total != 0) {
@@ -563,29 +559,29 @@ public class Main implements Initializable, Observer {
         }
     }
     
-    //falta o filtro de período
-    public void showTransactions() {
+    public void showTransactions(Period period) {
         this.transactions.clear();
         
         for (Account account : this.app.getUser().getAccounts()) {
             if (this.accountFilter.contains(account.getName())) {
                 continue;
             }
-            for (Transaction transaction : account.getTransactions()) {
-                if (!this.typeFilter.isEmpty() && !transaction.getClass().getSimpleName().equalsIgnoreCase(this.typeFilter)) {
+            
+            for (Payment payment : account.getPayments(period)) {
+                if (!this.typeFilter.isEmpty() && !payment.getTransaction().getClass().getSimpleName().equalsIgnoreCase(this.typeFilter)) {
                     continue;
                 }                
-                if (!this.categoryFilter.isEmpty() && !transaction.getCategory().getName().equalsIgnoreCase(this.categoryFilter)) {
+                if (!this.categoryFilter.isEmpty() && !payment.getTransaction().getCategory().getName().equalsIgnoreCase(this.categoryFilter)) {
                     continue;
                 }
-                this.transactions.addAll(transaction.getPayments());
+                this.transactions.add(payment);
             }
         }
     }
     
     @Override
     public void update(Observable o, Object arg) {  
-        // Teste ///////////////////////////////
+        // Teste (mês atual) /////////////////////
         LocalDate first = LocalDate.of(
             LocalDate.now().getYear(),
             LocalDate.now().getMonthValue(),
@@ -594,7 +590,7 @@ public class Main implements Initializable, Observer {
         LocalDate last = first.withDayOfMonth(
             first.lengthOfMonth()
         );
-        ////////////////////////////////////////
+        //////////////////////////////////////////
 
         this.menuFilterAccount.getItems().clear();            
         MenuItem allAcocunts = new MenuItem("Todas as Contas");   
@@ -623,9 +619,13 @@ public class Main implements Initializable, Observer {
         this.accountFilter.clear();
         this.accountFilter.addAll(this.accountsController.getAccountsFilter().getValues());
 
-        this.showExpensesByCategory(first, last);
-        this.showIncomesByCategory(first, last);
-        this.showTransactions();
+        //this.showExpensesByCategory(new Period(first, last));
+        //this.showIncomesByCategory(new Period(first, last));
+        //this.showTransactions(new Period(first, last));
+        this.showExpensesByCategory(new Period());
+        this.showIncomesByCategory (new Period());
+        this.showTransactions      (new Period());
+        
     }
     
 }

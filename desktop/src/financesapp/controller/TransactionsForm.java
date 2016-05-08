@@ -66,7 +66,7 @@ public class TransactionsForm implements Initializable, Observer {
     private DatePicker date;
     
     @FXML
-    private ToggleButton status;
+    private CheckBox status;
     
     public void setTransaction(Transaction transaction) {        
         this.transaction = transaction;
@@ -88,7 +88,6 @@ public class TransactionsForm implements Initializable, Observer {
         this.transactionType.setText(type);
         this.status.setText(concretized); 
         
-        this.date.requestFocus();
     }
     
     public void setPayment(Payment payment) {  
@@ -289,14 +288,15 @@ public class TransactionsForm implements Initializable, Observer {
     
     private void clearForm() {
         this.date.setValue(LocalDate.now());
-        this.value.setText(String.valueOf(0.0));
+        //this.value.setText(String.valueOf(0.0));
         this.freq.setValue(this.periods.get(0));
         this.category.setValue(null);
         this.account.setValue(null);
         this.description.setText("");
         this.information.setText("");
-        this.status.setSelected(false);
+        this.status.setSelected(true);
         this.error.setVisible(false);
+        this.date.requestFocus();
         if (this.payment == null) {
             this.freq.setDisable(false);
         }

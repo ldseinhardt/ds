@@ -4,7 +4,7 @@ import financesapp.*;
 import financesapp.model.*;
 import java.net.URL;
 import java.text.*;
-import java.time.*;
+import java.time.LocalDate; //java.time.* tem uma classe "Period"
 import java.util.*;
 import javafx.fxml.*;
 import javafx.geometry.*;
@@ -51,11 +51,11 @@ public class Accounts implements Initializable, Observer {
         NodeOrientation nodeOr;
         ColorAdjust colorAdj;
         
-        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        int currentYear  = Calendar.getInstance().get(Calendar.YEAR);
-        
         generalMaxBalance = this.app.getUser().getGeneralMaxBalance(
-            currentMonth, currentYear
+            new Period(
+                LocalDate.now().getMonthValue(),
+                LocalDate.now().getYear()
+            )
         );
         
         for (Account account : this.app.getUser().getAccounts()) {            
@@ -96,7 +96,7 @@ public class Accounts implements Initializable, Observer {
             hBox.getChildren().add(accName);         
             hBox.getChildren().add(accBalance);            
             
-              // VBox que funciona como botÃ£o toggle
+            // VBox que funciona como botão toggle
             VBox accButton = new VBox(5);
             if(accountsFilter.values.contains(account.getName()))
                 accButton.getStyleClass().add("customVBox");
