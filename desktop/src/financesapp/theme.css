@@ -27,8 +27,16 @@
     -fx-opacity: 0.4;
 }
 
+.income-text {
+    -fx-text-fill: green;
+}
+
 .income-text .table-cell {
     -fx-text-fill: green;
+}
+
+.expense-text {
+    -fx-text-fill: red;
 }
 
 .expense-text .table-cell {

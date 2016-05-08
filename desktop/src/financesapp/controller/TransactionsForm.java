@@ -76,13 +76,17 @@ public class TransactionsForm implements Initializable, Observer {
          
         String type = "Despesa";         
         String concretized = "Pago";
+        
+        this.value.getStyleClass().removeAll("expense-text", "income-text");
             
-        if (this.transaction.getClass().getSimpleName().equals(Income.class.getSimpleName())) {
+        if (this.transaction instanceof Income) {
             type = "Receita";
             concretized = "Recebido";
             this.category.getItems().setAll(this.incomeCategories);
+            this.value.getStyleClass().add("income-text");
         } else {
-            this.category.getItems().setAll(this.expenseCategories);            
+            this.category.getItems().setAll(this.expenseCategories);  
+            this.value.getStyleClass().add("expense-text");          
         }
         
         this.transactionType.setText(type);
@@ -101,7 +105,7 @@ public class TransactionsForm implements Initializable, Observer {
         String type = "Despesa";         
         String concretized = "Pago";
             
-        if (this.payment.getTransaction().getClass().getSimpleName().equals(Income.class.getSimpleName())) {
+        if (this.payment.getTransaction() instanceof Income) {
             type = "Receita";
             concretized = "Recebido";
             this.category.getItems().setAll(this.incomeCategories);
