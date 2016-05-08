@@ -34,8 +34,8 @@
                         </HBox>
                         <HBox alignment="CENTER_LEFT" spacing="10.0" maxWidth="280" >
                             <children>
-                                <TextField fx:id="value" prefWidth="200" maxWidth="1000" onAction="#hideError" promptText="Valor" />
-                                <CheckBox fx:id="status" textAlignment="RIGHT"  minWidth="80.0" prefWidth="80" mnemonicParsing="false" text="Pago" />
+                                <TextField fx:id="value" prefWidth="150" maxWidth="1000" onAction="#hideError" promptText="Valor" />
+                                <CheckBox fx:id="status" minWidth="80.0" prefWidth="80" mnemonicParsing="false" text="Pago" />
                             </children>
                         </HBox>
                         <ComboBox fx:id="category" maxWidth="1000" onAction="#hideError" promptText="Categoria" />

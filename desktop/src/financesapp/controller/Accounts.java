@@ -98,10 +98,15 @@ public class Accounts implements Initializable, Observer {
             
             // VBox que funciona como botão toggle
             VBox accButton = new VBox(5);
-            if(accountsFilter.values.contains(account.getName()))
+            if(accountsFilter.values.contains(account.getName())) {
                 accButton.getStyleClass().add("customVBox");
-            else
+                accName.getStyleClass().add("unselected");
+                accBalance.getStyleClass().add("unselected");
+                accPb.getStyleClass().add("unselected");
+            }
+            else {
                 accButton.getStyleClass().add("customVBoxClicked");
+            }
 
             accButton.getChildren().add(hBox);
             accButton.getChildren().add(accPb);

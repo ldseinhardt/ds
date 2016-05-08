@@ -105,7 +105,8 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
-                                        <PieChart fx:id="chart" layoutX="100.0" layoutY="20.0" />
+                                        <PieChart fx:id="chart" layoutX="20.0" layoutY="20.0" />
+                                        <PieChart fx:id="categoriesChart" layoutX="500.0" layoutY="20.0" />
                                     </children>
                                 </AnchorPane>
                             </content>

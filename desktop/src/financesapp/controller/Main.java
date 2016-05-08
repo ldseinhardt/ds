@@ -39,9 +39,13 @@ public class Main implements Initializable, Observer {
     // Referência para o gráfico de Pizza
     @FXML
     private PieChart chart;
+    
+    @FXML
+    private PieChart categoriesChart;
         
     // Dados que serão enviados para o gráfico
     private ObservableList<PieChart.Data> pcData;
+    private ObservableList<PieChart.Data> categories;
     
     @FXML
     private BorderPane borderPane;
@@ -614,7 +618,20 @@ public class Main implements Initializable, Observer {
         pcData.add(new PieChart.Data("Receita", this.SumIncome(new Period() ) ));
         chart.setData(pcData);
         chart.setTitle("Relação Despesa X Receita ");
-      
+        
+        categories = FXCollections.observableArrayList();
+        for (ExpenseCategory categ : this.app.getExpenseCategories()) {
+            categories.add(
+                new PieChart.Data(
+                    categ.getName(), this.app.getUser().getTotalByCategory(
+                        categ, Expense.class.getSimpleName(), new Period()
+                    )
+                )
+            );
+        }
+        categoriesChart.setData(categories);
+        categoriesChart.setTitle("Categorias");
+        
         //////////////////////////////////////////
         this.menuFilterAccount.getItems().clear();            
         MenuItem allAcocunts = new MenuItem("Todas as Contas");   

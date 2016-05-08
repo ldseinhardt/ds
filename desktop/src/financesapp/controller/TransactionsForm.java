@@ -288,7 +288,7 @@ public class TransactionsForm implements Initializable, Observer {
     
     private void clearForm() {
         this.date.setValue(LocalDate.now());
-        this.value.setText(String.valueOf(0.0));
+        //this.value.setText(String.valueOf(0.0));
         this.freq.setValue(this.periods.get(0));
         this.category.setValue(null);
         this.account.setValue(null);
