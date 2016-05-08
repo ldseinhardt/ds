@@ -182,7 +182,7 @@ public class Main implements Initializable, Observer {
         
     @FXML
     private void onDeleteFilters() {
-        this.accountFilter.clear();
+        this.accountsController.onAccountClicked("");
         this.typeFilter = "";
         this.categoryFilter = "";
         this.showTransactions(new Period());

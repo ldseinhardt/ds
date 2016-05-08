@@ -166,7 +166,9 @@ class accountFilterObvervable extends Observable {
     }
     
     public void setValue(String str) {
-        if(values.contains(str)) {
+        if(str.equals(""))
+            values.clear();
+        else if (values.contains(str)) {
             values.remove(str);
         } else {
             values.add(str);
