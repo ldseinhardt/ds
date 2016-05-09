@@ -47,7 +47,7 @@
                                                     <items>
                                                         <MenuItem mnemonicParsing="false" onAction="#onAddExpense" text="Despesa" />
                                                         <MenuItem mnemonicParsing="false" onAction="#onAddIncome" text="Receita" />
-                                                        <MenuItem mnemonicParsing="false" onAction="#onAddTransference" text="Transferência" />
+                                                        <!--<MenuItem mnemonicParsing="false" onAction="#onAddTransference" text="Transferência" />-->
                                                     </items>
                                                 </Menu>
                                                 <SeparatorMenuItem mnemonicParsing="false" />
@@ -145,7 +145,7 @@
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#onAddExpense" text="Despesa" />
                                         <MenuItem mnemonicParsing="false" onAction="#onAddIncome" text="Receita" />
-                                        <MenuItem mnemonicParsing="false" onAction="#onAddTransference" text="Transferência" />
+                                        <!--<MenuItem mnemonicParsing="false" onAction="#onAddTransference" text="Transferência" />-->
                                     </items>
                                 </Menu>
                                 <SeparatorMenuItem mnemonicParsing="false" />
@@ -182,7 +182,7 @@
                     <items>
                         <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddExpense" prefWidth="94.0" styleClass="expense-button-color" text="Adicionar Despesa" textAlignment="CENTER" wrapText="true" />
                         <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddIncome" prefWidth="94.0" styleClass="income-button-color" text="Adicionar Receita" textAlignment="CENTER" wrapText="true" />
-                        <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddTransference" prefWidth="94.0" styleClass="transference-button-color" text="Adicionar Transferência" textAlignment="CENTER" wrapText="true" />
+                        <!--<Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddTransference" prefWidth="94.0" styleClass="transference-button-color" text="Adicionar Transferência" textAlignment="CENTER" wrapText="true" />-->
                         <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAccountsGestor" prefWidth="94.0" text="Gerenciar Contas" textAlignment="CENTER" wrapText="true" />
                         <Pane HBox.hgrow="ALWAYS" />
                         <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Período" wrapText="true">

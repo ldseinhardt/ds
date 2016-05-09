@@ -19,7 +19,7 @@ public class TransferenceIn extends Transaction {
     
     public Account getFromAccount() {
         return this.fromAccount;
-    }  
+    }
     
     public double getValue() {
         return this.value;

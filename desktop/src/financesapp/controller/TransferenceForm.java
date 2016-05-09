@@ -21,11 +21,13 @@ public class TransferenceForm implements Initializable, Observer {
     //Referência da classe principal
     private FinancesApp app;
 
-    //Transação para add
-    private Transaction transaction;
+    //Transações para add
+    private TransferenceIn transferenceIn;
+    private TransferenceOut transferenceOut;
 
-    //Pagamento para edit    
-    private Payment payment;
+    //Pagamentos para edit
+    private Payment paymentIn;
+    private Payment paymentOut;
     
     private ObservableList<Account> accountList;
     
@@ -56,9 +58,14 @@ public class TransferenceForm implements Initializable, Observer {
     @FXML
     private Button save;
     
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
-        this.payment = null;
+    public void setTransference(
+        TransferenceIn transferenceIn,
+        TransferenceOut transferenceOut) {
+        
+        this.transferenceIn = transferenceIn;
+        this.transferenceOut = transferenceOut;
+        this.paymentIn = null;
+        this.paymentOut = null;
         
         this.clearForm();
         
@@ -71,9 +78,12 @@ public class TransferenceForm implements Initializable, Observer {
         
     }
     
-    public void setPayment(Payment payment) {  
-        this.transaction = null;
-        this.payment = payment;
+    public void setPayment(Payment paymentIn, Payment paymentOut) {
+        /*
+        this.transferenceIn = null;
+        this.transferenceOut = null;
+        this.paymentIn = paymentIn;
+        this.paymentOut = paymentOut;
         
         this.clearForm();
          
@@ -84,11 +94,12 @@ public class TransferenceForm implements Initializable, Observer {
         
         this.transactionType.setText(type);
         
-        this.date.setValue(this.payment.getDate());
-        this.fromAccount.setValue(this.payment.getTransaction().getAccount());
-        this.information.setText(this.payment.getTransaction().getInformation());
+        this.date.setValue(this.paymentIn.getDate());
+        this.fromAccount.setValue(this.paymentOut.getTransaction().getAccount());
+        this.toAccount.setValue(this.paymentIn.getTransaction().getAccount());
+        this.information.setText(this.paymentIn.getTransaction().getInformation());
         
-        this.value.setText(String.valueOf(this.payment.getValue()));
+        this.value.setText(String.valueOf(this.paymentIn.getValue()));
         /*
         ArrayList<Payment> pays = this.payment.getTransaction().getPayments();
         if (pays.size() > 1) {
@@ -109,7 +120,8 @@ public class TransferenceForm implements Initializable, Observer {
     }
 
     @FXML
-    private void onSave() {        
+    private void onSave() {
+        /*
         if (this.value.getText().isEmpty()) {
             this.error.setText("*Favor digite o valor.");
             this.error.setVisible(true); 
@@ -149,25 +161,34 @@ public class TransferenceForm implements Initializable, Observer {
             return;
         }
         
-        Transaction trans = null;  
+        TransferenceIn transIn = null;
+        TransferenceOut transOut = null;
                 
         LocalDate today = LocalDate.now();      
         
-        if (this.transaction != null) {
+        if (this.transferenceIn != null) {
             //add
-            trans = this.transaction;
+            transIn = this.transferenceIn;
             
-            trans.setDate(date.getValue());  
+            transIn.setDate(date.getValue());  
             
-            trans.addPayment(new Payment(
+            transferenceIn.addPayment(new Payment(
                 transValue, this.date.getValue(), true
             ));
         
-        } else if (this.payment != null) {
-            //edit
-            trans = this.payment.getTransaction();
-            this.payment.setDate(date.getValue());
-            this.payment.setValue(transValue);
+        } else {
+            if (this.paymentIn != null) {
+                //edit
+                transIn = this.paymentIn.getTransaction();
+                this.paymentIn.setDate(date.getValue());
+                this.paymentIn.setValue(transValue);
+            }
+            if (this.paymentOut != null) {
+                //edit
+                transOut = this.paymentOut.getTransaction();
+                this.paymentOut.setDate(date.getValue());
+                this.paymentOut.setValue(transValue);
+            }
         }
         
         if (trans != null) {
@@ -175,40 +196,15 @@ public class TransferenceForm implements Initializable, Observer {
             
             if (trans.getAccount() == null) {
                 this.fromAccount.getValue().addTransaction(trans);
+                this.toAccount.getValue().addTransaction(trans);
             } else if(trans.getAccount() != this.fromAccount.getValue()) {
                 trans.getAccount().getTransactions().remove(trans);
                 this.fromAccount.getValue().addTransaction(trans);
             }
         }
-        
+        */
         this.app.getUser().update();
         this.close();
-    }
-    
-    private ArrayList<LocalDate> getDates(LocalDate date, int period) {        
-        ArrayList<LocalDate> dates = new ArrayList();
-        
-        int MAX_YEAR = date.getYear() + 5;              
-        
-        while(date.getYear() <= MAX_YEAR) {
-            dates.add(date); 
-            switch (period) {
-                case 30:
-                    date = date.plusMonths(1);
-                    break;
-                case 15:
-                    date = date.plusWeeks(2);
-                    break;
-                case 7:
-                    date = date.plusWeeks(1);                        
-                    break;
-                case 1:
-                    date = date.plusDays(1);                        
-                    break;
-            }               
-        }
-        
-        return dates;
     }
     
     @FXML
@@ -337,8 +333,8 @@ public class TransferenceForm implements Initializable, Observer {
             }
         });
         
-        this.transaction = null;
-        this.payment = null;
+        //this.transaction = null;
+        //this.payment = null;
     }  
 
     @Override

@@ -19,10 +19,10 @@ public class TransferenceOut extends Transaction {
     
     public Account gettoAccount() {
         return this.toAccount;
-    }  
+    }
     
     public double getValue() {
-        return this.value;
+        return this.value * -1;
     }
     
     @Override

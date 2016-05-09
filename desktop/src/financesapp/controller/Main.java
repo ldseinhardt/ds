@@ -136,15 +136,17 @@ public class Main implements Initializable, Observer {
             this.formController.setTransaction(new Income());   
         }    
     }
-    
+    /*
     @FXML
     private void onAddTransference() {
         if (this.transferenceForm != null && this.transferenceFormController != null) {
             this.showTransferenceForm();
-            this.transferenceFormController.setTransaction(new Income());
-        }    
+            this.transferenceFormController.setTransference(
+                new TransferenceIn(), new TransferenceOut()
+            );
+        }
     }
-    
+    */
     @FXML
     private void onEditTransaction() {
         this.editTransaction(this.tableView.getSelectionModel().getSelectedItem());     
