@@ -773,10 +773,10 @@ public class Main implements Initializable, Observer {
         double expTotal = this.SumExpense(new Period());
         double incTotal = this.SumIncome(new Period());
         
-        if (expTotal != 0 || incTotal != 0) {
+        //if (expTotal != 0 || incTotal != 0) {
             pcData = FXCollections.observableArrayList();
-            pcData.add(new PieChart.Data("Despesas", this.SumExpense(new Period() ) ));
-            pcData.add(new PieChart.Data("Receitas", this.SumIncome(new Period() ) ));
+            pcData.add(new PieChart.Data("Despesas", expTotal ));
+            pcData.add(new PieChart.Data("Receitas", incTotal ));
             chart.setData(pcData);
             chart.setTitle("Relação Despesas X Receitas ");
             
@@ -811,11 +811,11 @@ public class Main implements Initializable, Observer {
                 )
             );
             //////////////////////////////////////////
-        }
+        /*}
         else {
             Label noData = new Label("Não há dados para exibição");
             this.graficos.setContent(noData);
-        }
+        }*/
         this.menuFilterAccount.getItems().clear();            
         MenuItem allAcocunts = new MenuItem("Todas as Contas");   
         allAcocunts.setOnAction(e -> this.filterAccount(""));
