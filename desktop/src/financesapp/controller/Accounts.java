@@ -36,7 +36,7 @@ public class Accounts implements Initializable, Observer {
     }
     
     private void showAccounts() {
-        VBox vBox = new VBox(3);
+        VBox vBox = new VBox();
         vBox.getStyleClass().add("sideBar");
         vBox.setMaxWidth(300);
         this.scrollPane.setContent(vBox);

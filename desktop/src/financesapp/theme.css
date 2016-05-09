@@ -7,14 +7,17 @@
 
 .customVBox {
     -fx-alignment: CENTER;
-    -fx-padding: 15;
+    -fx-padding: 10;
     
 }
 
 .customVBoxClicked {
-    -fx-background-color: #d1d0d0;
-    -fx-padding: 15;
+    -fx-background-color: #e9e9f9;
+    -fx-padding: 9;
+    -fx-border-width: 1px;
+    -fx-border-color: rgba(0, 0, 0, .1);
     -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
 }
 
 .customHBox {
@@ -27,27 +30,27 @@
 
 .income-button-color {
     -fx-text-fill: white;
-    -fx-background-color: #5CB85C;
+    -fx-background-color: linear-gradient(#009900 0%, #007f00 25%, #007f00 75%, #009900 100%);
 }
 .expense-button-color {
     -fx-text-fill: white;
-    -fx-background-color: #D43F3A;
+    -fx-background-color: linear-gradient(#cc0000 0%, #b20000 25%, #b20000 75%, #cc0000 100%);
 }
 
 .income-text-color {
-    -fx-text-fill: #4b904b;
+    -fx-text-fill: green;
 }
 
 .income-text-color  .table-cell {
-    -fx-text-fill: #4b904b;
+    -fx-text-fill: green;
 }
 
 .expense-text-color {
-    -fx-text-fill: #9e413e;
+    -fx-text-fill: red;
 }
 
 .expense-text-color  .table-cell {
-    -fx-text-fill: #9e413e;
+    -fx-text-fill: red;
 }
 
 .income-text-color:selected .table-cell,
