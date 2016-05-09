@@ -37,6 +37,11 @@
     -fx-background-color: linear-gradient(#cc0000 0%, #b20000 25%, #b20000 75%, #cc0000 100%);
 }
 
+.transference-button-color {
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(#0000cc 0%, #0000cf 25%, #0000cf 75%, #0000ff 100%);
+}
+
 .income-text-color {
     -fx-text-fill: green;
 }

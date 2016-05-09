@@ -62,6 +62,12 @@ public class User extends Observable {
                     } else if (transactionJSON.getString("type").equalsIgnoreCase(Income.class.getSimpleName())) {
                         transaction = new Income();    
                         transaction.setCategory(new IncomeCategory(categoryName));
+                    } else if (transactionJSON.getString("type").equalsIgnoreCase(TransferenceOut.class.getSimpleName())) {
+                        transaction = new TransferenceOut();
+                        //transaction.setCategory(new ExpenseCategory(categoryName));
+                    } else if (transactionJSON.getString("type").equalsIgnoreCase(TransferenceIn.class.getSimpleName())) {
+                        transaction = new TransferenceIn();
+                        //transaction.setCategory(new IncomeCategory(categoryName));
                     }
                     
                     if (transaction != null) {

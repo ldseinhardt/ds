@@ -57,7 +57,17 @@ public abstract class Account {
         double balance = this.openingBalance;
         
         for (Transaction transaction : this.getTransactions()) {
-            balance += transaction.getTotalValue();  
+            for (Payment payment : transaction.getPayments()) {
+                if (payment.hasConcretized()) {
+                    if (payment.getTransaction().getClass().equals(Income.class) ||
+                        payment.getTransaction().getClass().equals(TransferenceIn.class)) {
+                        balance += payment.getValue();
+                    }
+                    else { //Expense or TransferenceOut
+                        balance -= payment.getValue();
+                    }
+                }
+            }
         }
         
         return balance;
@@ -70,10 +80,12 @@ public abstract class Account {
             for (Payment payment : transaction.getPayments()) {
                 if (payment.getDate().isBefore(untilDate.plusDays(1))) {
                     if (payment.hasConcretized()) {
-                        if (payment.getTransaction().getClass().getSimpleName().equals("Income"))
+                        if (payment.getTransaction().getClass().equals(Income.class)) {
                             balance += payment.getValue();
-                        else //Expense
+                        }
+                        else { //Expense
                             balance -= payment.getValue();
+                        }
                     }
                 }
             }

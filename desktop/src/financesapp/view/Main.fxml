@@ -47,6 +47,7 @@
                                                     <items>
                                                         <MenuItem mnemonicParsing="false" onAction="#onAddExpense" text="Despesa" />
                                                         <MenuItem mnemonicParsing="false" onAction="#onAddIncome" text="Receita" />
+                                                        <MenuItem mnemonicParsing="false" onAction="#onAddTransference" text="Transferência" />
                                                     </items>
                                                 </Menu>
                                                 <SeparatorMenuItem mnemonicParsing="false" />
@@ -61,7 +62,8 @@
                                                             <items>
                                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByExpense" text="Despesas" />
                                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByIncome" text="Receitas" />
-                                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Receitas e Despesas" />
+                                                                <MenuItem mnemonicParsing="false" text="Transferências" />
+                                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Todas as Transações" />
                                                             </items>
                                                         </Menu>
                                                         <Menu mnemonicParsing="false" text="Por Categoria">
@@ -143,6 +145,7 @@
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#onAddExpense" text="Despesa" />
                                         <MenuItem mnemonicParsing="false" onAction="#onAddIncome" text="Receita" />
+                                        <MenuItem mnemonicParsing="false" onAction="#onAddTransference" text="Transferência" />
                                     </items>
                                 </Menu>
                                 <SeparatorMenuItem mnemonicParsing="false" />
@@ -154,7 +157,8 @@
                                             <items>
                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByExpense" text="Despesas" />
                                                 <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByIncome" text="Receitas" />
-                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Receitas e Despesas" />
+                                                <MenuItem mnemonicParsing="false" text="Transferências" />
+                                                <MenuItem mnemonicParsing="false" onAction="#onFilterTypeByNone" text="Todas as Transações" />
                                             </items>
                                         </Menu>
                                         <Menu mnemonicParsing="false" text="Por Categoria">
@@ -178,13 +182,14 @@
                     <items>
                         <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddExpense" prefWidth="94.0" styleClass="expense-button-color" text="Adicionar Despesa" textAlignment="CENTER" wrapText="true" />
                         <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddIncome" prefWidth="94.0" styleClass="income-button-color" text="Adicionar Receita" textAlignment="CENTER" wrapText="true" />
+                        <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddTransference" prefWidth="94.0" styleClass="transference-button-color" text="Adicionar Transferência" textAlignment="CENTER" wrapText="true" />
                         <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAccountsGestor" prefWidth="94.0" text="Gerenciar Contas" textAlignment="CENTER" wrapText="true" />
                         <Pane HBox.hgrow="ALWAYS" />
                         <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Período" wrapText="true">
                      <items>
                         <MenuItem mnemonicParsing="false" onAction="#onFilterCurrenMonth" text="Mês atual" />
                         <MenuItem mnemonicParsing="false" onAction="#onFIlterLastMonth" text="Mês anterior" />
-                        <MenuItem mnemonicParsing="false" onAction="#onFilterAllTime" text="Todas transações" />
+                        <MenuItem mnemonicParsing="false" onAction="#onFilterAllTime" text="Todas as Transações" />
                      </items></MenuButton>
                         <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Categorias" wrapText="true" />
                     </items>

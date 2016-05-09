@@ -34,9 +34,13 @@ public class Main implements Initializable, Observer {
     private Parent accountsView;
     private Accounts accountsController;
     
-    //Referências para o formulário
+    //Referências para o formulário de depesa/receita
     private Parent form;
     private TransactionsForm formController;
+       
+    //Referências para o formulário de transferência
+    private Parent transferenceForm;
+    private TransferenceForm transferenceFormController;
        
     // Referência para o gráfico de Pizza
     @FXML
@@ -106,6 +110,8 @@ public class Main implements Initializable, Observer {
     
     private ObservableList<Payment> transactions;   
     
+    private ObservableList<Payment> transferences;
+    
     // Filtros
     private ArrayList<String> accountFilter;
     private String typeFilter;
@@ -128,6 +134,14 @@ public class Main implements Initializable, Observer {
         if (this.form != null && this.formController != null) { 
             this.showForm();     
             this.formController.setTransaction(new Income());   
+        }    
+    }
+    
+    @FXML
+    private void onAddTransference() {
+        if (this.transferenceForm != null && this.transferenceFormController != null) {
+            this.showTransferenceForm();
+            this.transferenceFormController.setTransaction(new Income());
         }    
     }
     
@@ -403,6 +417,11 @@ public class Main implements Initializable, Observer {
         this.borderPane.setLeft(this.form);      
     }
     
+    private void showTransferenceForm() {
+        this.app.getUser().deleteObserver(this.accountsController);
+        this.borderPane.setLeft(this.transferenceForm);
+    }
+    
     @FXML
     private void onAccountsGestor() {          
         this.app.showAccountsGestor();    
@@ -455,6 +474,7 @@ public class Main implements Initializable, Observer {
         this.update(null, null);
         this.accountsController.init(this.app);
         this.formController.init(this.app);   
+        this.transferenceFormController.init(this.app);
         
         for (Category category : this.app.getExpenseCategories()) {
             MenuItem menuItem = new MenuItem(category.getName());   
@@ -667,9 +687,39 @@ public class Main implements Initializable, Observer {
             this.form = null;
             this.formController = null;
         }
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/financesapp/view/TransferenceForm.fxml")
+            );
+            this.transferenceForm = loader.load();
+            this.transferenceFormController = loader.getController();
+        } catch(Exception e) {
+            this.transferenceForm = null;
+            this.transferenceFormController = null;
+        }
     }
     
     public void showTransactions(Period period) {
+        this.transactions.clear();
+        
+        for (Account account : this.app.getUser().getAccounts()) {
+            if (this.accountFilter.contains(account.getName())) {
+                continue;
+            }
+            
+            for (Payment payment : account.getPayments(period)) {
+                if (!this.typeFilter.isEmpty() && !payment.getTransaction().getClass().getSimpleName().equalsIgnoreCase(this.typeFilter)) {
+                    continue;
+                }                
+                if (!this.categoryFilter.isEmpty() && !payment.getTransaction().getCategory().getName().equalsIgnoreCase(this.categoryFilter)) {
+                    continue;
+                }
+                this.transactions.add(payment);
+            }
+        }
+    }
+    
+    public void showTransfrence(Period period) {
         this.transactions.clear();
         
         for (Account account : this.app.getUser().getAccounts()) {
