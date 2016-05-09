@@ -14,6 +14,7 @@ import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.fxml.*;
+import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
@@ -107,6 +108,9 @@ public class Main implements Initializable, Observer {
     
     @FXML
     private Menu contextFilterAccount;   
+    
+    @FXML
+    private Tab graficos;
     
     private ObservableList<Payment> transactions;   
     
@@ -316,9 +320,15 @@ public class Main implements Initializable, Observer {
                 
                 rect.setWidth(total*1000/max);
                 
-                vBox.getChildren().add(anchorPane);                
+                vBox.getChildren().add(anchorPane);
             }
         }
+        
+        if (max == 0) {
+            Label noData = new Label("Não há dados para exibição");
+            vBox.getChildren().add(noData);
+        }
+        
         vBox.getChildren().add(new Label()); //Espaço vazio
     }
     
@@ -411,6 +421,12 @@ public class Main implements Initializable, Observer {
                 vBox.getChildren().add(anchorPane);
             }
         }    
+        
+        if (max == 0) {
+            Label noData = new Label("Não há dados para exibição");
+            vBox.getChildren().add(noData);
+        }
+        
         vBox.getChildren().add(new Label()); //Espaço vazio
     }
     
@@ -743,7 +759,7 @@ public class Main implements Initializable, Observer {
     
     @Override
     public void update(Observable o, Object arg) {  
-        // Teste (mês atual) /////////////////////
+        // Mês atual /////////////////////
         LocalDate first = LocalDate.of(
             LocalDate.now().getYear(),
             LocalDate.now().getMonthValue(),
@@ -752,56 +768,64 @@ public class Main implements Initializable, Observer {
         LocalDate last = first.withDayOfMonth(
             first.lengthOfMonth()
         );
-        //////////////////////////////////////////
-                
-        // Teste dos dados adicionados em forma de Pizza ( Pie Chart)
-        pcData = FXCollections.observableArrayList();
-        pcData.add(new PieChart.Data("Despesas", this.SumExpense(new Period() ) ));
-        pcData.add(new PieChart.Data("Receitas", this.SumIncome(new Period() ) ));
-        chart.setData(pcData);
-        chart.setTitle("Relação Despesas X Receitas ");
+        //////////////////////////////////
         
-        // Mostra valores na tela do Gráfico de Pizza - Receita X Despesa
-        pcData.forEach(data ->
-        data.nameProperty().bind(
-                Bindings.concat(
+        double expTotal = this.SumExpense(new Period());
+        double incTotal = this.SumIncome(new Period());
+        
+        if (expTotal != 0 || incTotal != 0) {
+            pcData = FXCollections.observableArrayList();
+            pcData.add(new PieChart.Data("Despesas", this.SumExpense(new Period() ) ));
+            pcData.add(new PieChart.Data("Receitas", this.SumIncome(new Period() ) ));
+            chart.setData(pcData);
+            chart.setTitle("Relação Despesas X Receitas ");
+            
+            // Mostra valores na tela do Gráfico de Pizza - Receita X Despesa
+            pcData.forEach(data ->
+                data.nameProperty().bind(
+                    Bindings.concat(
                         data.getName(), " R$: ", data.pieValueProperty(), "  "
-                )
-        )
-        );        
-        
-        categories = FXCollections.observableArrayList();
-        for (ExpenseCategory categ : this.app.getExpenseCategories()) {
-            categories.add(
-                new PieChart.Data(
-                    categ.getName(), this.app.getUser().getTotalByCategory(
-                        categ, Expense.class.getSimpleName(), new Period()
                     )
                 )
             );
-        }
-        categoriesChart.setData(categories);
-        categoriesChart.setTitle("Categorias (Em R$) ");
-        
-        // Mostra valores na tela do Gráfico de Pizza ( PieChart )  de Categorias
-        categories.forEach(data ->
-        data.nameProperty().bind(
-                Bindings.concat(
+            
+            categories = FXCollections.observableArrayList();
+            for (ExpenseCategory categ : this.app.getExpenseCategories()) {
+                categories.add(
+                    new PieChart.Data(
+                        categ.getName(), this.app.getUser().getTotalByCategory(
+                            categ, Expense.class.getSimpleName(), new Period()
+                        )
+                    )
+                );
+            }
+            categoriesChart.setData(categories);
+            categoriesChart.setTitle("Categorias (Em R$) ");
+            
+            // Mostra valores na tela do Gráfico de Pizza ( PieChart )  de Categorias
+            categories.forEach(data ->
+                data.nameProperty().bind(
+                    Bindings.concat(
                         data.getName(), " ", data.pieValueProperty(), ""
+                    )
                 )
-        )
-        );        
-        //////////////////////////////////////////
+            );
+            //////////////////////////////////////////
+        }
+        else {
+            Label noData = new Label("Não há dados para exibição");
+            this.graficos.setContent(noData);
+        }
         this.menuFilterAccount.getItems().clear();            
         MenuItem allAcocunts = new MenuItem("Todas as Contas");   
         allAcocunts.setOnAction(e -> this.filterAccount(""));
         this.menuFilterAccount.getItems().add(allAcocunts);
-            
+        
         this.contextFilterAccount.getItems().clear();
         MenuItem allAcocuntsContext = new MenuItem("Todas as Contas");   
         allAcocuntsContext.setOnAction(e -> this.filterAccount(""));
         this.contextFilterAccount.getItems().add(allAcocuntsContext);
-           
+        
         for (Account account : this.app.getUser().getAccounts()) {
             MenuItem menuItem = new MenuItem(account.getName());   
             menuItem.setOnAction(e ->
@@ -815,17 +839,16 @@ public class Main implements Initializable, Observer {
             );
             this.contextFilterAccount.getItems().add(menuItemContext);
         }
-
+        
         this.accountFilter.clear();
         this.accountFilter.addAll(this.accountsController.getAccountsFilter().getValues());
-
+        
         //this.showExpensesByCategory(new Period(first, last));
         //this.showIncomesByCategory(new Period(first, last));
         //this.showTransactions(new Period(firdst, last));
         this.showExpensesByCategory(this.periodFilter);
         this.showIncomesByCategory (this.periodFilter);
         this.showTransactions      (this.periodFilter);
-        
     }
     
 }

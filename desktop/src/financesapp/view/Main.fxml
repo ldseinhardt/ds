@@ -102,7 +102,7 @@
                                 </BorderPane>
                             </content>
                         </Tab>
-                        <Tab text="Gráficos">
+                        <Tab fx:id="graficos" text="Gráficos">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
@@ -186,12 +186,13 @@
                         <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAccountsGestor" prefWidth="94.0" text="Gerenciar Contas" textAlignment="CENTER" wrapText="true" />
                         <Pane HBox.hgrow="ALWAYS" />
                         <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Período" wrapText="true">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#onFilterCurrenMonth" text="Mês atual" />
-                        <MenuItem mnemonicParsing="false" onAction="#onFIlterLastMonth" text="Mês anterior" />
-                        <MenuItem mnemonicParsing="false" onAction="#onFilterAllTime" text="Todas as Transações" />
-                     </items></MenuButton>
-                        <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Categorias" wrapText="true" />
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#onFilterCurrenMonth" text="Mês atual" />
+                                <MenuItem mnemonicParsing="false" onAction="#onFIlterLastMonth" text="Mês anterior" />
+                                <MenuItem mnemonicParsing="false" onAction="#onFilterAllTime" text="Todas as Transações" />
+                            </items>
+                        </MenuButton>
+                        <!--<MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Categorias" wrapText="true" />-->
                     </items>
                     <padding>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
