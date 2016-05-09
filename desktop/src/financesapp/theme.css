@@ -50,6 +50,10 @@
     -fx-text-fill: green;
 }
 
+.transference-text-color  .table-cell {
+    -fx-text-fill: blue;
+}
+
 .expense-text-color {
     -fx-text-fill: red;
 }
@@ -58,7 +62,12 @@
     -fx-text-fill: red;
 }
 
+.transference-text-color {
+    -fx-text-fill: blue;
+}
+
 .income-text-color:selected .table-cell,
-.expense-text-color:selected .table-cell {
+.expense-text-color:selected .table-cell,
+.transference-text-color:selected .table-cell {
     -fx-text-fill: white;
 }

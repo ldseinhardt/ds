@@ -21,7 +21,7 @@
             <content>
                 <VBox alignment="CENTER" minWidth="295.0" spacing="10.0">
                     <children>
-                        <Label fx:id="transactionType" text="Despesa">
+                        <Label fx:id="transactionType" text="Transferência">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -29,18 +29,17 @@
                         <HBox spacing="10.0">
                             <children>
                                 <DatePicker fx:id="date" editable="false" maxWidth="1.7976931348623157E308" onAction="#hideError" prefWidth="150.0" promptText="Data" />
-                                <ComboBox fx:id="freq" maxWidth="115.0" minWidth="115.0" onAction="#hideError" prefWidth="115.0" promptText="Ocorrência" />
+                                <!--<ComboBox fx:id="freq" maxWidth="115.0" minWidth="115.0" onAction="#hideError" prefWidth="115.0" promptText="Ocorrência" />-->
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" maxWidth="280" spacing="10.0">
                             <children>
                                 <TextField fx:id="value" maxWidth="1000" onAction="#hideError" prefWidth="150" promptText="Valor" />
-                                <CheckBox fx:id="status" maxWidth="115.0" minWidth="115.0" mnemonicParsing="false" prefWidth="115.0" text="Pago" />
+                                <!--<CheckBox fx:id="status" maxWidth="115.0" minWidth="115.0" mnemonicParsing="false" prefWidth="115.0" text="Efetivado" />-->
                             </children>
                         </HBox>
-                        <ComboBox fx:id="category" maxWidth="275.0" minWidth="275.0" onAction="#hideError" prefWidth="275.0" promptText="Categoria" />
-                        <ComboBox fx:id="account" maxWidth="275.0" minWidth="275.0" onAction="#hideError" prefWidth="275.0" promptText="Conta" />
-                        <TextField fx:id="description" maxWidth="275.0" minWidth="275.0" prefWidth="275.0" promptText="Descrição" />
+                        <ComboBox fx:id="fromAccount" maxWidth="275.0" minWidth="275.0" onAction="#hideError" prefWidth="275.0" promptText="Da Conta" />
+                        <ComboBox fx:id="toAccount" maxWidth="275.0" minWidth="275.0" onAction="#hideError" prefWidth="275.0" promptText="Para a Conta" />
                         <TextArea fx:id="information" maxWidth="275.0" minWidth="275.0" prefHeight="150.0" prefWidth="275.0" promptText="Informações" />
                         <Label fx:id="error" prefWidth="271.0" text="*" textFill="#f20808" visible="false" />
                         <HBox prefHeight="29.0" prefWidth="202.0" spacing="10.0">
