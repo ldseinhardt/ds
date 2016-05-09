@@ -90,6 +90,9 @@ public class Accounts implements Initializable, Observer {
             accPb.setNodeOrientation(nodeOr);
             accPb.setEffect(colorAdj);
             accPb.setPrefWidth(Double.MAX_VALUE);
+            accPb.setOnMouseClicked((MouseEvent event)
+                    -> onAccountClicked(account.getName())
+            );
             
             HBox hBox = new HBox(10);
             hBox.getStyleClass().add("customHBox");

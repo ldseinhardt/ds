@@ -64,6 +64,18 @@
           "information": "",
           "type": "Expense",
           "category": "Educação"
+        },
+        {
+          "date": "2016-05-04",
+          "payments": [{
+            "date": "2016-04-04",
+            "concretized": true,
+            "value": 100
+          }],
+          "description": "Saque da conta Santader",
+          "information": "",
+          "type": "Income",
+          "category": "Renda"
         }
       ],
       "openingBalance": 23.25
@@ -174,6 +186,18 @@
           "information": "",
           "type": "Income",
           "category": "Salário"
+        },
+        {
+          "date": "2016-04-04",
+          "payments": [{
+            "date": "2016-04-04",
+            "concretized": true,
+            "value": 100
+          }],
+          "description": "Saque para conta Carteira",
+          "information": "",
+          "type": "Expense",
+          "category": "Item Pessoal"
         }
       ],
       "openingBalance": 215.05
