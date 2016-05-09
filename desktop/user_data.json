@@ -40,6 +40,30 @@
           "information": "",
           "type": "Expense",
           "category": "Alimentação"
+        },
+        {
+          "date": "2016-04-27",
+          "payments": [{
+            "date": "2016-04-27",
+            "concretized": true,
+            "value": 25
+          }],
+          "description": "Fardo de Polar",
+          "information": "",
+          "type": "Expense",
+          "category": "Item Pessoal"
+        },
+        {
+          "date": "2016-04-21",
+          "payments": [{
+            "date": "2016-04-21",
+            "concretized": true,
+            "value": 30
+          }],
+          "description": "Livro node.js",
+          "information": "",
+          "type": "Expense",
+          "category": "Educação"
         }
       ],
       "openingBalance": 23.25
@@ -102,6 +126,54 @@
           "information": "testse",
           "type": "Expense",
           "category": "Alimentação"
+        },
+        {
+          "date": "2016-04-19",
+          "payments": [{
+            "date": "2016-04-19",
+            "concretized": true,
+            "value": 74
+          }],
+          "description": "Supermerdao",
+          "information": "",
+          "type": "Expense",
+          "category": "Internet"
+        },
+        {
+          "date": "2016-05-05",
+          "payments": [{
+            "date": "2016-05-05",
+            "concretized": true,
+            "value": 400
+          }],
+          "description": "Bolsa Iniciação Científica",
+          "information": "",
+          "type": "Income",
+          "category": "Salário"
+        },
+        {
+          "date": "2015-05-05",
+          "payments": [{
+            "date": "2016-04-05",
+            "concretized": true,
+            "value": 400
+          }],
+          "description": "Bolsa Iniciação Científica",
+          "information": "",
+          "type": "Income",
+          "category": "Salário"
+        },
+        {
+          "date": "2017-05-05",
+          "payments": [{
+            "date": "2016-06-05",
+            "concretized": true,
+            "value": 400
+          }],
+          "description": "Bolsa Iniciação Científica",
+          "information": "",
+          "type": "Income",
+          "category": "Salário"
         }
       ],
       "openingBalance": 215.05
@@ -109,18 +181,32 @@
     {
       "name": "Bolsa",
       "type": "DefaultAccount",
-      "transactions": [{
-        "date": "2016-05-07",
-        "payments": [{
+      "transactions": [
+        {
           "date": "2016-05-07",
-          "concretized": false,
-          "value": 146
-        }],
-        "description": "teste",
-        "information": "",
-        "type": "Expense",
-        "category": "Investimento"
-      }],
+          "payments": [{
+            "date": "2016-05-07",
+            "concretized": false,
+            "value": 146
+          }],
+          "description": "teste",
+          "information": "",
+          "type": "Expense",
+          "category": "Investimento"
+        },
+        {
+          "date": "2016-04-14",
+          "payments": [{
+            "date": "2016-04-14",
+            "concretized": true,
+            "value": 14
+          }],
+          "description": "Sorvete",
+          "information": "",
+          "type": "Expense",
+          "category": "Item Pessoal"
+        }
+      ],
       "openingBalance": 37.4
     },
     {

@@ -115,6 +115,7 @@ public class Accounts implements Initializable, Observer {
             );
             
             vBox.getChildren().add(accButton);
+            vBox.getChildren().add(new Label(""));
         } 
         
         double totalBalance = this.app.getUser().getBalance(LocalDate.now());

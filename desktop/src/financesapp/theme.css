@@ -7,15 +7,13 @@
 
 .customVBox {
     -fx-alignment: CENTER;
-    -fx-padding: 10;
+    -fx-padding: 15;
     
 }
 
 .customVBoxClicked {
-    -fx-background-color: #e9e9f9;
-    -fx-padding: 10;
-    -fx-border-width: 3px;
-    -fx-border-color: rgba(0, 0, 0, .1);
+    -fx-background-color: #d1d0d0;
+    -fx-padding: 15;
     -fx-border-radius: 5px;
 }
 
@@ -29,27 +27,27 @@
 
 .income-button-color {
     -fx-text-fill: white;
-    -fx-background-color: linear-gradient(#009900 0%, #007f00 25%, #007f00 75%, #009900 100%);
+    -fx-background-color: #5CB85C;
 }
 .expense-button-color {
     -fx-text-fill: white;
-    -fx-background-color: linear-gradient(#cc0000 0%, #b20000 25%, #b20000 75%, #cc0000 100%);
+    -fx-background-color: #D43F3A;
 }
 
 .income-text-color {
-    -fx-text-fill: green;
+    -fx-text-fill: #4b904b;
 }
 
 .income-text-color  .table-cell {
-    -fx-text-fill: green;
+    -fx-text-fill: #4b904b;
 }
 
 .expense-text-color {
-    -fx-text-fill: red;
+    -fx-text-fill: #9e413e;
 }
 
 .expense-text-color  .table-cell {
-    -fx-text-fill: red;
+    -fx-text-fill: #9e413e;
 }
 
 .income-text-color:selected .table-cell,

@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.*;
 import java.text.*;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.format.*;
 import java.util.*;
 import javafx.beans.binding.Bindings;
@@ -109,6 +110,7 @@ public class Main implements Initializable, Observer {
     private ArrayList<String> accountFilter;
     private String typeFilter;
     private String categoryFilter;
+    private Period periodFilter;
     
     @FXML
     private Tab transactionsTab;
@@ -174,7 +176,39 @@ public class Main implements Initializable, Observer {
         this.typeFilter = "";
         this.showTransactions(new Period());
     }
+    @FXML
+    private void onFilterCurrenMonth() {
+        this.periodFilter.setPeriod(
+                LocalDate.now().getMonthValue(), 
+                LocalDate.now().getYear()
+        );
+        this.showExpensesByCategory(this.periodFilter);
+        this.showIncomesByCategory (this.periodFilter);
+        this.showTransactions      (this.periodFilter);
+    }
+    
+    @FXML
+    private void onFIlterLastMonth(){
+        int lastMonth = LocalDate.now().getMonthValue();
+        lastMonth = (lastMonth == 1) ? 12 : lastMonth-1;
+        System.out.println(lastMonth);
+        this.periodFilter.setPeriod(
+                lastMonth,
+                LocalDate.now().getYear()
+        );
         
+        this.showExpensesByCategory(this.periodFilter);
+        this.showIncomesByCategory (this.periodFilter);
+        this.showTransactions      (this.periodFilter);
+    }
+    
+    @FXML
+    private void onFilterAllTime(){
+        this.showExpensesByCategory(new Period());
+        this.showIncomesByCategory (new Period());
+        this.showTransactions      (new Period());    
+    }
+    
     @FXML
     private void onDeleteCategoryFilter() { 
         this.filterCategory("");   
@@ -458,6 +492,7 @@ public class Main implements Initializable, Observer {
         this.accountFilter = new ArrayList<>();
         this.typeFilter = "";
         this.categoryFilter = "";
+        this.periodFilter = new Period();
          
         this.dateColunm.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Payment, String>, ObservableValue<String>>() {
             @Override
@@ -734,10 +769,10 @@ public class Main implements Initializable, Observer {
 
         //this.showExpensesByCategory(new Period(first, last));
         //this.showIncomesByCategory(new Period(first, last));
-        //this.showTransactions(new Period(first, last));
-        this.showExpensesByCategory(new Period());
-        this.showIncomesByCategory (new Period());
-        this.showTransactions      (new Period());
+        //this.showTransactions(new Period(firdst, last));
+        this.showExpensesByCategory(this.periodFilter);
+        this.showIncomesByCategory (this.periodFilter);
+        this.showTransactions      (this.periodFilter);
         
     }
     
