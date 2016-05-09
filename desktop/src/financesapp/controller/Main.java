@@ -6,7 +6,6 @@ import java.io.*;
 import java.net.*;
 import java.text.*;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.format.*;
 import java.util.*;
 import javafx.beans.binding.Bindings;
@@ -14,7 +13,6 @@ import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.fxml.*;
-import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
@@ -778,13 +776,15 @@ public class Main implements Initializable, Observer {
             pcData.add(new PieChart.Data("Despesas", expTotal ));
             pcData.add(new PieChart.Data("Receitas", incTotal ));
             chart.setData(pcData);
-            chart.setTitle("Relação Despesas X Receitas ");
+            chart.setTitle("Despesas vs Receitas ");
             
             // Mostra valores na tela do Gráfico de Pizza - Receita X Despesa
             pcData.forEach(data ->
                 data.nameProperty().bind(
                     Bindings.concat(
-                        data.getName(), " R$: ", data.pieValueProperty(), "  "
+                        data.getName(),
+                        " ",
+                        NumberFormat.getCurrencyInstance().format(data.pieValueProperty().getValue())
                     )
                 )
             );
@@ -800,13 +800,15 @@ public class Main implements Initializable, Observer {
                 );
             }
             categoriesChart.setData(categories);
-            categoriesChart.setTitle("Categorias (Em R$) ");
+            categoriesChart.setTitle("Categorias");
             
             // Mostra valores na tela do Gráfico de Pizza ( PieChart )  de Categorias
             categories.forEach(data ->
                 data.nameProperty().bind(
                     Bindings.concat(
-                        data.getName(), " ", data.pieValueProperty(), ""
+                        data.getName(),
+                        " ",
+                        NumberFormat.getCurrencyInstance().format(data.pieValueProperty().getValue())
                     )
                 )
             );
