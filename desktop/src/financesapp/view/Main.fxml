@@ -4,6 +4,8 @@
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
@@ -21,7 +23,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1000.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.controller.Main">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="1100.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="financesapp.controller.Main">
     <center>
         <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <center>        
@@ -104,20 +106,12 @@
                         </Tab>
                         <Tab fx:id="graficos" text="Gráficos">
                             <content>
-                                <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                    <center>
-                                        <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                            <content>
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                    <children>
-                                                        <PieChart fx:id="chart" minHeight="500.0" minWidth="500.0" />
-                                                        <PieChart fx:id="categoriesChart" minHeight="500.0" minWidth="500.0" />
-                                                    </children>
-                                                </HBox>
-                                            </content>
-                                        </ScrollPane>
-                                    </center>
-                                </BorderPane>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <PieChart fx:id="chart" layoutX="20.0" layoutY="20.0" />
+                                        <PieChart fx:id="categoriesChart" layoutX="500.0" layoutY="20.0" />
+                                    </children>
+                                </AnchorPane>
                             </content>
                         </Tab>
                     </tabs>
@@ -193,10 +187,18 @@
                         <!--<Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAddTransference" prefWidth="94.0" styleClass="transference-button-color" text="Adicionar Transferência" textAlignment="CENTER" wrapText="true" />-->
                         <Button maxWidth="94.0" minWidth="94.0" mnemonicParsing="false" onAction="#onAccountsGestor" prefWidth="94.0" text="Gerenciar Contas" textAlignment="CENTER" wrapText="true" />
                         <Pane HBox.hgrow="ALWAYS" />
+                        <Pane prefWidth="650.0">
+                        <DatePicker fx:id="dateinicial" editable="false" layoutX="134.0" layoutY="11.0" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Data" visible="false" />
+                        <DatePicker fx:id="datefinal" editable="false" layoutX="394.0" layoutY="9.0" maxWidth="1.7976931348623157E308" prefWidth="150.0" promptText="Data" visible="false" />
+                        <Label fx:id="dtIncitial" layoutX="36.0" layoutY="16.0" text="Data Inicial:" visible="false" />
+                        <Label fx:id="dtFinal" layoutX="309.0" layoutY="16.0" text="Data Final:" visible="false" />
+                     <Button fx:id="Filtrar" layoutX="576.0" layoutY="9.0" mnemonicParsing="false" onAction="#onFilterIntervalo" text="Filtrar" visible="false" />
+                     </Pane>
                         <MenuButton alignment="CENTER" mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Período" wrapText="true">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#onFilterCurrenMonth" text="Mês atual" />
                                 <MenuItem mnemonicParsing="false" onAction="#onFIlterLastMonth" text="Mês anterior" />
+                        <MenuItem mnemonicParsing="false" onAction="#onFilterInterval" text="Intervalo de Datas" />
                                 <MenuItem mnemonicParsing="false" onAction="#onFilterAllTime" text="Todas as Transações" />
                             </items>
                         </MenuButton>

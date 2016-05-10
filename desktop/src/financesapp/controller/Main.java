@@ -110,6 +110,17 @@ public class Main implements Initializable, Observer {
     @FXML
     private Tab graficos;
     
+    @FXML
+    private Label dtIncitial;
+    @FXML
+    private Label dtFinal;
+    @FXML
+    private DatePicker dateinicial;
+    @FXML
+    private DatePicker datefinal;
+    @FXML
+    private Button Filtrar;
+    
     private ObservableList<Payment> transactions;   
     
     private ObservableList<Payment> transferences;
@@ -203,6 +214,35 @@ public class Main implements Initializable, Observer {
         this.showExpensesByCategory(this.periodFilter);
         this.showIncomesByCategory (this.periodFilter);
         this.showTransactions      (this.periodFilter);
+    }
+    
+    @FXML
+    private void onFilterIntervalo() {
+        
+        this.periodFilter.setPeriod(
+                this.dateinicial.getValue(),
+                this.datefinal.getValue()
+        );
+        this.showExpensesByCategory(this.periodFilter);
+        this.showIncomesByCategory (this.periodFilter);
+        this.showTransactions      (this.periodFilter);
+        
+        this.datefinal.setVisible(false);
+        this.dateinicial.setVisible(false);
+        this.dtFinal.setVisible(false);
+        this.dtIncitial.setVisible(false);
+        this.Filtrar.setVisible(false);
+    }
+    
+     @FXML
+    private void onFilterInterval() {
+        this.datefinal.setValue(null);
+        this.dateinicial.setValue(null);
+        this.datefinal.setVisible(true);
+        this.dateinicial.setVisible(true);
+        this.dtFinal.setVisible(true);
+        this.dtIncitial.setVisible(true);
+        this.Filtrar.setVisible(true);
     }
     
     @FXML
