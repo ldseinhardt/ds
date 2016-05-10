@@ -46,11 +46,11 @@
     -fx-text-fill: green;
 }
 
-.income-text-color  .table-cell {
+.income-text-color .table-cell {
     -fx-text-fill: green;
 }
 
-.transference-text-color  .table-cell {
+.transference-text-color .table-cell {
     -fx-text-fill: blue;
 }
 
@@ -58,7 +58,7 @@
     -fx-text-fill: red;
 }
 
-.expense-text-color  .table-cell {
+.expense-text-color .table-cell {
     -fx-text-fill: red;
 }
 

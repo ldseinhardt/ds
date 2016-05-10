@@ -261,7 +261,7 @@ public class TransactionsForm implements Initializable, Observer {
         
         int MAX_YEAR = date.getYear() + 5;              
         
-        while(date.getYear() <= MAX_YEAR) {
+        while (date.getYear() <= MAX_YEAR) {
             dates.add(date); 
             switch (period) {
                 case 30:

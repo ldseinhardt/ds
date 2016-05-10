@@ -43,7 +43,7 @@ public class Main implements Initializable, Observer {
        
     // Referência para o gráfico de Pizza
     @FXML
-    private PieChart chart;
+    private PieChart typesChart;
     
     @FXML
     private PieChart categoriesChart;
@@ -105,10 +105,7 @@ public class Main implements Initializable, Observer {
     private Menu contextFilterIncomeCategory;
     
     @FXML
-    private Menu contextFilterAccount;   
-    
-    @FXML
-    private Tab graficos;
+    private Menu contextFilterAccount; 
     
     @FXML
     private Label dtIncitial;
@@ -217,12 +214,16 @@ public class Main implements Initializable, Observer {
     }
     
     @FXML
-    private void onFilterIntervalo() {
+    private void onFilterIntervalo() { 
+        if (this.dateinicial.getValue() == null && this.datefinal.getValue() == null) {
+            return;
+        }
         
         this.periodFilter.setPeriod(
                 this.dateinicial.getValue(),
                 this.datefinal.getValue()
         );
+        
         this.showExpensesByCategory(this.periodFilter);
         this.showIncomesByCategory (this.periodFilter);
         this.showTransactions      (this.periodFilter);
@@ -234,7 +235,7 @@ public class Main implements Initializable, Observer {
         this.Filtrar.setVisible(false);
     }
     
-     @FXML
+    @FXML
     private void onFilterInterval() {
         this.datefinal.setValue(null);
         this.dateinicial.setValue(null);
@@ -588,7 +589,7 @@ public class Main implements Initializable, Observer {
                     Date d1 = format.parse(a);                
                     Date d2 = format.parse(b);
                     return Long.compare(d1.getTime(), d2.getTime());
-                } catch(Exception p) {
+                } catch(Exception e) {
                     
                 }                
                 return -1;
@@ -698,22 +699,6 @@ public class Main implements Initializable, Observer {
                     this.editTransaction(payment);
                 }
             });
-            /*
-            row.setOnMouseExited(e -> {    
-                if (!row.isEmpty()) {        
-                    row.getStyleClass().removeAll("expense-text-color", "income-text-color");
-                }
-            });
-            row.setOnMouseEntered(e -> {    
-                if (!row.isEmpty()) { 
-                    row.getStyleClass().add(
-                        (row.getItem().getTransaction() instanceof Expense)
-                            ? "expense-text-color"
-                            : "income-text-color"
-                    );
-                }
-            });
-            */
             return row;
         });
         
@@ -813,10 +798,10 @@ public class Main implements Initializable, Observer {
         
         //if (expTotal != 0 || incTotal != 0) {
             pcData = FXCollections.observableArrayList();
-            pcData.add(new PieChart.Data("Despesas", expTotal ));
-            pcData.add(new PieChart.Data("Receitas", incTotal ));
-            chart.setData(pcData);
-            chart.setTitle("Despesas vs Receitas ");
+            pcData.add(new PieChart.Data("Despesas", expTotal));
+            pcData.add(new PieChart.Data("Receitas", incTotal));
+            typesChart.setData(pcData);
+            typesChart.setTitle("Despesas vs Receitas");
             
             // Mostra valores na tela do Gráfico de Pizza - Receita X Despesa
             pcData.forEach(data ->
@@ -856,6 +841,7 @@ public class Main implements Initializable, Observer {
         /*}
         else {
             Label noData = new Label("Não há dados para exibição");
+            //Não pode destruir os gráficos da interface
             this.graficos.setContent(noData);
         }*/
         this.menuFilterAccount.getItems().clear();            

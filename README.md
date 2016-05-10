@@ -17,7 +17,7 @@ Desenvolvimento de Software - UFPEL (2016/1)
 * Rodrigo Oliveira (<rodrigodroliveira@gmail.com>)
 * Wagner Oliveira Jr (<wfdoliveira@inf.ufpel.edu.br>)
 
-## Prazos de entrega
+## Prazos
 
 | Data       | Item                               |
 | -----------|------------------------------------|
