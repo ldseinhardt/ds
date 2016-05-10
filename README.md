@@ -8,7 +8,7 @@ Desenvolvimento de Software - UFPEL (2016/1)
 * [Sistema desktop](/desktop)
 * [Sistema web](/web)
 
-## Integrantes
+## Equipe
 
 * Diogo Veber Lima (<ecompdiogo@gmail.com>)
 * Luan Einhardt (<ldseinhardt@gmail.com>)
