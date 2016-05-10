@@ -107,40 +107,6 @@
           "information": "sdf",
           "type": "Expense",
           "category": "Alimentação"
-        },
-        {
-          "date": "2016-05-09",
-          "payments": [
-            {
-              "date": "2016-05-09",
-              "concretized": true,
-              "value": 1
-            },
-            {
-              "date": "2016-05-09",
-              "concretized": true,
-              "value": 1
-            },
-            {
-              "date": "2016-05-09",
-              "concretized": true,
-              "value": 1
-            },
-            {
-              "date": "2016-05-09",
-              "concretized": true,
-              "value": 1
-            },
-            {
-              "date": "2016-05-09",
-              "concretized": true,
-              "value": 1
-            }
-          ],
-          "description": "",
-          "information": "",
-          "type": "Income",
-          "category": ""
         }
       ],
       "openingBalance": -125.47

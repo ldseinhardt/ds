@@ -1,4 +1,6 @@
-desktop/dist
+desktop/dist/web-files
+desktop/dist/*.html
+desktop/dist/*.jnlp
 desktop/build.xml
 desktop/manifest.mf
 desktop/build
@@ -17,3 +19,7 @@ desktop/nbproject/configs
 **/*.orig
 **/*~
 **/.DS_Store
+
+
+
+

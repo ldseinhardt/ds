@@ -1,4 +1,4 @@
-# FinancesApp
+# Oráculo da Mascada
 
 Desenvolvimento de Software - UFPEL (2016/1)
 
