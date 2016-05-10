@@ -21,10 +21,10 @@ Desenvolvimento de Software - UFPEL (2016/1)
 
 | Data       | Item                               |
 | -----------|------------------------------------|
-| 08/04/2016 | Casos de uso                       |
-| 18/04/2016 | Diagrama de classes                |
-| 09/05/2015 | Sistema desktop                    |
+| 08/04/2016 | ~~Casos de uso~~                   |
+| 18/04/2016 | ~~Diagrama de classes~~            |
+| 09/05/2015 | ~~Sistema desktop~~                |
 | 23/05/2016 | Modelo ER                          |
 | 13/06/2016 | Carga de arquivo no banco de dados |
 | 30/06/2016 | Wireframes                         |
-| 11/06/2016 | Entrega Final com sistema Web      |
+| 11/06/2016 | Entrega Final com sistema web      |
