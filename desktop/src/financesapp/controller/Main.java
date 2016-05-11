@@ -363,7 +363,7 @@ public class Main implements Initializable, Observer {
             }
         }
         
-        if (max == 0) {
+        if (vBox.getChildren().size() == 0) {
             Label noData = new Label("Não há dados para exibição");
             vBox.getChildren().add(noData);
         }
@@ -461,7 +461,7 @@ public class Main implements Initializable, Observer {
             }
         }    
         
-        if (max == 0) {
+        if (vBox.getChildren().size() == 0) {
             Label noData = new Label("Não há dados para exibição");
             vBox.getChildren().add(noData);
         }
