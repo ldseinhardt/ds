@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="no-js">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Oráculo da Mascada{% endblock %}</title>
+    <base href="/">
+    <link rel="icon" type="image/png" href="files/img/favicon.png">
+    <!-- Chrome Toolbar color for Android -->
+    <meta name="theme-color" content="#111111">
+    <!-- Facebook -->
+    {% block facebook %}
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="Oráculo da Mascada">
+    <meta property="og:url" content="{{ url('home') }}">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Oráculo da Mascada">
+    <meta property="og:description" content="Compartilhe suas finanças...">
+    <meta property="og:image" content="{{ url('file', {type: 'files', file: 'img/facebook.png'}) }}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="256">
+    <meta property="og:image:height" content="256">
+    {% endblock %}
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
+    <link rel="stylesheet" href="assets/bootstrap-material-design/dist/css/ripples.min.css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="files/style.css">
+    {% block style %}{% endblock %}
+  </head>
+  <body>
+    {% include 'navbar.twig' %}
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+    <script src="assets/jquery/dist/jquery.min.js"></script>
+    <script src="assets/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap-material-design/dist/js/material.min.js"></script>
+    <script src="assets/bootstrap-material-design/dist/js/ripples.min.js"></script>
+    <script src="files/script.js"></script>
+    {% block script %}{% endblock %}
+  </body>
+</html>

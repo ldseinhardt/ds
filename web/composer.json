@@ -1,0 +1,16 @@
+{
+	"require" : {
+		"silex/silex": "2.0.*@dev",
+		"twig/twig": ">=1.8.0,<2.0-dev",
+  	"symfony/twig-bridge": "^3.0",
+    "doctrine/dbal": "^2.5",
+    "symfony/validator": "^3.0"
+	},
+	"minimum-stability": "dev",
+	"config": {
+		"bin-dir": "bin/"
+	},
+	"autoload": {
+		"psr-0": {"SON" : "src/"}
+	}  
+}

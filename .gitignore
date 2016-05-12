@@ -10,6 +10,13 @@ desktop/nbproject/genfiles.properties
 desktop/nbproject/UPDATED.TXT
 desktop/nbproject/private
 desktop/nbproject/configs
+web/.c9
+web/bin
+web/vendor
+web/bower_components
+web/cache
+web/public/uploads/*.json
+web/composer.lock
 **/*.class
 **/*.zip
 **/*.tar.gz
@@ -19,7 +26,4 @@ desktop/nbproject/configs
 **/*.orig
 **/*~
 **/.DS_Store
-
-
-
 

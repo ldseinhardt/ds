@@ -1,0 +1,10 @@
+{
+  "name": "odm-web",
+  "dependencies": {
+    "jquery": "^2.2.3",
+    "bootstrap": "^3.3.6",
+    "bootstrap-select": "^1.10.0",
+    "font-awesome": "^4.6.2",
+    "bootstrap-material-design": "^0.5.9"
+  }
+}
