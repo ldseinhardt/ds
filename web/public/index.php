@@ -33,7 +33,7 @@
     if ($request->isMethod('POST')) {
       $email = $app->escape($request->get('email'));
       $password = $app->escape($request->get('password'));
-      
+
       //...
     }
 
@@ -52,7 +52,7 @@
     if ($request->isMethod('POST')) {
       $email = $app->escape($request->get('email'));
       $password = $app->escape($request->get('password'));
-      
+
       //...
     }
 
@@ -63,7 +63,7 @@
   $app->match('/recover/', function(Request $request) use($app) {
     if ($request->isMethod('POST')) {
       $email = $app->escape($request->get('email'));
-      
+
       //...
     }
 
@@ -76,12 +76,12 @@
 
     if ($request->isMethod('POST')) {
       $email = $app->escape($request->get('email'));
-      
+
       //...
     }
 
     return $app['twig']->render('recover_password.twig', [
-      'token' => $token  
+      'token' => $token
     ]);
   }, 'GET|POST')
     ->bind('recover_password');
@@ -96,7 +96,7 @@
   $app->match('/profile/edit/', function(Request $request) use($app) {
     if ($request->isMethod('POST')) {
       $email = $app->escape($request->get('email'));
-      
+
       //...
     }
 
@@ -106,14 +106,14 @@
 
   $app->match('/upload/', function(Request $request) use($app) {
     if ($request->isMethod('POST')) {
-      $file = $request->files->get('data');      
+      $file = $request->files->get('data');
 
       if ($file == null) {
         return false;
       }
 
       //$filename = $file->getClientOriginalName();
-      
+
       $filename = md5(time()) . '.json';
 
       $path = __DIR__ . '/uploads/';
