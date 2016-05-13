@@ -30,7 +30,3 @@ $ mysql -u [usuario] - p < create.sql
 ## Framework PHP
 
 * [Silex](http://silex.sensiolabs.org)
-
-## Notas
-
-* Criar directorio `cache/twig` (rw)

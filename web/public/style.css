@@ -1,3 +1,54 @@
+html, body {
+  height: 100%;
+}
+
 body {
   margin-top: 70px;
+}
+
+.btn-profile a {
+  padding: 10px !important;
+}
+
+.btn-profile .profile-icon {
+  color: #009688;
+  background-color: #fff;
+  text-transform: uppercase;
+  padding: 10px;
+  box-shadow: 1px 1px 0 #eee;
+}
+
+.section-primary {
+  color: #fff;
+  background-color: #009688 !important;
+}
+
+.section-primary a {
+  color: #fff;
+  padding-bottom: 5px;
+  border-bottom: 5px solid transparent;
+}
+
+.section-primary a:hover {
+  color: #eee;
+  border-color: #fff;
+  text-decoration: none;
+}
+
+#content {
+	position: relative;
+  min-height: 100%;
+}
+
+#content > .container {
+  overflow: hidden;
+  padding-bottom: 150px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 30px;
 }

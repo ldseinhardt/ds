@@ -2,15 +2,103 @@
 
 {% block content %}
 
-  <div class="panel panel-default">
-    <div class="panel-body">
-      Página inicial...
-
-      <div class="text-center">
-        <a href="{{ url('upload') }}" class="btn btn-raised btn-primary">Compartilhar minhas finanças</a>
+  <div class="row" style="padding: 10px">
+    <div class="col-md-6">
+      <div class="jumbotron">
+        <h2>Oráculo da Mascada</h2>
+        <ul>
+          <li>Mantenha o controle de suas finanças.</li>
+          <li>Compartilhe suas finanças e obtenha relatórios financeiros gratuitamente.</li>
+        </ul>
+          <p><a class="btn btn-primary btn-lg">
+            <i class="fa fa-desktop fa-fw"></i> Download</a>
+          </p>
       </div>
-
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="{{ url('file', {type: 'files', file: 'img/desktop-01.png'}) }}" class="img-thumbnail img-responsive">
     </div>
   </div>
 
+  <div class="row" style="padding: 10px">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h1 class="text-center">Equipe</h1>
+          </div>
+        </div>
+          <div class="row">
+            <div class="col-md-2" style="padding: 10px">
+              <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3 class="text-left">Diogo</h3>
+              <p class="text-left">Lorem ipsum dolor sit amet, adipiscing elit Aenean commodo ligula eget.</p>
+            </div>
+            <div class="col-md-2" style="padding: 10px">
+              <img src="{{ url('file', {type: 'files', file: 'img/team/luan-einhardt.jpg'}) }}" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3 class="text-left">Luan Einhardt</h3>
+              <p class="text-left">
+                Graduando em Ciência da Computação - UFPel<br>
+                <a href="mailto:ldseinhardt@inf.ufpel.edu.br">ldseinhardt@inf.ufpel.edu.br</a>
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2" style="padding: 10px">
+              <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4 text-center">
+              <h3 class="text-left" contenteditable="true">Marcelo</h3>
+              <p class="text-left">Lorem ipsum dolor sit amet, adipiscing elit Aenean commodo ligula eget.</p>
+            </div>
+            <div class="col-md-2" style="padding: 10px">
+              <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3 class="text-left">Rodrigo Acosta</h3>
+              <p class="text-left">Lorem ipsum dolor sit amet, adipiscing elit Aenean commodo ligula eget.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2" style="padding: 10px">
+              <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3 class="text-left">Rodrigo Oliveira</h3>
+              <p class="text-left">Lorem ipsum dolor sit amet, adipiscing elit Aenean commodo ligula eget.</p>
+            </div>
+            <div class="col-md-2" style="padding: 10px">
+              <img src="http://pingendo.github.io/pingendo-bootstrap/assets/user_placeholder.png" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4 text-center">
+              <h3 class="text-left">Wagner Oliveira Jr.</h3>
+              <p class="text-left">Lorem ipsum dolor sit amet, adipiscing elit Aenean commodo ligula eget.</p>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block style %}
+<style>
+  .jumbotron h2 {
+    font-size: 24pt;
+  }
+
+  .jumbotron ul li {
+    font-size: 14pt;
+  }
+  
+  img {
+    margin: 10px;
+    width: auto;
+    max-height: 255px;
+  }
+</style>
 {% endblock %}

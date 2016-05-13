@@ -2,3 +2,8 @@
 
 composer install
 bower install
+
+mkdir cache
+mkdir cache/twig
+mkdir public
+mkdir public/uploads

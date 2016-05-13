@@ -9,11 +9,32 @@
       <a class="navbar-brand" href="{{ url('home') }}">Oráculo da Mascada</a>
     </div>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
-      <form class="navbar-form navbar-left" method="GET" action="{{ url('home') }}">
-        <div class="form-group">
-          <input type="text" name="q" class="form-control"placeholder="Pesquisar ...">
-        </div>
-      </form>
+      <ul class="nav navbar-nav">
+        <li{% if page == 'home' %} class="active"{% endif %}><a href="{{ url('home') }}">Início</a></li>
+        <li{% if page == 'downloads' %} class="active"{% endif %}><a href="{{ url('downloads') }}">Downloads</a></li>
+        <li{% if page == 'contact' %} class="active"{% endif %}><a href="{{ url('contact') }}">Contato</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if userLogged %}
+          <li{% if page == 'files' %} class="active"{% endif %}><a href="{{ url('files') }}">Arquivos</a></li>
+          <li{% if page == 'reports' %} class="active"{% endif %}><a href="{{ url('reports') }}">Relatórios</a></li>
+          <li class="dropdown btn-profile">
+            <a href="{{ url('profile_view') }}" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+              <div class="profile-icon" title="{{ userLogged.full_name }}">
+                {{ userLogged.first_name|first }} {{ userLogged.last_name|first }}
+              </div>
+            </a>
+            <ul class="dropdown-menu">
+              <li{% if page == 'profile_view' %} class="active"{% endif %}><a href="{{ url('profile_view') }}">Perfil</a></li>
+              <li class="divider"></li>
+              <li><a href="{{ url('logout') }}" id="btn-logout">Logout</a></li>
+            </ul>
+          </li>
+        {% else %}
+          <li><a href="{{ url('login') }}">Login</a></li>
+          <li><a href="{{ url('register') }}">Cadastro</a></li>
+        {% endif %}
+      </ul>
     </div>
   </div>
 </nav>

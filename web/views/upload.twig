@@ -4,36 +4,36 @@
 	{{ parent() }} :: Compartilhe suas finanças
 {% endblock %}
 
+{% block content %}
+
+  <div class="col-sm-6 col-sm-offset-3 text-center">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form class="form-horizontal" id="form">
+          <fieldset>
+            <legend>Compartilhe suas finanças</legend>
+            <div class="form-group">
+              <input type="file" id="data" name="data">
+              <button type="button" class="btn btn-fab" id="btn-upload">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+              </button>
+              <div id="upload-status">Nenhum arquivo selecionado ...</div>
+            </div>
+            <div id="upload-files"></div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
 {% block style %}
 <style>
   #upload-status {
     margin-top: 25px;
   }
 </style>
-{% endblock %}
-
-{% block content %}
-  <div class="col-md-6 col-md-offset-3 text-center">
-  <div class="panel panel-default">
-    <div class="panel-body">
-
-      <form class="form-horizontal" id="form">
-        <fieldset>
-          <legend>Compartilhe suas finanças</legend>
-          <div class="form-group">
-            <input type="file" id="data" name="data">
-            <button type="button" class="btn btn-fab" id="btn-upload">
-              <i class="fa fa-upload" aria-hidden="true"></i>
-            </button>
-            <div id="upload-status">Nenhum arquivo selecionado ...</div>
-          </div>
-          <div id="upload-files"></div>
-        </fieldset>
-      </form>
-    </div>
-  </div>
-  </div>
-
 {% endblock %}
 
 {% block script %}
@@ -81,6 +81,7 @@
                   .html('<span class="text-danger">Houve um erro de upload ...</span>');
               }
             });
+
           } else {
             $('#upload-status')
               .html('<span class="text-danger">Arquivo inválido ...</span>');
@@ -98,6 +99,7 @@
     if (!(data.name && data.accounts && data.accounts.length)) {
       return false;
     }
+
     for (var i = 0, m = data.accounts.length; i < m; i++) {
       var account = data.accounts[i];
       for (var j = 0, n = account.transactions.length; j < n; j++) {
@@ -108,6 +110,7 @@
         }
       }
     }
+
     return false;
   }
 </script>
