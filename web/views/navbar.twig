@@ -18,6 +18,9 @@
         {% if userLogged %}
           <li{% if page == 'files' %} class="active"{% endif %}><a href="{{ url('files') }}">Arquivos</a></li>
           <li{% if page == 'reports' %} class="active"{% endif %}><a href="{{ url('reports') }}">Relatórios</a></li>
+          {% if userLogged.isAdmin %}
+            <!-- Menu admin aqui -->
+          {% endif %}
           <li class="dropdown btn-profile">
             <a href="{{ url('profile_view') }}" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
               <div class="profile-icon" title="{{ userLogged.full_name }}">

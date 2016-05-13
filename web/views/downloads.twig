@@ -1,14 +1,14 @@
 {% extends "layout.twig" %}
 
 {% block title %}
-	{{ parent() }} :: Downloads
+  {{ parent() }} :: Downloads
 {% endblock %}
 
 {% block content %}
 
   <div class="panel panel-default">
     <div class="panel-body">
-      Página de downloads...
+      <a href="{{ url('file', {type: 'files', file: 'downloads/desktop_v1.0.tar.gz'}) }}">desktop_v1.0.tar.gz</a>
     </div>
   </div>
 

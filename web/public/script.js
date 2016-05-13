@@ -6,5 +6,4 @@ $(function() {
   });
 
   $(window).trigger('resize');
-
 });

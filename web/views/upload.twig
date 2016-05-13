@@ -1,7 +1,7 @@
 {% extends "layout.twig" %}
 
 {% block title %}
-	{{ parent() }} :: Compartilhe suas finanças
+  {{ parent() }} :: Compartilhe suas finanças
 {% endblock %}
 
 {% block content %}
@@ -81,7 +81,6 @@
                   .html('<span class="text-danger">Houve um erro de upload ...</span>');
               }
             });
-
           } else {
             $('#upload-status')
               .html('<span class="text-danger">Arquivo inválido ...</span>');
@@ -96,10 +95,10 @@
   });
 
   function validate(data) {
+    /* Verifica se há pelo menos uma transação */
     if (!(data.name && data.accounts && data.accounts.length)) {
       return false;
     }
-
     for (var i = 0, m = data.accounts.length; i < m; i++) {
       var account = data.accounts[i];
       for (var j = 0, n = account.transactions.length; j < n; j++) {
@@ -110,7 +109,6 @@
         }
       }
     }
-
     return false;
   }
 </script>
