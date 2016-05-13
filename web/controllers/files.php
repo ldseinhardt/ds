@@ -1,5 +1,5 @@
 <?php
-  $app->get('/files', function() use($app, $userLogged) {
+  $app->get('/files/', function() use($app, $userLogged) {
     if ($userLogged == null) {
       return $app->redirect('/login/');
     }

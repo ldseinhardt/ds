@@ -1,5 +1,5 @@
 <?php
-  $app->get('/reports', function() use($app, $userLogged) {
+  $app->get('/reports/', function() use($app, $userLogged) {
     if ($userLogged == null) {
       return $app->redirect('/login/');
     }

@@ -57,6 +57,7 @@
   require_once $controllers . '/profile_view.php';
   require_once $controllers . '/profile_edit.php';
   require_once $controllers . '/upload.php';
+  require_once $controllers . '/users.php';
 
   $app->get('/{type}/{file}', function($type, $file) use($app) {
     $path = '/';
