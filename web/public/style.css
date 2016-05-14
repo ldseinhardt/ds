@@ -2,10 +2,6 @@ html, body {
   height: 100%;
 }
 
-body {
-  margin-top: 70px;
-}
-
 .btn-profile a {
   padding: 10px !important;
 }
@@ -25,6 +21,7 @@ body {
 
 #content > .container {
   overflow: hidden;
+  padding-top: 70px;
   padding-bottom: 150px;
 }
 

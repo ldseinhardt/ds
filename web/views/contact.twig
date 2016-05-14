@@ -19,12 +19,12 @@
           {% endif %}
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-1">
-              <input type="text" class="form-control" id="name" name="name" placeholder="Nome">
+              <input type="text" class="form-control" id="name" name="name" placeholder="Nome" value="{% if userLogged %}{{ userLogged.full_name }}{% endif %}">
             </div>
           </div>
           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-1">
-              <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+              <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{% if userLogged %}{{ userLogged.email }}{% endif %}">
             </div>
           </div>
           <div class="form-group">
