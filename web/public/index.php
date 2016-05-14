@@ -99,7 +99,17 @@
 
     switch (pathinfo($filename, PATHINFO_EXTENSION)) {
       case 'css':
-        $headers['content-type'] = 'text/css';
+        $headers['content-type'] = 'text/css; charset=utf-8';
+        break;
+      case 'js':
+        $headers['content-type'] = 'application/javascript; charset=utf-8';
+        break;
+      case 'json':
+        $headers['content-type'] = 'application/json; charset=utf-8';
+        break;
+      case 'txt':
+        $headers['content-type'] = 'text/plain; charset=utf-8';
+        break;
     }
 
     return $app->sendFile($filename, 200, $headers);

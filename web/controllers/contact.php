@@ -11,7 +11,7 @@
       $message = $app->escape($request->get('message'));
 
       try {
-        $mail = \Swift_Message::newInstance()
+        $mail = Swift_Message::newInstance()
           ->setSubject($subject)
           ->setFrom($mailer->sender)
           ->setTo($mailer->receiver)
@@ -24,7 +24,7 @@
           'message' => 'Mensagem enviada com sucesso.',
           'status' => true
         ];
-      } catch(Exception $e) {
+      } catch (Exception $e) {
         $response = (object) [
           'message' => 'Houve um erro ao enviar sua mensagem de contato.',
           'status' => false
