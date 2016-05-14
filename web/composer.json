@@ -4,7 +4,8 @@
     "twig/twig": ">=1.8.0,<2.0-dev",
     "symfony/twig-bridge": "^3.0",
     "doctrine/dbal": "^2.5",
-    "symfony/validator": "^3.0"
+    "symfony/validator": "^3.0",
+    "swiftmailer/swiftmailer": "^5.4"
   },
   "minimum-stability": "dev",
   "config": {
