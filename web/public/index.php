@@ -4,6 +4,7 @@
   use Silex\Application;
   use Silex\Provider\DoctrineServiceProvider;
   use Silex\Provider\TwigServiceProvider;
+  use Silex\Provider\SwiftmailerServiceProvider;
 
   $app = new Application();
 
@@ -24,6 +25,28 @@
       'password' => ''
     ]
   ]);
+
+  /*
+    Só irá funcionar localmente ou em um servidor com a porta 587 habilitada
+  */
+  $app->register(new SwiftmailerServiceProvider(), [
+    'swiftmailer.options' => [
+      'host'       => 'smtp.mail.yahoo.com',
+      'port'       => 587,
+      'username'   => 'oraculodamascada@yahoo.com',
+      'password'   => 'Oraculo123',
+      'encryption' => 'tls'
+    ]
+  ]);
+
+  $mailer = (object) [
+    'sender' => [
+      'oraculodamascada@yahoo.com' => 'Oráculo da Mascada'
+    ],
+    'receiver' => [
+      'ldseinhardt@gmail.com' => 'Luan Einhardt'
+    ]
+  ];
 
   // teste
   $userLogged = (object) [

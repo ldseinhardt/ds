@@ -32,11 +32,21 @@
                 <input type="password" class="form-control" id="password-confirm" placeholder="Confirmar senha">
               </div>
             </div>
-           <div class="form-group">
-            <div class="col-sm-10 col-sm-offset-1">
-              <button type="submit" class="btn btn-raised btn-primary">Cadastrar</button>
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-1">
+                <input type="text" class="form-control" id="state" name="state" placeholder="Estado">
+              </div>
             </div>
-          </div>
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-1">
+                <input type="text" class="form-control" id="city" name="city" placeholder="Cidade">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-1">
+                <button type="submit" class="btn btn-raised btn-primary">Cadastrar</button>
+              </div>
+            </div>
           </fieldset>
         </form>
         <a href="{{ url('login') }}">Login</a>

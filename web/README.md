@@ -19,6 +19,12 @@ $ ./install
 $ mysql -u [usuario] - p < create.sql
 ```
 
+## Executar com servidor embutido no php >= 5.4
+
+```
+$ ./run
+```
+
 ## Bibliotecas Front-end de terceiros
 
 * [jQuery](https://github.com/jquery/jquery)
