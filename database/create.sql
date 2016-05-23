@@ -93,9 +93,9 @@ CREATE TABLE IF NOT EXISTS `types` (
 
 -- Tabela de categorias
 CREATE TABLE IF NOT EXISTS `categories` (
-  `id`       INT                        NOT NULL AUTO_INCREMENT,
-  `category` VARCHAR(64)                NOT NULL,
-  `type_id`  INT                        NOT NULL,
+  `id`       INT         NOT NULL AUTO_INCREMENT,
+  `category` VARCHAR(64) NOT NULL,
+  `type_id`  INT         NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`type_id`) REFERENCES `types` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
