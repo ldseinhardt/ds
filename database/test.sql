@@ -7,7 +7,7 @@ SELECT
   `transactions`.`id`,
   `transactions`.`date`,
   `categories`.`category`,
-  `categories`.`type`
+  `categories`.`type_id`
 FROM
   `transactions`
   INNER JOIN `users`
@@ -27,7 +27,7 @@ SELECT
   `transactions`.`id`,
   `transactions`.`date`,
   `categories`.`category`,
-  `categories`.`type`
+  `categories`.`type_id`
 FROM
   `transactions`
   INNER JOIN `users`

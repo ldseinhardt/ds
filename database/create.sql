@@ -84,12 +84,20 @@ CREATE TABLE IF NOT EXISTS `files` (
     ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- Tabela de tipos de transação
+CREATE TABLE IF NOT EXISTS `types` (
+  `id`       INT                        NOT NULL,
+  `type`     VARCHAR(64)                NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- Tabela de categorias
 CREATE TABLE IF NOT EXISTS `categories` (
   `id`       INT                        NOT NULL AUTO_INCREMENT,
   `category` VARCHAR(64)                NOT NULL,
-  `type`     ENUM('Despesa', 'Receita') NOT NULL,
-  PRIMARY KEY (`id`)
+  `type_id`  INT                        NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`type_id`) REFERENCES `types` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Tabela de transações
