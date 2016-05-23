@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `category` VARCHAR(64)                NOT NULL,
   `type_id`  INT                        NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`type_id`) REFERENCES `types` (`type`)
+  FOREIGN KEY (`type_id`) REFERENCES `types` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Tabela de transações
