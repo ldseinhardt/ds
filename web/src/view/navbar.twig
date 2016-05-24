@@ -30,7 +30,7 @@
           <li class="dropdown btn-profile">
             <a href="{{ path('profile_view') }}" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
               <div class="profile-icon" title="{{ userLogged.name }}">
-                {{ userLogged.first_name|first }} {{ userLogged.last_name|first }}
+                {{ userLogged.first_name|first }}{{ userLogged.last_name|first }}
               </div>
             </a>
             <ul class="dropdown-menu">
