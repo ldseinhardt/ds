@@ -76,32 +76,6 @@
       return $this->db->lastInsertId();
     }
 
-    private function update($transaction = NULL) {
-      $this->setTransaction($transaction);
-
-      $fields = array_filter($this->transaction, function($e) {
-    		return $e !== NULL;
-    	});
-    	unset($fields['id']);
-
-    	$values = array_values($fields);
-    	$values[] = $this->transaction['id'];
-
-    	$fields = implode(', ', array_map(function ($e) {
-    		return $e . ' = ?';
-    	}, array_keys($fields)));
-
-      $this->db->executeUpdate("
-        UPDATE
-          transactions
-        SET {$fields}
-        WHERE
-          id = ?
-      ", $values);
-
-      return $this;
-    }
-
     public function removeAll($user = NULL) {
       if ($user) {
         $this->transaction['user_email'] = $user;

@@ -108,19 +108,15 @@
 
     public function update($user = NULL) {
       $this->setUser($user);
-
       $fields = array_filter($this->user, function($e) {
-    		return $e !== NULL;
-    	});
-    	unset($fields['email']);
-
-    	$values = array_values($fields);
-    	$values[] = $this->user['email'];
-
-    	$fields = implode(', ', array_map(function ($e) {
-    		return $e . ' = ?';
-    	}, array_keys($fields)));
-
+        return $e !== NULL;
+      });
+      unset($fields['email']);
+      $values = array_values($fields);
+      $values[] = $this->user['email'];
+      $fields = implode(', ', array_map(function ($e) {
+        return $e . ' = ?';
+      }, array_keys($fields)));
       $this->db->executeUpdate("
         UPDATE
           users
@@ -128,7 +124,6 @@
         WHERE
           email = ?
       ", $values);
-
       return $this;
     }
 

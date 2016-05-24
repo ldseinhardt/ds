@@ -74,8 +74,13 @@
 <script>
   $(function() {
     $('.selectpicker').selectpicker();
+
     $('#location').autocomplete({
       serviceUrl: '/autocomplete/location/'
+    });
+
+    $('#occupation').autocomplete({
+      serviceUrl: '/autocomplete/occupation/'
     });
   });
 </script>
