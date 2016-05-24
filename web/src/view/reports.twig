@@ -9,7 +9,139 @@
   <div class="panel panel-default">
     <div class="panel-body">
       Página de relatórios...
+      <div id="chart_calendar"></div>
+      <div id="chart_line"></div>
+      <div id="chart_bar"></div>
+      <div id="chart_pie"></div>
     </div>
   </div>
 
+{% endblock %}
+
+{% block script %}
+<script>
+    google.charts.load('current', {'packages':['corechart', 'bar', 'line', 'calendar']});
+    google.charts.setOnLoadCallback(drawCharts);
+
+    //https://developers.google.com/chart
+    function drawCharts() {
+      var dataTable = new google.visualization.DataTable();
+      dataTable.addColumn({ type: 'date', id: 'Date' });
+      dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
+      dataTable.addRows([
+         [ new Date(2012, 3, 13), 37032 ],
+         [ new Date(2012, 3, 14), 38024 ],
+         [ new Date(2012, 3, 15), 38024 ],
+         [ new Date(2012, 3, 16), 38108 ],
+         [ new Date(2012, 3, 17), 38229 ],
+         // Many rows omitted for brevity.
+         [ new Date(2013, 9, 4), 38177 ],
+         [ new Date(2013, 9, 5), 38705 ],
+         [ new Date(2013, 9, 12), 38210 ],
+         [ new Date(2013, 9, 13), 38029 ],
+         [ new Date(2013, 9, 19), 38823 ],
+         [ new Date(2013, 9, 23), 38345 ],
+         [ new Date(2013, 9, 24), 38436 ],
+         [ new Date(2013, 9, 30), 38447 ]
+       ]);
+
+      var chart = new google.visualization.Calendar(document.getElementById('chart_calendar'));
+
+      var options = {
+        title: "Red Sox Attendance",
+        height: 350,
+      };
+
+      chart.draw(dataTable, options);
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'Dogs');
+      data.addColumn('number', 'Cats');
+
+      data.addRows([
+        [0, 0, 0],    [1, 10, 5],   [2, 23, 15],  [3, 17, 9],   [4, 18, 10],  [5, 9, 5],
+        [6, 11, 3],   [7, 27, 19],  [8, 33, 25],  [9, 40, 32],  [10, 32, 24], [11, 35, 27],
+        [12, 30, 22], [13, 40, 32], [14, 42, 34], [15, 47, 39], [16, 44, 36], [17, 48, 40],
+        [18, 52, 44], [19, 54, 46], [20, 42, 34], [21, 55, 47], [22, 56, 48], [23, 57, 49],
+        [24, 60, 52], [25, 50, 42], [26, 52, 44], [27, 51, 43], [28, 49, 41], [29, 53, 45],
+        [30, 55, 47], [31, 60, 52], [32, 61, 53], [33, 59, 51], [34, 62, 54], [35, 65, 57],
+        [36, 62, 54], [37, 58, 50], [38, 55, 47], [39, 61, 53], [40, 64, 56], [41, 65, 57],
+        [42, 63, 55], [43, 66, 58], [44, 67, 59], [45, 69, 61], [46, 69, 61], [47, 70, 62],
+        [48, 72, 64], [49, 68, 60], [50, 66, 58], [51, 65, 57], [52, 67, 59], [53, 70, 62],
+        [54, 71, 63], [55, 72, 64], [56, 73, 65], [57, 75, 67], [58, 70, 62], [59, 68, 60],
+        [60, 64, 56], [61, 60, 52], [62, 65, 57], [63, 67, 59], [64, 68, 60], [65, 69, 61],
+        [66, 70, 62], [67, 72, 64], [68, 75, 67], [69, 80, 72]
+      ]);
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Popularity'
+        },
+        series: {
+          1: {curveType: 'function'}
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('chart_line'));
+      chart.draw(data, options);
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('timeofday', 'Time of Day');
+      data.addColumn('number', 'Motivation Level');
+      data.addColumn('number', 'Energy Level');
+
+      data.addRows([
+        [{v: [8, 0, 0], f: '8 am'}, 1, .25],
+        [{v: [9, 0, 0], f: '9 am'}, 2, .5],
+        [{v: [10, 0, 0], f:'10 am'}, 3, 1],
+        [{v: [11, 0, 0], f: '11 am'}, 4, 2.25],
+        [{v: [12, 0, 0], f: '12 pm'}, 5, 2.25],
+        [{v: [13, 0, 0], f: '1 pm'}, 6, 3],
+        [{v: [14, 0, 0], f: '2 pm'}, 7, 4],
+        [{v: [15, 0, 0], f: '3 pm'}, 8, 5.25],
+        [{v: [16, 0, 0], f: '4 pm'}, 9, 7.5],
+        [{v: [17, 0, 0], f: '5 pm'}, 10, 10],
+      ]);
+
+      var options = {
+        title: 'Motivation and Energy Level Throughout the Day',
+        hAxis: {
+          title: 'Time of Day',
+          format: 'h:mm a',
+          viewWindow: {
+            min: [7, 30, 0],
+            max: [17, 30, 0]
+          }
+        },
+        vAxis: {
+          title: 'Rating (scale of 1-10)'
+        }
+      };
+
+      var chart = new google.charts.Bar(document.getElementById('chart_bar'));
+      chart.draw(data, options);
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Topping');
+      data.addColumn('number', 'Slices');
+      data.addRows([
+        ['Mushrooms', 3],
+        ['Onions', 1],
+        ['Olives', 1],
+        ['Zucchini', 1],
+        ['Pepperoni', 2]
+      ]);
+
+      var options = {'title':'How Much Pizza I Ate Last Night',
+                     'width':400,
+                     'height':300};
+
+      var chart = new google.visualization.PieChart(document.getElementById('chart_pie'));
+      chart.draw(data, options);
+    }
+  </script>
 {% endblock %}
