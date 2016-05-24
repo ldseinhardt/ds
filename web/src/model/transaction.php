@@ -90,9 +90,6 @@
     }
 
     public function getAll() {
-      if ($user) {
-        $this->user = $user;
-      }
       return $this->db->fetchAll("
         SELECT
           transactions.id,
