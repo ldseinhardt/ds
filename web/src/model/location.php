@@ -20,45 +20,32 @@
       if ($location) {
         $this->setLocation($location);
       }
-
       if (!$this->location) {
-        return 0;
+        return NULL;
       }
-
       $locations = explode(', ', $this->location);
-
       if (count($locations) !== 3) {
-        return 0;
+        return NULL;
       }
-
       $country = $locations[2];
       $state = $locations[1];
       $city = $locations[0];
-
       $locationID = $this->searchFullLocation($this->location);
-
       if ($locationID) {
         return $locationID;
       }
-
       $countryID = $this->searchCountry($country);
-
       if (!$countryID) {
         $countryID = $this->addCountry($country);
       }
-
       $stateID = $this->searchState($countryID, $state);
-
       if (!$stateID) {
         $stateID = $this->addState($countryID, $state);
       }
-
       $locationID = $this->searchCity($stateID, $city);
-
       if (!$locationID) {
         $locationID = $this->addCity($stateID, $city);
       }
-
       return $locationID;
     }
 
@@ -88,7 +75,7 @@
           concat_ws(', ', city, state, country) = ?
         LIMIT 1
       ", [$location]);
-      return $query ? $query['id'] : 0;
+      return $query ? $query['id'] : NULL;
     }
 
     private function searchCountry($country) {
@@ -100,7 +87,7 @@
         WHERE
           country = ?
       ", [$country]);
-      return $query ? $query['id'] : 0;
+      return $query ? $query['id'] : NULL;
     }
 
     private function searchState($id, $state) {
@@ -112,7 +99,7 @@
         WHERE
           country_id = ? AND state = ?
       ", [(int) $id, $state]);
-      return $query ? $query['id'] : 0;
+      return $query ? $query['id'] : NULL;
     }
 
     private function searchCity($id, $city) {
@@ -124,7 +111,7 @@
         WHERE
           state_id = ? AND city = ?
       ", [(int) $id, $city]);
-      return $query ? $query['id'] : 0;
+      return $query ? $query['id'] : NULL;
     }
 
     private function addCountry($country) {

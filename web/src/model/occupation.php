@@ -36,7 +36,8 @@
           occupation AS value
         FROM
           occupations
-        WHERE occupation LIKE ?
+        WHERE
+          occupation LIKE ?
         LIMIT 10
       ", ["%{$query}%"]);
     }

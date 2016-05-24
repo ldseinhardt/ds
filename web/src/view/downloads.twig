@@ -6,10 +6,64 @@
 
 {% block content %}
 
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <a href="{{ url('file', {type: 'files', file: 'downloads/desktop_v1.0.tar.gz'}) }}">desktop_v1.0.tar.gz</a>
+  <div class="col-sm-10 col-sm-offset-1">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <table></table>
+      </div>
     </div>
   </div>
 
+{% endblock %}
+
+{% block script %}
+<script>
+  $(function() {
+    $('table').bootstrapTable({
+      columns: [{
+        field: 'date',
+        title: 'Data',
+        align: 'center',
+        halign: 'center',
+        valign: 'middle',
+        sortable: true,
+        sorter: function(a, b) {
+          if (new Date(a) > new Date(b)) return 1;
+          if (new Date(a) < new Date(b)) return -1;
+          return 0;
+        },
+        formatter: function(value) {
+          return new Date(value).toLocaleString().split(/\s/)[0];
+        }
+      },
+      {
+        field: 'plataform',
+        title: 'Plataforma',
+        align: 'center',
+        halign: 'center',
+        valign: 'middle',
+        sortable: true
+      },
+      {
+        field: 'file',
+        title: 'Opções',
+        align: 'center',
+        halign: 'center',
+        valign: 'middle',
+        formatter: function(value) {
+          return '<a class="btn btn-raised btn-primary" href="/files/downloads/' + value + '" download>Download</a>';
+        }
+      }],
+      data: [{
+        date: '2015-05-24',
+        plataform: 'LINUX | MAC | WINDOWS',
+        file: 'desktop_v1.0.tar.gz'
+      }],
+      sortName: 'date',
+      sortOrder: 'desc',
+      search: true,
+      locale: 'pt-BR'
+    });
+  });
+</script>
 {% endblock %}

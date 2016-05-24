@@ -89,6 +89,13 @@
       return $this;
     }
 
+    public function clearTransactions() {
+      $this->db->executeUpdate("
+        TRUNCATE TABLE transactions
+      ");
+      return $this;
+    }
+
     public function getAll() {
       return $this->db->fetchAll("
         SELECT

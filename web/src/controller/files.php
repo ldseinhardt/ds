@@ -6,7 +6,7 @@
       return $app->redirect('/login/');
     }
 
-    $message = $request->get('message');
+    $message = $app->escape($request->get('message'));
 
     $response = NULL;
 

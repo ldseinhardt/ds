@@ -7,7 +7,13 @@
     }
 
     if ($request->isMethod('POST')) {
-      //...
+      $action = $app->escape($request->get('action'));
+      switch ($action) {
+        case 'Remover Transações':
+          $Transaction = new Transaction($app['db']);
+          $Transaction->clearTransactions();
+          break;
+      }
     }
 
     return $app['twig']->render('transactions.twig', [

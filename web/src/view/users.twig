@@ -36,7 +36,10 @@
         align: 'center',
         halign: 'center',
         valign: 'middle',
-        sortable: true
+        sortable: true,
+        formatter: function(value) {
+          return '<a href="/profile/?email=' + value + '">' + value + '</a>'
+        }
       },
       {
         field: 'location',

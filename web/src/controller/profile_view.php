@@ -6,6 +6,8 @@
       return $app->redirect('/login/');
     }
 
+    $email = $app->escape($request->get('email'));
+
     return $app['twig']->render('profile_view.twig', [
       'page' => 'profile_view',
       'userLogged' => $userLogged
