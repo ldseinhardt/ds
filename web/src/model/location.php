@@ -70,7 +70,8 @@
           cities
             LEFT JOIN states ON (cities.state_id = states.id)
             LEFT JOIN countries ON (states.country_id = countries.id)
-        WHERE concat_ws(', ', city, state, country) LIKE ?
+        WHERE
+          concat_ws(', ', city, state, country) LIKE ?
         LIMIT 10
       ", ["{$query}%"]);
     }
@@ -98,7 +99,6 @@
           countries
         WHERE
           country = ?
-        LIMIT 1
       ", [$country]);
       return $query ? $query['id'] : 0;
     }
@@ -111,7 +111,6 @@
           states
         WHERE
           country_id = ? AND state = ?
-        LIMIT 1
       ", [(int) $id, $state]);
       return $query ? $query['id'] : 0;
     }
@@ -124,7 +123,6 @@
           cities
         WHERE
           state_id = ? AND city = ?
-        LIMIT 1
       ", [(int) $id, $city]);
       return $query ? $query['id'] : 0;
     }

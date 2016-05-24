@@ -89,4 +89,27 @@
       return $this;
     }
 
+    public function getAll() {
+      if ($user) {
+        $this->user = $user;
+      }
+      return $this->db->fetchAll("
+        SELECT
+          transactions.id,
+          users.name AS user,
+          categories.category,
+          types.type,
+          transactions.date,
+          transactions.value
+        FROM
+          transactions
+          INNER JOIN users
+            ON (transactions.user_email = users.email)
+          INNER JOIN categories
+            ON (transactions.category_id = categories.id)
+          INNER JOIN types
+            ON (categories.type_id = types.id)
+      ");
+    }
+
   }

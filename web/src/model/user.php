@@ -127,6 +127,27 @@
       return $this;
     }
 
+    public function getAll() {
+      return $this->db->fetchAll("
+        SELECT
+          users.name,
+          users.email,
+          concat_ws(', ', cities.city, states.state, countries.country) AS location,
+          levels.level,
+          users.birthyear
+        FROM
+          users
+          INNER JOIN cities
+            ON (users.city_id = cities.id)
+          INNER JOIN states
+            ON (cities.state_id = states.id)
+          INNER JOIN countries
+            ON (states.country_id = countries.id)
+          INNER JOIN levels
+            ON (users.level_id = levels.id)
+      ");
+    }
+
     public function setLocation($location) {
       $Location = new Location($this->db, $location);
       $this->user['city_id'] = $Location->getLocationID();

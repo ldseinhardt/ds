@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 CREATE TABLE IF NOT EXISTS `files` (
   `file`       VARCHAR(255) NOT NULL UNIQUE,
   `user_email` VARCHAR(255) NOT NULL,
-  `date`       DATE         NOT NULL,
+  `date`       DATETIME     NOT NULL,
   PRIMARY KEY (`file`),
   FOREIGN KEY (`user_email`) REFERENCES `users` (`email`)
     ON DELETE CASCADE
