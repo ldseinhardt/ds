@@ -5,6 +5,8 @@
     "bootstrap": "^3.3.6",
     "bootstrap-select": "^1.10.0",
     "font-awesome": "^4.6.2",
-    "bootstrap-material-design": "^0.5.9"
+    "bootstrap-material-design": "^0.5.9",
+    "devbridge-autocomplete": "~1.2.24",
+    "jquery-validation": "~1.15.0"
   }
 }

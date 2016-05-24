@@ -28,6 +28,8 @@ $ ./run
 ## Bibliotecas Front-end de terceiros
 
 * [jQuery](https://github.com/jquery/jquery)
+* [jQuery-Autocomplete](https://github.com/devbridge/jQuery-Autocomplete)
+* [jQuery-Validation](https://github.com/jzaefferer/jquery-validation)
 * [bootstrap](https://github.com/twbs/bootstrap)
 * [bootstrap-select](https://github.com/silviomoreto/bootstrap-select)
 * [bootstrap-material-design](https://github.com/FezVrasta/bootstrap-material-design)

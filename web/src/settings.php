@@ -7,7 +7,7 @@
     'host'     => 'localhost',
     'dbname'   => 'oraculo',
     'username' => 'root',
-    'password' => '11108239cc'
+    'password' => ''
   ];
 
   /*
