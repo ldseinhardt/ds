@@ -7,7 +7,7 @@
     $File = new File($app['db']);
 
     if (!($File->hasValidUpload($userLogged->email) || $userLogged->isAdmin)) {
-      return $app->redirect('/files/?message=Por favor, envie seus dados para possuir acesso aos relatórios.');
+      return $app->redirect('/files/?message=' . urlencode('Por favor, envie seus dados para possuir acesso aos relatórios.'));
     }
 
     return $app['twig']->render('reports.twig', [
