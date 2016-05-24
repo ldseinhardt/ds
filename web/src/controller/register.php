@@ -2,10 +2,7 @@
   use Symfony\Component\HttpFoundation\Request;
 
   $app->match('/register/', function(Request $request) use($app, $userLogged) {
-    //teste
-    $userLogged = null;
-
-    if ($userLogged != null) {
+    if ($userLogged) {
       return $app->redirect('/');
     }
 
@@ -18,7 +15,7 @@
 
     return $app['twig']->render('register.twig', [
       'page' => 'register',
-      'userLogged' => null
+      'userLogged' => NULL
     ]);
   }, 'GET|POST')
     ->bind('register');

@@ -2,7 +2,7 @@
   use Symfony\Component\HttpFoundation\Request;
 
   $app->get('/profile/', function(Request $request) use($app, $userLogged) {
-    if ($userLogged == null) {
+    if (!$userLogged) {
       return $app->redirect('/login/');
     }
 

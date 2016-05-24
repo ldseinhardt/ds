@@ -2,7 +2,7 @@
   use Symfony\Component\HttpFoundation\Request;
 
   $app->match('/users/', function(Request $request) use($app, $userLogged) {
-    if ($userLogged == null || !$userLogged->isAdmin) {
+    if (!($userLogged && $userLogged->isAdmin)) {
       return $app->redirect('/');
     }
 

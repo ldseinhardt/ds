@@ -15,8 +15,8 @@ web/.editorconfig
 web/bin
 web/vendor
 web/bower_components
-web/cache
-web/public/uploads
+web/temp
+web/web/uploads
 web/composer.lock
 **/*.class
 **/*.log

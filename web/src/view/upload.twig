@@ -94,6 +94,7 @@
     }
   });
 
+  // ! válidar se há transações nos ultimos 30d
   function validate(data) {
     /* Verifica se há pelo menos uma transação */
     if (!(data.name && data.accounts && data.accounts.length)) {

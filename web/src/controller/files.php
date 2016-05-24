@@ -1,6 +1,6 @@
 <?php
   $app->get('/files/', function() use($app, $userLogged) {
-    if ($userLogged == null) {
+    if (!$userLogged) {
       return $app->redirect('/login/');
     }
 

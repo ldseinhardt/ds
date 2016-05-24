@@ -16,7 +16,7 @@ $ ./install
 ## Instanciar a base de dados
 
 ```
-$ mysql -u [usuario] - p < create.sql
+$ mysql -u [usuario] - p < ../database/create.sql
 ```
 
 ## Executar com servidor embutido no php >= 5.4

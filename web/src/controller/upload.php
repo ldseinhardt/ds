@@ -2,24 +2,33 @@
   use Symfony\Component\HttpFoundation\Request;
 
   $app->match('/upload/', function(Request $request) use($app, $userLogged) {
-    if ($userLogged == null) {
+    if (!$userLogged) {
       return $app->redirect('/login/');
     }
 
     if ($request->isMethod('POST')) {
       $file = $request->files->get('data');
 
-      if ($file == null) {
+      if (!$file) {
         return false;
       }
 
-      //$filename = $file->getClientOriginalName();
+      $filename = md5($userLogged->email) . '_' . md5(time()) . '.json';
 
-      $filename = md5(time()) . '.json';
-
-      $path = __DIR__ . '/../public/uploads/';
+      $path = WWW_ROOT . '/uploads/';
 
       $file->move($path, $filename);
+
+      try {
+        $content = file_get_contents($path . $filename);
+        $data = json_decode($content);
+      } catch (Exception $e) {
+
+      }
+
+      if (!$data) {
+        return false;
+      }
 
       //...
 

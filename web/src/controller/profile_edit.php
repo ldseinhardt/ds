@@ -2,7 +2,7 @@
   use Symfony\Component\HttpFoundation\Request;
 
   $app->match('/profile/edit/', function(Request $request) use($app, $userLogged) {
-    if ($userLogged == null) {
+    if (!$userLogged) {
       return $app->redirect('/login/');
     }
 

@@ -6,41 +6,41 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ url('home') }}">Oráculo da Mascada</a>
+      <a class="navbar-brand" href="{{ path('home') }}">Oráculo da Mascada</a>
     </div>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav">
-        <li{% if page == 'home' %} class="active"{% endif %}><a href="{{ url('home') }}">Início</a></li>
-        <li{% if page == 'downloads' %} class="active"{% endif %}><a href="{{ url('downloads') }}">Downloads</a></li>
-        <li{% if page == 'contact' %} class="active"{% endif %}><a href="{{ url('contact') }}">Contato</a></li>
+        <li{% if page == 'home' %} class="active"{% endif %}><a href="{{ path('home') }}">Início</a></li>
+        <li{% if page == 'downloads' %} class="active"{% endif %}><a href="{{ path('downloads') }}">Downloads</a></li>
+        <li{% if page == 'contact' %} class="active"{% endif %}><a href="{{ path('contact') }}">Contato</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if userLogged %}
-          <li{% if page == 'files' %} class="active"{% endif %}><a href="{{ url('files') }}">Arquivos</a></li>
-          <li{% if page == 'reports' %} class="active"{% endif %}><a href="{{ url('reports') }}">Relatórios</a></li>
+          <li{% if page == 'files' %} class="active"{% endif %}><a href="{{ path('files') }}">Arquivos</a></li>
+          <li{% if page == 'reports' %} class="active"{% endif %}><a href="{{ path('reports') }}">Relatórios</a></li>
           {% if userLogged.isAdmin %}
             <li class="dropdown">
               <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Gerenciar</a>
               <ul class="dropdown-menu">
-                <li><a href="{{ url('users') }}">Usuários</a></li>
+                <li><a href="{{ path('users') }}">Usuários</a></li>
               </ul>
             </li>
           {% endif %}
           <li class="dropdown btn-profile">
-            <a href="{{ url('profile_view') }}" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
-              <div class="profile-icon" title="{{ userLogged.full_name }}">
+            <a href="{{ path('profile_view') }}" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+              <div class="profile-icon" title="{{ userLogged.name }}">
                 {{ userLogged.first_name|first }} {{ userLogged.last_name|first }}
               </div>
             </a>
             <ul class="dropdown-menu">
-              <li><a href="{{ url('profile_view') }}">Perfil</a></li>
+              <li><a href="{{ path('profile_view') }}">Perfil</a></li>
               <li class="divider"></li>
-              <li><a href="{{ url('logout') }}" id="btn-logout">Logout</a></li>
+              <li><a href="{{ path('logout') }}" id="btn-logout">Logout</a></li>
             </ul>
           </li>
         {% else %}
-          <li><a href="{{ url('login') }}">Login</a></li>
-          <li><a href="{{ url('register') }}">Cadastro</a></li>
+          <li><a href="{{ path('login') }}">Login</a></li>
+          <li><a href="{{ path('register') }}">Cadastro</a></li>
         {% endif %}
       </ul>
     </div>

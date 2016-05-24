@@ -2,10 +2,7 @@
   use Symfony\Component\HttpFoundation\Request;
 
   $app->match('/recover/password/', function(Request $request) use($app, $userLogged) {
-    //teste
-    $userLogged = null;
-
-    if ($userLogged != null) {
+    if ($userLogged) {
       return $app->redirect('/');
     }
 
@@ -19,7 +16,7 @@
 
     return $app['twig']->render('recover_password.twig', [
       'page' => 'recover_password',
-      'userLogged' => null,
+      'userLogged' => NULL,
       'token' => $token
     ]);
   }, 'GET|POST')

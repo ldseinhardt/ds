@@ -2,7 +2,7 @@
   use Symfony\Component\HttpFoundation\Request;
 
   $app->match('/contact/', function(Request $request) use($app, $userLogged, $mailer) {
-    $response = null;
+    $response = NULL;
 
     if ($request->isMethod('POST')) {
       $name = $app->escape($request->get('name'));

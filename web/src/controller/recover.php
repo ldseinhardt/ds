@@ -2,10 +2,7 @@
   use Symfony\Component\HttpFoundation\Request;
 
   $app->match('/recover/', function(Request $request) use($app, $userLogged) {
-    //teste
-    $userLogged = null;
-
-    if ($userLogged != null) {
+    if ($userLogged) {
       return $app->redirect('/');
     }
 
@@ -17,7 +14,7 @@
 
     return $app['twig']->render('recover.twig', [
       'page' => 'recover',
-      'userLogged' => null
+      'userLogged' => NULL
     ]);
   }, 'GET|POST')
     ->bind('recover');

@@ -5618,8 +5618,9 @@ INSERT INTO `educations` (`id`, `education`) VALUES
   (7, 'Estudante de ensino fundamental ou ensino médio'),
   (8, 'Estudante de graduação ou pós-graduação');
 
+-- Senha padrão é odm
 INSERT INTO `users` (`email`, `name`, `password`, `city_id`, `birthyear`, `level_id`, `education_id`, `created`, `modified`) VALUES
-  ('admin@oraculodamascada.com.br', 'Administrador', '', 4226, 1992, 2, 8, NOW(), NOW());
+  ('admin@oraculodamascada.com.br', 'Administrador', 'fba638d141f79e872fcea2b28d96aef01f76598775ce256c8d98e9185325ee58', 4226, 1992, 2, 8, NOW(), NOW());
 
 INSERT INTO `types` (`id`, `type`) VALUES
   (1, 'Despesa'),

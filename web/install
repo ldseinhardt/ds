@@ -3,7 +3,6 @@
 composer install
 bower install
 
-mkdir cache
-mkdir cache/twig
-mkdir public
-mkdir public/uploads
+mkdir -p temp/cache/http_cache
+mkdir -p temp/cache/twig
+mkdir -p web/uploads
