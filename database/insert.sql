@@ -3,8 +3,7 @@
 USE oraculo;
 
 INSERT INTO `countries` (`id`, `country`) VALUES
-  (1, 'Brasil'),
-  (2, 'Gringa');
+  (1, 'Brasil');
 
 INSERT INTO `states` (`id`, `country_id`, `state`) VALUES
   ( 1, 1, 'Acre'),
@@ -33,8 +32,7 @@ INSERT INTO `states` (`id`, `country_id`, `state`) VALUES
   (24, 1, 'Santa Catarina'),
   (25, 1, 'Sergipe'),
   (26, 1, 'São Paulo'),
-  (27, 1, 'Tocantins'),
-  (28, 2, 'Gringa');
+  (27, 1, 'Tocantins');
 
 INSERT INTO `cities` (`id`, `state_id`, `city`) VALUES
   (   1,  1, 'Acrelândia'),
@@ -5599,8 +5597,7 @@ INSERT INTO `cities` (`id`, `state_id`, `city`) VALUES
   (5560, 27, 'Tupirama'),
   (5561, 27, 'Tupiratins'),
   (5562, 27, 'Wanderlândia'),
-  (5563, 27, 'Xambioá'),
-  (5564, 28, 'Estrangeira');
+  (5563, 27, 'Xambioá');
 
 INSERT INTO `levels` (`id`, `level`) VALUES
   (1, 'Usuário'),
@@ -5622,12 +5619,7 @@ INSERT INTO `educations` (`id`, `education`) VALUES
   (8, 'Estudante de graduação ou pós-graduação');
 
 INSERT INTO `users` (`email`, `name`, `password`, `city_id`, `birthyear`, `level_id`, `education_id`, `created`, `modified`) VALUES
-  ('admin@oraculodamascada.com.br', 'Administrador', '', 4226, 1992, 2, 8, NOW(), NOW()),
-  ('ldseinhardt@gmail.com', 'Luan Einhardt', '', 4226, 1992, 1, 8, NOW(), NOW()),
-  ('rodrigodroliveira@gmail.com', 'Iluminati', 'papacucabeçaroxa', 4226, 1981, 1, 8, NOW(), NOW());
-
-INSERT INTO `files` (`file`, `user_email`, `date`) VALUES
-  ('arquivo_test.json', 'ldseinhardt@gmail.com', CURDATE());
+  ('admin@oraculodamascada.com.br', 'Administrador', '', 4226, 1992, 2, 8, NOW(), NOW());
 
 INSERT INTO `types` (`id`, `type`) VALUES
   (1, 'Despesa'),
@@ -5667,12 +5659,3 @@ INSERT INTO `categories` (`id`, `category`, `type_id`) VALUES
   (31, 'Terceiros'    , 2),
   (32, 'Transferência', 2),
   (33, 'Outras'       , 2);
-
-INSERT INTO `transactions` (`user_email`, `category_id`, `date`, `value`) VALUES
-  ('admin@oraculodamascada.com.br',  1, CURDATE(), 10.75),
-  ('admin@oraculodamascada.com.br',  9, CURDATE(), 20),
-  ('admin@oraculodamascada.com.br', 11, CURDATE(), 10),
-  ('admin@oraculodamascada.com.br', 29, CURDATE(), 1000),
-  ('ldseinhardt@gmail.com', 29, CURDATE(), 500),
-  ('ldseinhardt@gmail.com',  1, CURDATE(), 10.75),
-  ('ldseinhardt@gmail.com', 11, CURDATE(), 5);
