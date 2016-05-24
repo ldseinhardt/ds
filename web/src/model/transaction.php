@@ -19,10 +19,47 @@
       $this->setTransaction($transaction);
     }
 
+    public function setUser($user) {
+      $this->transaction['user_email'] = $user;
+      return $this;
+    }
+
+    public function setCategory($category, $type) {
+      $this->transaction['category_id'] = $this->searchCategory($category, $type);
+      return $this;
+    }
+
+    public function searchCategory($category, $type) {
+      $query = $this->db->fetchAssoc("
+        SELECT
+          id
+        FROM
+          categories
+        WHERE
+          category = ? AND type_id = ?
+      ", [
+        $category,
+        $this->getTransactionTypeId($type)
+      ]);
+      return $query ? $query['id'] : NULL;
+    }
+
+    public function getTransactionTypeId($type) {
+      switch ($type) {
+        case 'Expense':
+        case 'Despesa':
+          return 1;
+        case 'Income':
+        case 'Receita':
+          return 2;
+      }
+      return $type;
+    }
+
     public function setTransaction($transaction) {
       if ($transaction) {
         foreach ($transaction as $key => $value) {
-          if (array_key_exists($key, $this->user)) {
+          if (array_key_exists($key, $this->transaction)) {
             $this->transaction[$key] = $value;
           }
         }
@@ -36,8 +73,7 @@
         return NULL;
       }
       $this->db->insert('transactions', $this->transaction);
-      $this->transaction['id'] = $this->db->lastInsertId();
-      return $this->transaction['id'];
+      return $this->db->lastInsertId();
     }
 
     private function update($transaction = NULL) {
@@ -63,6 +99,19 @@
           id = ?
       ", $values);
 
+      return $this;
+    }
+
+    public function removeAll($user = NULL) {
+      if ($user) {
+        $this->transaction['user_email'] = $user;
+      }
+      $this->db->executeUpdate("
+        DELETE FROM
+          transactions
+        WHERE
+          user_email = ?
+      ", [$this->transaction['user_email']]);
       return $this;
     }
 

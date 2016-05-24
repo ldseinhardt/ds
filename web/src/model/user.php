@@ -106,27 +106,6 @@
       return NULL;
     }
 
-    public function setLocation($location) {
-      $Location = new Location($this->db, $location);
-      $this->user['city_id'] = $Location->getLocationID();
-      return $this;
-    }
-
-    public function autocompleteEmail($query) {
-      return $this->db->fetchAll("
-        SELECT DISTINCT
-          email AS value
-        FROM
-          users
-        WHERE email LIKE ?
-        LIMIT 10
-      ", ["{$query}%"]);
-    }
-
-    public function hashPassword($password) {
-      return hash('sha256', $this->secret . $password);
-    }
-
     public function update($user = NULL) {
       $this->setUser($user);
 
@@ -151,6 +130,27 @@
       ", $values);
 
       return $this;
+    }
+
+    public function setLocation($location) {
+      $Location = new Location($this->db, $location);
+      $this->user['city_id'] = $Location->getLocationID();
+      return $this;
+    }
+
+    public function autocompleteEmail($query) {
+      return $this->db->fetchAll("
+        SELECT DISTINCT
+          email AS value
+        FROM
+          users
+        WHERE email LIKE ?
+        LIMIT 10
+      ", ["{$query}%"]);
+    }
+
+    private function hashPassword($password) {
+      return hash('sha256', $this->secret . $password);
     }
 
   }

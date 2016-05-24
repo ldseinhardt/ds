@@ -14,7 +14,7 @@
       $occupation = $app->escape($request->get('occupation'));
       $education = $app->escape($request->get('education'));
 
-      // ...
+      //...
     }
 
     return $app['twig']->render('register.twig', [

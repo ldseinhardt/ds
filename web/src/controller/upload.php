@@ -30,7 +30,26 @@
         return false;
       }
 
-      //...
+      //inserir arquivo na tabela de arquivos
+
+      $today = strtotime(date('Y-m-d'));
+      $Transaction = new Transaction($app['db']);
+      $Transaction->setUser($userLogged->email)
+        ->removeAll();
+
+      foreach ($data->accounts as $account) {
+        foreach ($account->transactions as $transaction) {
+          foreach ($transaction->payments as $payment) {
+            if ($payment->concretized && strtotime(date($payment->date)) <= $today) {
+              $Transaction->setCategory($transaction->category, $transaction->type)
+                ->add([
+                  'date' => $payment->date,
+                  'value' => $payment->value
+                ]);
+            }
+          }
+        }
+      }
 
       return $app->json([
         'filename' => $filename
