@@ -69,3 +69,14 @@
     ]);
   }, 'GET|POST')
     ->bind('files');
+
+  $app->get('/files.json', function(Request $request) use($app, $userLogged) {
+    if (!$userLogged) {
+      return $app->redirect('/login/');
+    }
+
+    $File = new File($app['db']);
+
+    return $app->json($File->getAll($userLogged->email));
+  })
+    ->bind('files.json');

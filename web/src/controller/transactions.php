@@ -22,3 +22,14 @@
     ]);
   }, 'GET|POST')
     ->bind('transactions');
+
+  $app->get('/transactions.json', function(Request $request) use($app, $userLogged) {
+    if (!($userLogged && $userLogged->isAdmin)) {
+      return $app->redirect('/');
+    }
+
+    $Transaction = new Transaction($app['db']);
+
+    return $app->json($Transaction->getAll());
+  })
+    ->bind('transactions.json');

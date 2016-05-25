@@ -125,23 +125,24 @@
       var chart = new google.charts.Bar(document.getElementById('chart_bar'));
       chart.draw(data, options);
 
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Topping');
-      data.addColumn('number', 'Slices');
-      data.addRows([
-        ['Mushrooms', 3],
-        ['Onions', 1],
-        ['Olives', 1],
-        ['Zucchini', 1],
-        ['Pepperoni', 2]
-      ]);
+      $.get('/reports/types.json', function(data_report) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'id');
+        data.addColumn('number', 'Total');
 
-      var options = {'title':'How Much Pizza I Ate Last Night',
-                     'width':400,
-                     'height':300};
+        console.log(data_report);
 
-      var chart = new google.visualization.PieChart(document.getElementById('chart_pie'));
-      chart.draw(data, options);
+        data.addRows(data_report);
+
+        var options = {
+          'title':'Despesas vs Receitas',
+          'width':500,
+          'height':500
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('chart_pie'));
+        chart.draw(data, options);
+      })
     }
   </script>
 {% endblock %}

@@ -116,4 +116,37 @@
       ");
     }
 
+    public function getReportTypes(/*filters*/) {
+      $where = "1 = 1";
+      //if (...) {
+      //filters
+      //}
+      $query = $this->db->fetchAll("
+        SELECT
+          type,
+          SUM(value) AS total
+        FROM
+          transactions
+          INNER JOIN categories
+            ON (transactions.category_id = categories.id)
+          INNER JOIN types
+            ON (categories.type_id = types.id)
+        WHERE
+          {$where}
+        GROUP BY (categories.type_id)
+        ORDER BY (categories.type_id) ASC
+      ");
+      if ($query && count($query) === 2) {
+        $values = [];
+        foreach ($query as $row) {
+          $values[] = [
+            $row['type'] . 's',
+            (double) $row['total']
+          ];
+        }
+        return $values;
+      }
+      return NULL;
+    }
+
   }
