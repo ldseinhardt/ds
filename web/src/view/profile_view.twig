@@ -1,15 +1,95 @@
 {% extends "layout.twig" %}
 
 {% block title %}
-  {{ parent() }} :: Perfil
+  {{ parent() }} :: {% if user %}{{ user.name }}{% else %}Perfil{% endif %}
 {% endblock %}
 
 {% block content %}
 
-  <div class="panel panel-default">
-    <div class="panel-body">
-      Página de perfil...
+  <div class="col-sm-8 col-sm-offset-2 text-center">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        {% if user %}
+          <h3>{{ user.name }}</h3>
+          {% if userLogged.isAdmin and user.level_id > 1 %}
+            <h4>{{ user.level }}</h4>
+          {% endif %}
+          <hr width="75%">
+          <div style="position: absolute; top: 0; right: 25px;">
+            {% if email %}
+              <a href="{{ path('profile_edit', {email: email}) }}" class="btn btn-raised btn-primary">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
+              </a>
+            {% else %}
+              <a href="{{ path('profile_edit') }}" class="btn btn-raised btn-primary">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
+              </a>
+            {% endif %}
+          </div>
+          <div class="text-left">
+            <table class="table table-hover">
+              <tr style="border: 0">
+                <td class="text-right" style="width: 200px"><strong>Email:</strong></td>
+                <td>{{ user.email }}</td>
+              </tr>
+              <tr>
+                <td class="text-right"><strong>Localização:</strong></td>
+                <td>{{ user.location }}</td>
+              </tr>
+              {% if user.birthyear %}
+                <tr>
+                  <td class="text-right"><strong>Ano de nascimento:</strong></td>
+                  <td>{{ user.birthyear }}</td>
+                </tr>
+              {% endif %}
+              {% if user.occupation %}
+                <tr>
+                  <td class="text-right"><strong>Ocupação:</strong></td>
+                  <td>{{ user.occupation }}</td>
+                </tr>
+              {% endif %}
+              {% if user.education %}
+                <tr>
+                  <td class="text-right"><strong>Escolaridade:</strong></td>
+                  <td>{{ user.education }}</td>
+                </tr>
+              {% endif %}
+              {% if userLogged.isAdmin %}
+                <tr>
+                  <td class="text-right"><strong>Status:</strong></td>
+                  <td>
+                    <div class="togglebutton">
+                      <label>
+                        <input type="checkbox" disabled{% if user.active %} checked{% endif %}> Ativo
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              {% endif %}
+              <tr>
+                <td class="text-right"><strong>Cadastrado em:</strong></td>
+                <td id="date"></td>
+                <script>
+                  document.addEventListener('DOMContentLoaded', function() {
+                    document.getElementById('date').innerHTML = new Date('{{ user.created }}').toLocaleString();
+                  });
+                </script>
+              </tr>
+            </table>
+          </div>
+        {% else %}
+          <h3>Usuário não encontrado</h3>
+        {% endif %}
+      </div>
     </div>
   </div>
 
+{% endblock %}
+
+{% block style %}
+  <style>
+    td {
+      border: 0 !important;
+    }
+  </style>
 {% endblock %}

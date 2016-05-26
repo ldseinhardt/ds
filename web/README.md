@@ -29,7 +29,6 @@ $ ./run
 
 * [jQuery](https://github.com/jquery/jquery)
 * [jQuery-autocomplete](https://github.com/devbridge/jQuery-Autocomplete)
-* [jQuery-validation](https://github.com/jzaefferer/jquery-validation)
 * [bootstrap](https://github.com/twbs/bootstrap)
 * [bootstrap-select](https://github.com/silviomoreto/bootstrap-select)
 * [bootstrap-table](https://github.com/wenzhixin/bootstrap-table)

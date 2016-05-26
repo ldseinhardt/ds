@@ -107,11 +107,11 @@
           transactions.value
         FROM
           transactions
-          INNER JOIN users
+          LEFT JOIN users
             ON (transactions.user_email = users.email)
-          INNER JOIN categories
+          LEFT JOIN categories
             ON (transactions.category_id = categories.id)
-          INNER JOIN types
+          LEFT JOIN types
             ON (categories.type_id = types.id)
       ");
     }
@@ -127,9 +127,9 @@
           SUM(value) AS total
         FROM
           transactions
-          INNER JOIN categories
+          LEFT JOIN categories
             ON (transactions.category_id = categories.id)
-          INNER JOIN types
+          LEFT JOIN types
             ON (categories.type_id = types.id)
         WHERE
           {$where}

@@ -1,31 +1,32 @@
 {% extends "layout.twig" %}
 
 {% block title %}
-  {{ parent() }} :: Perfil
+  {{ parent() }} :: {% if user %}{{ user.name }}{% else %}Perfil{% endif %}
 {% endblock %}
 
 {% block content %}
 
-<div class="col-sm-4 col-sm-offset-4 text-center">
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <form class="form-horizontal" id="form" method="POST">
-        <fieldset>
-          <legend>Editar perfil</legend>
-          <div class="form-group">
+  <div class="col-sm-8 col-sm-offset-2 text-center">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form class="form-horizontal" id="form" method="POST">
+          <fieldset>
+            <h3>Editar perfil</h3>
+            <hr width="75%">
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-1">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Nome">
+              </div>
+            </div>
+           <div class="form-group">
             <div class="col-sm-10 col-sm-offset-1">
-              <input type="text" class="form-control" id="name" name="name" placeholder="Nome">
+              <button type="submit" class="btn btn-raised btn-primary">Salvar</button>
             </div>
           </div>
-         <div class="form-group">
-          <div class="col-sm-10 col-sm-offset-1">
-            <button type="submit" class="btn btn-raised btn-primary">Salvar</button>
-          </div>
-        </div>
-        </fieldset>
-      </form>
+          </fieldset>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 
 {% endblock %}

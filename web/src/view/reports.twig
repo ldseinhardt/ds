@@ -6,13 +6,49 @@
 
 {% block content %}
 
-  <div class="panel panel-default">
-    <div class="panel-body">
-      Página de relatórios...
-      <div id="chart_calendar"></div>
-      <div id="chart_line"></div>
-      <div id="chart_bar"></div>
-      <div id="chart_pie"></div>
+  <div class="col-sm-12 text-center">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <h3>Relatórios</h3>
+        <hr width="75%">
+        <!-- Não esquecer dos filtros -->
+
+        <div class="panel panel-primary" id="calendar">
+          <div class="panel-heading">
+            <h3 class="panel-title">Calendar Chart</h3>
+          </div>
+          <div class="panel-body">
+            <div class="graph"></div>
+          </div>
+        </div>
+
+        <div class="panel panel-primary" id="line">
+          <div class="panel-heading">
+            <h3 class="panel-title">Line Chart</h3>
+          </div>
+          <div class="panel-body">
+            <div class="graph"></div>
+          </div>
+        </div>
+
+        <div class="panel panel-primary" id="bar">
+          <div class="panel-heading">
+            <h3 class="panel-title">Bar chart</h3>
+          </div>
+          <div class="panel-body">
+            <div class="graph"></div>
+          </div>
+        </div>
+
+        <div class="panel panel-primary" id="expense-vs-income">
+          <div class="panel-heading">
+            <h3 class="panel-title">Despesas vs Receitas</h3>
+          </div>
+          <div class="panel-body">
+            <div class="graph"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -29,12 +65,6 @@
       dataTable.addColumn({ type: 'date', id: 'Date' });
       dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
       dataTable.addRows([
-         [ new Date(2012, 3, 13), 37032 ],
-         [ new Date(2012, 3, 14), 38024 ],
-         [ new Date(2012, 3, 15), 38024 ],
-         [ new Date(2012, 3, 16), 38108 ],
-         [ new Date(2012, 3, 17), 38229 ],
-         // Many rows omitted for brevity.
          [ new Date(2013, 9, 4), 38177 ],
          [ new Date(2013, 9, 5), 38705 ],
          [ new Date(2013, 9, 12), 38210 ],
@@ -45,11 +75,10 @@
          [ new Date(2013, 9, 30), 38447 ]
        ]);
 
-      var chart = new google.visualization.Calendar(document.getElementById('chart_calendar'));
+      var chart = new google.visualization.Calendar($('#calendar .graph')[0]);
 
       var options = {
-        title: "Red Sox Attendance",
-        height: 350,
+        title: "Red Sox Attendance"
       };
 
       chart.draw(dataTable, options);
@@ -86,7 +115,7 @@
         }
       };
 
-      var chart = new google.visualization.LineChart(document.getElementById('chart_line'));
+      var chart = new google.visualization.LineChart($('#line .graph')[0]);
       chart.draw(data, options);
 
       var data = new google.visualization.DataTable();
@@ -122,26 +151,16 @@
         }
       };
 
-      var chart = new google.charts.Bar(document.getElementById('chart_bar'));
+      var chart = new google.charts.Bar($('#bar .graph')[0]);
       chart.draw(data, options);
 
       $.get('/reports/types.json', function(data_report) {
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'id');
         data.addColumn('number', 'Total');
-
-        console.log(data_report);
-
         data.addRows(data_report);
-
-        var options = {
-          'title':'Despesas vs Receitas',
-          'width':500,
-          'height':500
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('chart_pie'));
-        chart.draw(data, options);
+        var chart = new google.visualization.PieChart($('#expense-vs-income .graph')[0]);
+        chart.draw(data);
       })
     }
   </script>

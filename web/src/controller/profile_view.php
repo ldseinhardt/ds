@@ -8,9 +8,21 @@
 
     $email = $app->escape($request->get('email'));
 
+    $User = new User($app['db']);
+
+    $usr = $userLogged->email;
+
+    if ($userLogged->isAdmin && $email && $User->emailExists($email)) {
+      $usr = $email;
+    }
+
+    $user = $User->getUser($usr);
+
     return $app['twig']->render('profile_view.twig', [
       'page' => 'profile_view',
-      'userLogged' => $userLogged
+      'userLogged' => $userLogged,
+      'user' => $user,
+      'email' => $email
     ]);
   })
     ->bind('profile_view');

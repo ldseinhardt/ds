@@ -10,6 +10,7 @@
     <div class="panel panel-default">
       <div class="panel-body">
         <h3>Usuários</h3>
+        <hr width="75%">
         <table></table>
       </div>
     </div>
@@ -18,57 +19,57 @@
 {% endblock %}
 
 {% block script %}
-<script>
-  $(function() {
-    $('table').bootstrapTable({
-      url: '/users.json',
-      columns: [{
-        field: 'name',
-        title: 'Nome',
-        align: 'center',
-        halign: 'center',
-        valign: 'middle',
-        sortable: true
-      },
-      {
-        field: 'email',
-        title: 'Email',
-        align: 'center',
-        halign: 'center',
-        valign: 'middle',
-        sortable: true,
-        formatter: function(value) {
-          return '<a href="/profile/?email=' + value + '">' + value + '</a>'
-        }
-      },
-      {
-        field: 'location',
-        title: 'Localização',
-        align: 'center',
-        halign: 'center',
-        valign: 'middle',
-        sortable: true
-      },
-      {
-        field: 'level',
-        title: 'Nível de acesso',
-        align: 'center',
-        halign: 'center',
-        valign: 'middle',
-        sortable: true
-      },
-      {
-        field: 'birthyear',
-        title: 'Ano de nascimento',
-        align: 'center',
-        halign: 'center',
-        valign: 'middle',
-        sortable: true
-      }],
-      sortName: 'name',
-      search: true,
-      locale: 'pt-BR'
+  <script>
+    $(function() {
+      $('table').bootstrapTable({
+        url: '/users.json',
+        columns: [{
+          field: 'name',
+          title: 'Nome',
+          align: 'center',
+          halign: 'center',
+          valign: 'middle',
+          sortable: true
+        },
+        {
+          field: 'email',
+          title: 'Email',
+          align: 'center',
+          halign: 'center',
+          valign: 'middle',
+          sortable: true,
+          formatter: function(value) {
+            return '<a href="/profile/?email=' + value + '">' + value + '</a>'
+          }
+        },
+        {
+          field: 'location',
+          title: 'Localização',
+          align: 'center',
+          halign: 'center',
+          valign: 'middle',
+          sortable: true
+        },
+        {
+          field: 'level',
+          title: 'Nível de acesso',
+          align: 'center',
+          halign: 'center',
+          valign: 'middle',
+          sortable: true
+        },
+        {
+          field: 'birthyear',
+          title: 'Ano de nascimento',
+          align: 'center',
+          halign: 'center',
+          valign: 'middle',
+          sortable: true
+        }],
+        sortName: 'name',
+        search: true,
+        locale: 'pt-BR'
+      });
     });
-  });
-</script>
+  </script>
 {% endblock %}

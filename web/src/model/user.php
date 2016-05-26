@@ -146,13 +146,27 @@
           users.name,
           users.birthyear,
           users.level_id,
+          users.active,
+          users.created,
+          levels.level,
+          occupations.occupation,
           users.education_id,
+          educations.education,
           concat_ws(', ', city, state, country) AS location
         FROM
           users
-            LEFT JOIN cities ON (users.city_id = cities.id)
-            LEFT JOIN states ON (cities.state_id = states.id)
-            LEFT JOIN countries ON (states.country_id = countries.id)
+          LEFT JOIN levels
+            ON (users.level_id = levels.id)
+          LEFT JOIN educations
+            ON (users.education_id = educations.id)
+          LEFT JOIN occupations
+            ON (users.occupation_id = occupations.id)
+          LEFT JOIN cities
+            ON (users.city_id = cities.id)
+          LEFT JOIN states
+            ON (cities.state_id = states.id)
+          LEFT JOIN countries
+            ON (states.country_id = countries.id)
         WHERE
           users.email = ?
       ", [$this->user['email']]);
@@ -194,14 +208,14 @@
           users.birthyear
         FROM
           users
-          INNER JOIN cities
-            ON (users.city_id = cities.id)
-          INNER JOIN states
-            ON (cities.state_id = states.id)
-          INNER JOIN countries
-            ON (states.country_id = countries.id)
-          INNER JOIN levels
+          LEFT JOIN levels
             ON (users.level_id = levels.id)
+          LEFT JOIN cities
+            ON (users.city_id = cities.id)
+          LEFT JOIN states
+            ON (cities.state_id = states.id)
+          LEFT JOIN countries
+            ON (states.country_id = countries.id)
       ");
     }
 
