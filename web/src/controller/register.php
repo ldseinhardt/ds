@@ -15,7 +15,7 @@
       'location' => $app->escape($request->get('location')),
       'birthyear' => $app->escape($request->get('birthyear')),
       'occupation' => $app->escape($request->get('occupation')),
-      'education_id' => $app->escape($request->get('education'))
+      'education_id' => $app->escape($request->get('education_id'))
     ];
 
     $response = NULL;

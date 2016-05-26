@@ -183,9 +183,14 @@
         return $e !== NULL;
       });
       unset($fields['email']);
-      $values = array_values($fields);
+      $values = array_map(function($e) {
+        if ($e === 'NULL') {
+          return NULL;
+        }
+        return $e;
+      }, array_values($fields));
       $values[] = $this->user['email'];
-      $fields = implode(', ', array_map(function ($e) {
+      $fields = implode(', ', array_map(function($e) {
         return $e . ' = ?';
       }, array_keys($fields)));
       $this->db->executeUpdate("

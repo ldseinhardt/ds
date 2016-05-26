@@ -15,17 +15,15 @@
             <h4>{{ user.level }}</h4>
           {% endif %}
           <hr width="75%">
-          <div style="position: absolute; top: 0; right: 25px;">
-            {% if email %}
-              <a href="{{ path('profile_edit', {email: email}) }}" class="btn btn-raised btn-primary">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
-              </a>
-            {% else %}
-              <a href="{{ path('profile_edit') }}" class="btn btn-raised btn-primary">
-                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
-              </a>
-            {% endif %}
-          </div>
+          {% if email %}
+            <a href="{{ path('profile_edit', {email: email}) }}" class="btn btn-raised btn-primary">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
+            </a>
+          {% else %}
+            <a href="{{ path('profile_edit') }}" class="btn btn-raised btn-primary">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar
+            </a>
+          {% endif %}
           <div class="text-left">
             <table class="table table-hover">
               <tr style="border: 0">

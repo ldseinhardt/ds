@@ -6,7 +6,7 @@
 
 {% block content %}
 
-  <div class="col-sm-6 col-sm-offset-3 text-center">
+  <div class="col-sm-8 col-sm-offset-2 text-center">
     {% if response %}
       <div class="alert alert-dismissible alert-{% if response.status %}success{% else %}danger{% endif %}">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -22,7 +22,7 @@
     {% endif %}
     <div class="panel panel-default">
       <div class="panel-body">
-        <form class="form-horizontal" id="form" method="POST">
+        <form class="form-horizontal" method="POST">
           <fieldset>
             <h3>Cadastro</h3>
             <hr width="75%">
@@ -63,12 +63,12 @@
             </div>
             <div class="form-group">
               <div class="col-sm-10 col-sm-offset-1">
-                <select id="education" name="education" class="form-control">
+                <select id="education" name="education_id" class="form-control">
                   <option value="">Escolaridade</option>
-                  <option value="1"{% if user.education_id == 1 %} selected{% endif %}>Ensino fundamental completo</option>
-                  <option value="2"{% if user.education_id == 2 %} selected{% endif %}>Ensino fundamental incompleto</option>
-                  <option value="3"{% if user.education_id == 3 %} selected{% endif %}>Ensino médio completo</option>
-                  <option value="4"{% if user.education_id == 4 %} selected{% endif %}>Ensino médio incompleto</option>
+                  <option value="1"{% if user.education_id == 1 %} selected{% endif %}>Ensino fundamental incompleto</option>
+                  <option value="2"{% if user.education_id == 2 %} selected{% endif %}>Ensino fundamental completo</option>
+                  <option value="3"{% if user.education_id == 3 %} selected{% endif %}>Ensino médio incompleto</option>
+                  <option value="4"{% if user.education_id == 4 %} selected{% endif %}>Ensino médio completo</option>
                   <option value="5"{% if user.education_id == 5 %} selected{% endif %}>Ensino superior completo</option>
                   <option value="6"{% if user.education_id == 6 %} selected{% endif %}>Curso de pós-graduação completo</option>
                   <option value="7"{% if user.education_id == 7 %} selected{% endif %}>Estudante de ensino fundamental ou ensino médio</option>
@@ -93,8 +93,6 @@
 {% block script %}
   <script>
     $(function() {
-      $('.selectpicker').selectpicker();
-
       $('#location').autocomplete({
         serviceUrl: '/autocomplete/location/'
       });
