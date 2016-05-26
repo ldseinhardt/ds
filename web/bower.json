@@ -7,6 +7,7 @@
     "font-awesome": "^4.6.2",
     "bootstrap-material-design": "^0.5.9",
     "devbridge-autocomplete": "~1.2.24",
-    "bootstrap-table": "^1.10.1"
+    "bootstrap-table": "^1.10.1",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
   }
 }

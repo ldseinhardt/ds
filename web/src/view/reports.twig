@@ -11,7 +11,92 @@
       <div class="panel-body">
         <h3>Relatórios</h3>
         <hr width="75%">
-        <!-- Não esquecer dos filtros -->
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Filtrar dados</h3>
+          </div>
+          <div class="panel-body">
+            <div class="row text-center">
+              <div class="col-sm-5 col-sm-offset-1">
+                <div class="form-group">
+                  <h3>Data Inicial</h3>
+                  <input type="hidden" class="form-control" id="date_initial" name="date_initial" placeholder="Período Inicial">
+                  <div id="date-initial" class="datetimepicker"></div>
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="form-group">
+                  <h3>Data Final</h3>
+                  <input type="hidden" class="form-control" id="date_final" name="date_final" placeholder="Período Inicial">
+                  <div id="date-final" class="datetimepicker"></div>
+                </div>
+              </div>
+            </div>
+            <div class="row text-left">
+              <div class="col-sm-5 col-sm-offset-1">
+                <div class="form-group">
+                  <select id="category" name="category" class="form-control">
+                    <option value="">Categoria</option>
+                    <option value="1">Alimentação</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="form-group">
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" id="type_expense" name="type_expense" value="1" checked> Despesas
+                    </label>
+                    <label>
+                      <input type="checkbox" id="type_income" name="type_income" value="1"  checked> Receitas
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row text-left">
+              <div class="col-sm-5 col-sm-offset-1">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="location" name="location" placeholder="Localização" minlength="10" maxlength="128">
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="form-group">
+                  <input type="number" class="form-control" id="birthyear" name="birthyear" placeholder="Ano de nascimento" min="1901" max="2016">
+                </div>
+              </div>
+            </div>
+            <div class="row text-left">
+              <div class="col-sm-5 col-sm-offset-1">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="occupation" name="occupation" placeholder="Ocupação" maxlength="64">
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="form-group">
+                  <select id="education" name="education_id" class="form-control">
+                    <option value="">Escolaridade</option>
+                    <option value="1">Ensino fundamental incompleto</option>
+                    <option value="2">Ensino fundamental completo</option>
+                    <option value="3">Ensino médio incompleto</option>
+                    <option value="4">Ensino médio completo</option>
+                    <option value="5">Ensino superior completo</option>
+                    <option value="6">Curso de pós-graduação completo</option>
+                    <option value="7">Estudante de ensino fundamental ou ensino médio</option>
+                    <option value="8">Estudante de graduação ou pós-graduação</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row text-left">
+              <div class="col-sm-10 col-sm-offset-1">
+                <div class="form-group text-left">
+                  <button type="submit" class="btn btn-raised btn-primary">Filtrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="panel panel-primary" id="calendar">
           <div class="panel-heading">
@@ -40,6 +125,15 @@
           </div>
         </div>
 
+        <div class="panel panel-primary" id="bar2">
+          <div class="panel-heading">
+            <h3 class="panel-title">Bar chart</h3>
+          </div>
+          <div class="panel-body">
+            <div class="graph"></div>
+          </div>
+        </div>
+
         <div class="panel panel-primary" id="expense-vs-income">
           <div class="panel-heading">
             <h3 class="panel-title">Despesas vs Receitas</h3>
@@ -54,8 +148,32 @@
 
 {% endblock %}
 
+{% block style %}
+  <link rel="stylesheet" href="{{ path('file', {type: 'vendor', file: 'eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'}) }}">
+  <style>
+    .datepicker .active {
+      background-color: #009688 !important;
+    }
+
+    .datepicker .day:not(.active)::before {
+        border-bottom-color: #009688 !important;
+    }
+
+    .datepicker .day:not(.active):not(.disabled):hover,
+    .datepicker .month:not(.active):not(.disabled):hover,
+    .datepicker .year:not(.active):not(.disabled):hover,
+    .datepicker .next:hover,
+    .datepicker .picker-switch:hover,
+    .datepicker .prev:hover {
+      color: #111 !important;
+    }
+  </style>
+{% endblock %}
+
 {% block script %}
-<script>
+  <script src="{{ path('file', {type: 'vendor', file: 'moment/min/moment-with-locales.min.js'}) }}"></script>
+  <script src="{{ path('file', {type: 'vendor', file: 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'}) }}"></script>
+  <script>
     google.charts.load('current', {'packages':['corechart', 'bar', 'line', 'calendar']});
     google.charts.setOnLoadCallback(drawCharts);
 
@@ -154,6 +272,33 @@
       var chart = new google.charts.Bar($('#bar .graph')[0]);
       chart.draw(data, options);
 
+      var data = google.visualization.arrayToDataTable([
+        ['City', '2010 Population', '2000 Population'],
+        ['New York City, NY', 8175000, 8008000],
+        ['Los Angeles, CA', 3792000, 3694000],
+        ['Chicago, IL', 2695000, 2896000],
+        ['Houston, TX', 2099000, 1953000],
+        ['Philadelphia, PA', 1526000, 1517000]
+      ]);
+
+      var options = {
+        chart: {
+          title: 'Population of Largest U.S. Cities',
+          subtitle: 'Based on most recent and previous census data'
+        },
+        hAxis: {
+          title: 'Total Population',
+          minValue: 0,
+        },
+        vAxis: {
+          title: 'City'
+        },
+        bars: 'horizontal'
+      };
+
+      var chart = new google.charts.Bar($('#bar2 .graph')[0]);
+      chart.draw(data, options);
+
       $.get('/reports/types.json', function(data_report) {
         var data = new google.visualization.DataTable();
         data.addColumn('string', 'id');
@@ -163,5 +308,56 @@
         chart.draw(data);
       })
     }
+
+    $(function() {
+      $('#location').autocomplete({
+        serviceUrl: '/autocomplete/location/'
+      });
+
+      $('#occupation').autocomplete({
+        serviceUrl: '/autocomplete/occupation/'
+      });
+
+      $('#education, #category').change(function() {
+        if ($(':selected', this).val() === '') {
+          $(this).css('color', '#bdbdbd');
+        } else {
+          $(this).css('color', '#555');
+        }
+        $('option', this).css('color', '#555');
+      });
+
+      $('#education, #category').trigger('change');
+
+      var datetimepickers = $('.datetimepicker');
+
+      datetimepickers.datetimepicker({
+        inline: true,
+        locale: 'pt-BR',
+        format: 'L'
+      });
+
+      $(datetimepickers[0]).data().DateTimePicker
+        .minDate(new Date('2016-01-01'))
+        .maxDate(new Date('2016-12-31'))
+        .defaultDate(new Date('2016-05-20'));
+      $(datetimepickers[1]).data().DateTimePicker
+        .minDate(new Date('2016-01-01'))
+        .maxDate(new Date('2016-12-31'))
+        .defaultDate(new Date('2016-05-26'));
+
+      $('#date_initial').val('2016-05-20');
+      $('#date_final').val('2016-05-26');
+
+      $(datetimepickers[0]).on('dp.change', function(evt) {
+        $('#date_initial')
+          .val(new Date(evt.date._d.valueOf()).toISOString().split(/T/)[0]);
+      })
+
+      $(datetimepickers[1]).on('dp.change', function(evt) {
+        $('#date_final')
+          .val(new Date(evt.date._d.valueOf()).toISOString().split(/T/)[0]);
+      })
+    });
   </script>
 {% endblock %}
