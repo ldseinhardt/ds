@@ -68,15 +68,72 @@
       return NULL;
     }
 
+    public function isValidToken($token, $email = NULL) {
+      if ($email) {
+        $this->user['email'] = $email;
+      }
+      $today = date('Y-m-d H:i:s');
+      $query = $this->db->fetchAssoc("
+        SELECT
+          email
+        FROM
+          users
+        WHERE
+          email = ? AND password_token = ? AND password_token_expires >= ? AND active = 1
+      ", [
+        $this->user['email'],
+        $token,
+        $today
+      ]);
+      return $query != NULL;
+    }
+
+    public function generatePasswordToken($email = NULL) {
+      if ($email) {
+        $this->user['email'] = $email;
+      }
+      $today = date('Y-m-d H:i:s');
+      $token = hash('sha256', $this->secret . $this->user['email'] . time());
+      $this->user['password_token'] = $token;
+      $this->user['password_token_expires'] = date('Y-m-d H:i:s', strtotime($today .' +3 days'));
+      $this->update();
+      return $token;
+    }
+
+    public function emailExists($email = NULL) {
+      if ($email) {
+        $this->user['email'] = $email;
+      }
+      $query = $this->db->fetchAssoc("
+        SELECT
+          email
+        FROM
+          users
+        WHERE
+          email = ?
+      ", [
+        $this->user['email'],
+      ]);
+      return $query != NULL;
+    }
+
     public function add($user = NULL) {
       $this->setUser($user);
-      if (!($this->user['city_id'] && $this->user['level_id'])) {
+      if (!$this->user['city_id']) {
         return NULL;
+      }
+      if (!$this->user['level_id']) {
+        $this->user['level_id'] = 1;
+      }
+      if (!$this->user['active']) {
+        $this->user['active'] = 1;
+      }
+      if ($this->user['education_id'] === '') {
+        $this->user['education_id'] = NULL;
       }
       $this->user['created'] = date('Y-m-d H:i:s');
       $this->user['modified'] = date('Y-m-d H:i:s');
-      $this->db->insert('users', $this->user);
-      return $this->db->lastInsertId();
+      return $this->db->insert('users', $this->user);
     }
 
     public function getUser($email = NULL) {
@@ -151,6 +208,12 @@
     public function setLocation($location) {
       $Location = new Location($this->db, $location);
       $this->user['city_id'] = $Location->getLocationID();
+      return $this;
+    }
+
+    public function setOccupation($occupation) {
+      $Occupation = new Occupation($this->db, $occupation);
+      $this->user['occupation_id'] = $Occupation->getOccupationID();
       return $this;
     }
 

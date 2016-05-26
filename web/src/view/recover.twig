@@ -7,6 +7,12 @@
 {% block content %}
 
   <div class="col-sm-4 col-sm-offset-4 text-center">
+    {% if response %}
+      <div class="alert alert-dismissible alert-{% if response.status %}success{% else %}danger{% endif %}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <div class="text-center">{{ response.message }}</div>
+      </div>
+    {% endif %}
     <div class="panel panel-default">
       <div class="panel-body">
         <form class="form-horizontal" id="form" method="POST">
@@ -14,18 +20,18 @@
             <legend>Recuperar senha</legend>
             <div class="form-group">
               <div class="col-sm-10 col-sm-offset-1">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ email }}" maxlength="255" required autofocus>
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-10 col-sm-offset-1">
-                <p>Você receberá um email com os procedimentos necessários para recuperação de senha.</p>
+                <p>Você receberá um email com os procedimentos necessários para recuperação de sua conta.</p>
                 <button type="submit" class="btn btn-raised btn-primary">Recuperar</button>
               </div>
             </div>
           </fieldset>
         </form>
-        <a href="{{ url('login') }}">Login</a> | <a href="{{ url('register') }}">Cadastro</a>
+        <a href="{{ path('login') }}">Login</a> | <a href="{{ path('register') }}">Cadastro</a>
       </div>
     </div>
   </div>

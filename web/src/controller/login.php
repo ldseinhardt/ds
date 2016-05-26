@@ -6,12 +6,12 @@
       return $app->redirect('/');
     }
 
+    $email = $app->escape($request->get('email'));
+    $password = $app->escape($request->get('password'));
+
     $response = NULL;
 
     if ($request->isMethod('POST')) {
-      $email = $app->escape($request->get('email'));
-      $password = $app->escape($request->get('password'));
-
       $User = new User($app['db']);
       $user = $User->auth($email, $password);
 
@@ -29,6 +29,8 @@
     return $app['twig']->render('login.twig', [
       'page' => 'login',
       'userLogged' => NULL,
+      'email' => $email,
+      'password' => $password,
       'response' => $response
     ]);
   }, 'GET|POST')

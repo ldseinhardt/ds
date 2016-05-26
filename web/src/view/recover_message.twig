@@ -1,0 +1,9 @@
+Olá <strong>{{ user.name }}</strong>, para recuperar sua conta clique no link abaixo e redefina sua senha.<br>
+<br>
+<a href="{{ url('recover_password', {email: user.email, token: token}) }}" target="_blank">
+  {{ url('recover_password', {email: user.email, token: token}) }}
+</a><br>
+<br>
+<br>
+Att,<br>
+Equipe Oráculo da Mascada.

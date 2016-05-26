@@ -116,11 +116,11 @@
       ");
     }
 
-    public function getReportTypes(/*filters*/) {
+    public function getReportTypes($filters = NULL) {
       $where = "1 = 1";
-      //if (...) {
-      //filters
-      //}
+      if ($filters) {
+        //array filters
+      }
       $query = $this->db->fetchAll("
         SELECT
           type,

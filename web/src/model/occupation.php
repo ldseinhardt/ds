@@ -20,13 +20,10 @@
       if ($occupation) {
         $this->setOccupation($occupation);
       }
-
       $occupationID = $this->searchOccupation($this->occupation);
-
       if ($occupationID) {
         return $occupationID;
       }
-
       return $this->addOccupation($this->occupation);
     }
 

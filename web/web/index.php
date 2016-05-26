@@ -12,6 +12,7 @@
   use Silex\Provider\DoctrineServiceProvider;
   use Silex\Provider\SessionServiceProvider;
   use Silex\Provider\SwiftmailerServiceProvider;
+  use Silex\Provider\ValidatorServiceProvider;
 
   $app = new Application();
 
@@ -40,6 +41,8 @@
   $app->register(new SwiftmailerServiceProvider(), [
     'swiftmailer.options' => $mailer_options
   ]);
+
+  $app->register(new ValidatorServiceProvider());
 
   require_once SRC_DIR . '/model.php';
 
