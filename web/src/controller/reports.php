@@ -50,7 +50,7 @@
 
     switch ($report) {
       case 'expense-vs-income':
-        $data = $Transaction->getReportTypes($filters);
+        $data = $Transaction->getReportExpenseVsIncome($filters);
         break;
       case 'transactions-per-day':
         $data = $Transaction->getReportTransactionsPerDay($filters);

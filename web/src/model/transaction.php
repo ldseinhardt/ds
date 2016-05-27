@@ -176,7 +176,7 @@
       return '';
     }
 
-    public function getReportTypes($filters = NULL) {
+    public function getReportExpenseVsIncome($filters = NULL) {
       $query = $this->db->fetchAll("
         SELECT
           types.type,

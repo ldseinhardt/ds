@@ -302,7 +302,8 @@
               },
               vAxis: {
                 title: 'transações em reais'
-              }
+              },
+              colors: ['#F44336', '#4CAF50']
             });
           } else {
             container.html('<p align="center">Não há dados.</p>');
@@ -329,7 +330,10 @@
             data.addRows(data_report);
             container.html('');
             var chart = new google.visualization.PieChart(container[0]);
-            chart.draw(data);
+            chart.draw(data, {
+              height: 300,
+              colors: ['#F44336', '#4CAF50']
+            });
           } else {
             container.html('<p align="center">Não há dados.</p>');
           }
