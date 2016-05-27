@@ -1,6 +1,6 @@
 # Sistema web
 
-## Programas Necessários
+## Programas necessários
 
 * PHP
 * MySQL
@@ -48,7 +48,7 @@ Configure no arquivo `src/settings.php`.
 ## Instanciar a base de dados
 
 ```
-$ mysql -u [usuario] - p
+$ mysql -u [usuario] -p
 
 mysql> source ../database/create.sql
 mysql> source ../database/insert.sql
