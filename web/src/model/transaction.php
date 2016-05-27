@@ -243,7 +243,9 @@
       if ($query && count($query)) {
         $temp = [];
         foreach ($query as $row) {
-          $temp[$row['date']] = [0, 0];
+          if (!(isset($temp[$row['date']]) && count($temp[$row['date']]))){
+            $temp[$row['date']] = [0, 0];
+          }
           $temp[$row['date']][$row['type_id'] -1] = (double) $row['total'];
         }
         $values = [];

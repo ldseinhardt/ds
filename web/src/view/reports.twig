@@ -288,11 +288,9 @@
             data.addColumn('date', 'id');
             data.addColumn('number', 'Despesas');
             data.addColumn('number', 'Receitas');
-            var _data = [];
-            data_report.forEach(function(e) {
-              _data.push([new Date(e[0].replace(/\-/g, ', ')), e[1], e[2]]);
-            });
-            data.addRows(_data);
+            data.addRows(data_report.map(function(e) {
+              return [new Date(e[0].replace(/\-/g, ', ')), e[1], e[2]];
+            }));
             container.html('');
             var chart = new google.visualization.LineChart(container[0]);
             chart.draw(data, {
