@@ -4,8 +4,8 @@
 
 * PHP
 * MySQL
-* Bower
-* Composer
+* Bower (Gerenciador de pacotes para Front-end)
+* Composer (Gerenciador de pacotes para PHP)
 
 ## Instalação de programas necessários (Ubuntu Linux)
 
@@ -69,10 +69,10 @@ php -v
 ## Bibliotecas Front-end de terceiros
 
 * [jQuery](https://github.com/jquery/jquery)
-* [jQuery-autocomplete](https://github.com/devbridge/jQuery-Autocomplete)
-* [bootstrap](https://github.com/twbs/bootstrap)
-* [bootstrap-table](https://github.com/wenzhixin/bootstrap-table)
-* [bootstrap-material-design](https://github.com/FezVrasta/bootstrap-material-design)
+* [jQuery-Autocomplete](https://github.com/devbridge/jQuery-Autocomplete)
+* [Bootstrap](https://github.com/twbs/bootstrap)
+* [Bootstrap-Table](https://github.com/wenzhixin/bootstrap-table)
+* [Bootstrap-Material-Design](https://github.com/FezVrasta/bootstrap-material-design)
 * [Font-Awesome](http://fortawesome.github.io/Font-Awesome/)
 
 ## Framework PHP

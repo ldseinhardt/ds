@@ -52,13 +52,13 @@
     public function autocompleteLocation($query) {
       return $this->db->fetchAll("
         SELECT DISTINCT
-          concat_ws(', ', city, state, country) AS value
+          concat_ws(', ', cities.city, states.state, countries.country) AS value
         FROM
           cities
             LEFT JOIN states ON (cities.state_id = states.id)
             LEFT JOIN countries ON (states.country_id = countries.id)
         WHERE
-          concat_ws(', ', city, state, country) LIKE ?
+          concat_ws(', ', cities.city, states.state, countries.country) LIKE ?
         LIMIT 10
       ", ["{$query}%"]);
     }
@@ -72,7 +72,7 @@
             LEFT JOIN states ON (cities.state_id = states.id)
             LEFT JOIN countries ON (states.country_id = countries.id)
         WHERE
-          concat_ws(', ', city, state, country) = ?
+          concat_ws(', ', cities.city, states.state, countries.country) = ?
         LIMIT 1
       ", [$location]);
       return $query ? $query['id'] : NULL;

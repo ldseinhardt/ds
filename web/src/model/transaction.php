@@ -29,6 +29,20 @@
       return $this;
     }
 
+    public function getCategories() {
+      $query = $this->db->fetchAll("
+        SELECT
+          categories.id,
+          concat(categories.category, ' (', types.type, ')') AS name
+        FROM
+          categories
+          LEFT JOIN types
+            ON (categories.type_id = types.id)
+        ORDER BY(categories.id)
+      ");
+      return $query;
+    }
+
     public function searchCategory($category, $type) {
       $query = $this->db->fetchAssoc("
         SELECT
@@ -116,23 +130,73 @@
       ");
     }
 
-    public function getReportTypes($filters = NULL) {
-      $where = "1 = 1";
+    public function getReportfilters($filters) {
       if ($filters) {
-        //array filters
+        $filters = array_filter($filters, function($e) {
+          return $e;
+        });
+        if (count($filters)) {
+          $conditions = [];
+          foreach ($filters as $key => $value) {
+            switch ($key) {
+              case 'date_initial':
+                $conditions[] = "transactions.date >= '{$value}'";
+                break;
+              case 'date_final':
+                $conditions[] = "transactions.date <= '{$value}'";
+                break;
+              case 'category_id':
+                $conditions[] = "transactions.category_id = '{$value}'";
+                break;
+              case 'type_id':
+                $conditions[] = "categories.type_id = '{$value}'";
+                break;
+              case 'birthyear':
+                $conditions[] = "users.birthyear = '{$value}'";
+                break;
+              case 'education_id':
+                $conditions[] = "users.education_id = '{$value}'";
+                break;
+              case 'location':
+                $conditions[] = "concat_ws(', ', cities.city, states.state, countries.country) = '{$value}'";
+                break;
+              case 'occupation':
+                $conditions[] = "occupations.occupation = '{$value}'";
+                break;
+            }
+          }
+          $where = implode(' AND ', $conditions);
+          return "
+            WHERE
+              {$where}
+          ";
+        }
       }
+      return '';
+    }
+
+    public function getReportTypes($filters = NULL) {
       $query = $this->db->fetchAll("
         SELECT
-          type,
-          SUM(value) AS total
+          types.type,
+          SUM(transactions.value) AS total
         FROM
           transactions
           LEFT JOIN categories
             ON (transactions.category_id = categories.id)
           LEFT JOIN types
             ON (categories.type_id = types.id)
-        WHERE
-          {$where}
+          LEFT JOIN users
+            ON (transactions.user_email = users.email)
+          LEFT JOIN cities
+            ON (users.city_id = cities.id)
+          LEFT JOIN states
+            ON (cities.state_id = states.id)
+          LEFT JOIN countries
+            ON (states.country_id = countries.id)
+          LEFT JOIN occupations
+            ON (users.occupation_id = occupations.id)
+        {$this->getReportfilters($filters)}
         GROUP BY (categories.type_id)
         ORDER BY (categories.type_id) ASC
       ");
@@ -148,5 +212,7 @@
       }
       return NULL;
     }
+
+    // outros relatórios ...
 
   }

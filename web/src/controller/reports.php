@@ -12,14 +12,17 @@
       return $app->redirect('/files/?message=' . urlencode('Por favor, envie seus dados para possuir acesso aos relatórios.'));
     }
 
+    $Transaction = new Transaction($app['db']);
+
     return $app['twig']->render('reports.twig', [
       'page' => 'reports',
-      'userLogged' => $userLogged
+      'userLogged' => $userLogged,
+      'categories' => $Transaction->getCategories()
     ]);
   })
     ->bind('reports');
 
-  $app->get('/reports/types.json', function(Request $request) use($app, $userLogged) {
+  $app->match('/reports/reports.json', function(Request $request) use($app, $userLogged) {
     if (!$userLogged) {
       return $app->redirect('/login/');
     }
@@ -32,6 +35,28 @@
 
     $Transaction = new Transaction($app['db']);
 
-    return $app->json($Transaction->getReportTypes());
-  })
+    $filters = [
+      'date_initial' => $app->escape($request->get('date_initial')),
+      'date_final' => $app->escape($request->get('date_final')),
+      'category_id' => $app->escape($request->get('category_id')),
+      'type_id' => $app->escape($request->get('type_id')),
+      'location' => $app->escape($request->get('location')),
+      'birthyear' => $app->escape($request->get('birthyear')),
+      'occupation' => $app->escape($request->get('occupation')),
+      'education_id' => $app->escape($request->get('education_id'))
+    ];
+
+    $report = $app->escape($request->get('report'));
+
+    $data = NULL;
+
+    switch ($report) {
+      case 'types':
+        $data = $Transaction->getReportTypes($filters);
+        break;
+      // outros relatórios ...
+    }
+
+    return $app->json($data);
+  }, 'GET|POST')
     ->bind('reports.types.json');
