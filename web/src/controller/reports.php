@@ -22,7 +22,7 @@
   })
     ->bind('reports');
 
-  $app->match('/reports/reports.json', function(Request $request) use($app, $userLogged) {
+  $app->match('/reports/{report}.json', function($report, Request $request) use($app, $userLogged) {
     if (!$userLogged) {
       return $app->redirect('/login/');
     }
@@ -45,8 +45,6 @@
       'occupation' => $app->escape($request->get('occupation')),
       'education_id' => $app->escape($request->get('education_id'))
     ];
-
-    $report = $app->escape($request->get('report'));
 
     $data = NULL;
 

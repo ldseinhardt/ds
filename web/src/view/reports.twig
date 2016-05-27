@@ -305,7 +305,7 @@
         var chart = new google.charts.Bar($('#bar2 .graph')[0]);
         chart.draw(data, options);
 
-        $.post('/reports/reports.json?report=types', {
+        $.post('/reports/types.json', {
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
           /* Não usar estes filtros neste relatório
