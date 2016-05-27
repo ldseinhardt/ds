@@ -49,8 +49,11 @@
     $data = NULL;
 
     switch ($report) {
-      case 'types':
+      case 'expense-vs-income':
         $data = $Transaction->getReportTypes($filters);
+        break;
+      case 'transactions-per-day':
+        $data = $Transaction->getReportTransactionsPerDay($filters);
         break;
       // outros relatórios ...
     }
