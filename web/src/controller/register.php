@@ -97,28 +97,35 @@
           $response->errors[] = $error->getMessage();
         }
       } else {
-        $User = new User($app['db'], $user);
-        $User->setLocation($user['location']);
-        if ($user['occupation']) {
-          $User->setOccupation($user['occupation']);
-        }
-        if ($User->emailExists()) {
-          $response = (object) [
-            'status' => false,
-            'message' => 'Este email já foi cadastrado.'
-          ];
-        } else {
-          if ($User->add()) {
-            $response = (object) [
-              'status' => true,
-              'message' => 'Cadastro realizado com sucesso.'
-            ];
-          } else {
+        if (count(explode(', ', $user['location'])) === 3) {
+          $User = new User($app['db'], $user);
+          $User->setLocation($user['location']);
+          if ($user['occupation']) {
+            $User->setOccupation($user['occupation']);
+          }
+          if ($User->emailExists()) {
             $response = (object) [
               'status' => false,
-              'message' => 'Houve algum erro ao cadastrar seus dados.'
+              'message' => 'Este email já foi cadastrado.'
             ];
+          } else {
+            if ($User->add()) {
+              $response = (object) [
+                'status' => true,
+                'message' => 'Cadastro realizado com sucesso.'
+              ];
+            } else {
+              $response = (object) [
+                'status' => false,
+                'message' => 'Houve algum erro ao cadastrar seus dados.'
+              ];
+            }
           }
+        } else {
+          $response = (object) [
+            'status' => false,
+            'message' => 'Localização inválida.'
+          ];
         }
       }
     }

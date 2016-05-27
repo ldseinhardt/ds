@@ -94,21 +94,28 @@
           $response->errors[] = $error->getMessage();
         }
       } else {
-        $User->setLocation($user_data['location']);
-        if ($user_data['occupation']) {
-          $User->setOccupation($user_data['occupation']);
+        if (count(explode(', ', $user_data['location'])) === 3) {
+          $User->setLocation($user_data['location']);
+          if ($user_data['occupation']) {
+            $User->setOccupation($user_data['occupation']);
+          } else {
+            $user_data['occupation_id'] = 'NULL';
+          }
+          if (!$user_data['education_id']) {
+            $user_data['education_id'] = 'NULL';
+          }
+          $User->setUser($user_data)
+            ->update();
+          $response = (object) [
+            'status' => true,
+            'message' => 'Perfil atualizado com sucesso.'
+          ];
         } else {
-          $user_data['occupation_id'] = 'NULL';
+          $response = (object) [
+            'status' => false,
+            'message' => 'Localização inválida.'
+          ];
         }
-        if (!$user_data['education_id']) {
-          $user_data['education_id'] = 'NULL';
-        }
-        $User->setUser($user_data)
-          ->update();
-        $response = (object) [
-          'status' => true,
-          'message' => 'Perfil atualizado com sucesso.'
-        ];
       }
     }
 
