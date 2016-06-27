@@ -18,7 +18,6 @@ Desenvolvimento de Software - UFPEL (2016/1)
 * Wagner Oliveira Jr (<wfdoliveira@inf.ufpel.edu.br>)
 
 ## A fazer
-  - Wireframes
   - Web (relatórios)
 
 ## Prazos
@@ -30,5 +29,5 @@ Desenvolvimento de Software - UFPEL (2016/1)
 | 09/05/2015 | ~~Sistema desktop~~                    |
 | 23/05/2016 | ~~Modelo ER~~                          |
 | 13/06/2016 | ~~Carga de arquivo no banco de dados~~ |
-| 27/06/2016 | Wireframes                             |
+| 27/06/2016 | ~~Wireframes~~                         |
 | 11/06/2016 | Entrega Final com sistema web          |
