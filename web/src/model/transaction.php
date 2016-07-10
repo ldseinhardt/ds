@@ -257,6 +257,80 @@
       return NULL;
     }
 
+    public function getReportExpensesByCategory($filters = NULL) {
+      $query = $this->db->fetchAll("
+        SELECT
+          categories.category,
+          SUM(transactions.value) AS total
+        FROM
+          transactions
+          JOIN categories
+            ON (transactions.category_id = categories.id
+              AND categories.type_id = 1)
+          LEFT JOIN users
+            ON (transactions.user_email = users.email)
+          LEFT JOIN cities
+            ON (users.city_id = cities.id)
+          LEFT JOIN states
+            ON (cities.state_id = states.id)
+          LEFT JOIN countries
+            ON (states.country_id = countries.id)
+          LEFT JOIN occupations
+            ON (users.occupation_id = occupations.id)
+        {$this->getReportfilters($filters)}
+        GROUP BY (categories.category)
+        ORDER BY (categories.category) ASC
+      ");
+      if ($query && count($query) > 0) {
+        $values = [];
+        foreach ($query as $row) {
+          $values[] = [
+            $row['category'],
+            (double) $row['total']
+          ];
+        }
+        return $values;
+      }
+      return NULL;
+    }
+
+    public function getReportIncomesByCategory($filters = NULL) {
+      $query = $this->db->fetchAll("
+        SELECT
+          categories.category,
+          SUM(transactions.value) AS total
+        FROM
+          transactions
+          JOIN categories
+            ON (transactions.category_id = categories.id
+              AND categories.type_id = 2)
+          LEFT JOIN users
+            ON (transactions.user_email = users.email)
+          LEFT JOIN cities
+            ON (users.city_id = cities.id)
+          LEFT JOIN states
+            ON (cities.state_id = states.id)
+          LEFT JOIN countries
+            ON (states.country_id = countries.id)
+          LEFT JOIN occupations
+            ON (users.occupation_id = occupations.id)
+        {$this->getReportfilters($filters)}
+        GROUP BY (categories.category)
+        ORDER BY (categories.category) ASC
+      ");
+      if ($query && count($query) > 0) {
+        $values = [];
+        foreach ($query as $row) {
+          $values[] = [
+            $row['category'],
+            (double) $row['total']
+          ];
+        }
+        return $values;
+      }
+      return NULL;
+    }
+
     // outros relatórios ...
 
   }

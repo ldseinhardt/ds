@@ -55,6 +55,12 @@
       case 'transactions-per-day':
         $data = $Transaction->getReportTransactionsPerDay($filters);
         break;
+      case 'expenses-by-category':
+        $data = $Transaction->getReportExpensesByCategory($filters);
+        break;
+      case 'incomes-by-category':
+        $data = $Transaction->getReportIncomesByCategory($filters);
+        break;
       // outros relatórios ...
     }
 

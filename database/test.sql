@@ -4,8 +4,7 @@ USE oraculo;
 
 -- Senha padrão é odm
 INSERT INTO `users` (`email`, `name`, `password`, `city_id`, `birthyear`, `level_id`, `education_id`, `created`, `modified`) VALUES
-  ('ldseinhardt@gmail.com', 'Luan Einhardt', 'fba638d141f79e872fcea2b28d96aef01f76598775ce256c8d98e9185325ee58', 4226, 1992, 1, 8, NOW(), NOW()),
-  ('rodrigodroliveira@gmail.com', 'Iluminati', 'fba638d141f79e872fcea2b28d96aef01f76598775ce256c8d98e9185325ee58', 4226, 1981, 1, 8, NOW(), NOW());
+  ('ldseinhardt@gmail.com', 'Luan Einhardt', 'fba638d141f79e872fcea2b28d96aef01f76598775ce256c8d98e9185325ee58', 4226, 1992, 1, 8, NOW(), NOW());
 
 INSERT INTO `transactions` (`user_email`, `category_id`, `date`, `value`) VALUES
   ('admin@oraculodamascada.com.br',  1, CURDATE(), 10.75),

@@ -103,9 +103,9 @@
           </div>
         </div>
 
-        <div class="panel panel-primary" id="calendar">
+        <div class="panel panel-primary" id="bar">
           <div class="panel-heading">
-            <h3 class="panel-title">Calendar Chart</h3>
+            <h3 class="panel-title">Despesas/Receitas por mês</h3>
           </div>
           <div class="panel-body">
             <div class="graph"></div>
@@ -121,18 +121,18 @@
           </div>
         </div>
 
-        <div class="panel panel-primary" id="bar">
+        <div class="panel panel-primary" id="expenses-by-category">
           <div class="panel-heading">
-            <h3 class="panel-title">Bar chart</h3>
+            <h3 class="panel-title">Despesas por categoria</h3>
           </div>
           <div class="panel-body">
             <div class="graph"></div>
           </div>
         </div>
 
-        <div class="panel panel-primary" id="bar2">
+        <div class="panel panel-primary" id="incomes-by-category">
           <div class="panel-heading">
-            <h3 class="panel-title">Bar chart</h3>
+            <h3 class="panel-title">Receitas por categoria</h3>
           </div>
           <div class="panel-body">
             <div class="graph"></div>
@@ -180,34 +180,18 @@
   <script src="{{ path('file', {type: 'vendor', file: 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'}) }}"></script>
   <script>
     $(function() {
-      google.charts.load('current', {'packages':['corechart', 'bar', 'line', 'calendar'], 'language': 'pt-BR'});
+      google.charts.load('current', {'packages':['corechart', 'bar', 'line'], 'language': 'pt-BR'});
       google.charts.setOnLoadCallback(drawCharts);
 
       //https://developers.google.com/chart
       function drawCharts() {
-        var dataTable = new google.visualization.DataTable();
-        dataTable.addColumn({ type: 'date', id: 'Date' });
-        dataTable.addColumn({ type: 'number', id: 'Won/Loss' });
-        dataTable.addRows([
-           [ new Date(2013, 9, 4), 38177 ],
-           [ new Date(2013, 9, 5), 38705 ],
-           [ new Date(2013, 9, 12), 38210 ],
-           [ new Date(2013, 9, 13), 38029 ],
-           [ new Date(2013, 9, 19), 38823 ],
-           [ new Date(2013, 9, 23), 38345 ],
-           [ new Date(2013, 9, 24), 38436 ],
-           [ new Date(2013, 9, 30), 38447 ]
-         ]);
 
-        var chart = new google.visualization.Calendar($('#calendar .graph')[0]);
-
-        var options = {
-          title: "Red Sox Attendance"
-        };
-
-        chart.draw(dataTable, options);
+/********************************************************
+ Gráfico Despesas/Receitas por mês
+*********************************************************/
 
         var data = new google.visualization.DataTable();
+        
         data.addColumn('timeofday', 'Time of Day');
         data.addColumn('number', 'Motivation Level');
         data.addColumn('number', 'Energy Level');
@@ -243,32 +227,9 @@
         var chart = new google.charts.Bar($('#bar .graph')[0]);
         chart.draw(data, options);
 
-        var data = google.visualization.arrayToDataTable([
-          ['City', '2010 Population', '2000 Population'],
-          ['New York City, NY', 8175000, 8008000],
-          ['Los Angeles, CA', 3792000, 3694000],
-          ['Chicago, IL', 2695000, 2896000],
-          ['Houston, TX', 2099000, 1953000],
-          ['Philadelphia, PA', 1526000, 1517000]
-        ]);
-
-        var options = {
-          chart: {
-            title: 'Population of Largest U.S. Cities',
-            subtitle: 'Based on most recent and previous census data'
-          },
-          hAxis: {
-            title: 'Total Population',
-            minValue: 0,
-          },
-          vAxis: {
-            title: 'City'
-          },
-          bars: 'horizontal'
-        };
-
-        var chart = new google.charts.Bar($('#bar2 .graph')[0]);
-        chart.draw(data, options);
+/********************************************************
+ Gráfico Transações por dia
+*********************************************************/
 
         $.post('/reports/transactions-per-day.json', {
           'date_initial': $('[name=date_initial]').val(),
@@ -282,6 +243,7 @@
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
+
           var container = $('#transactions-per-day .graph');
           if (data_report && data_report.length) {
             var data = new google.visualization.DataTable();
@@ -292,6 +254,7 @@
               return [new Date(e[0].replace(/\-/g, ', ')), e[1], e[2]];
             }));
             container.html('');
+
             var chart = new google.visualization.LineChart(container[0]);
             chart.draw(data, {
               height: 300,
@@ -308,6 +271,88 @@
           }
         });
 
+/********************************************************
+ Gráfico Despesas por categoria
+*********************************************************/
+
+        $.post('/reports/expenses-by-category.json', {
+          'date_initial': $('[name=date_initial]').val(),
+          'date_final': $('[name=date_final]').val(),
+          /* Não usar estes filtros neste relatório
+            'category_id': $('[name=category_id]').val(),
+            'type_id': $('[name=type_id]:checked').val(),
+          */
+          'location': $('[name=location]').val(),
+          'birthyear': $('[name=birthyear]').val(),
+          'occupation': $('[name=occupation]').val(),
+          'education_id': $('[name=education_id]').val()
+        }, function(data_report) {
+
+          var container = $('#expenses-by-category .graph');
+
+          if (data_report && data_report.length) {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Categoria');
+            data.addColumn('number', 'Valor');
+            data.addRows(data_report);
+            container.html('');
+
+            var chart = new google.charts.Bar($('#expenses-by-category .graph')[0]);
+            //var chart = new google.visualization.LineChart(container[0]);
+            chart.draw(data, {
+              bars: 'horizontal',
+              height: 500,
+              colors: '#F44336'
+            });
+          } else {
+            container.html('<p align="center">Não há dados.</p>');
+          }
+        });
+
+/********************************************************
+ Gráfico Receitas por categoria
+*********************************************************/
+
+        $.post('/reports/incomes-by-category.json', {
+          'date_initial': $('[name=date_initial]').val(),
+          'date_final': $('[name=date_final]').val(),
+          /* Não usar estes filtros neste relatório
+            'category_id': $('[name=category_id]').val(),
+            'type_id': $('[name=type_id]:checked').val(),
+          */
+          'location': $('[name=location]').val(),
+          'birthyear': $('[name=birthyear]').val(),
+          'occupation': $('[name=occupation]').val(),
+          'education_id': $('[name=education_id]').val()
+        }, function(data_report) {
+
+          var container = $('#incomes-by-category .graph');
+
+          if (data_report && data_report.length) {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Categoria');
+            data.addColumn('number', 'Valor');
+            data.addRows(data_report);
+            container.html('');
+
+            var chart = new google.charts.Bar($('#incomes-by-category .graph')[0]);
+            //var chart = new google.visualization.LineChart(container[0]);
+            chart.draw(data, {
+              bars: 'horizontal',
+              height: 150,
+              colors: '#4CAF50'
+            });
+          } else {
+            container.html('<p align="center">Não há dados.</p>');
+          }
+        });
+
+/********************************************************
+ Gráfico Despesas x Receitas
+*********************************************************/
+
         $.post('/reports/expense-vs-income.json', {
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
@@ -320,6 +365,7 @@
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
+
           var container = $('#expense-vs-income .graph');
           if (data_report && data_report.length) {
             var data = new google.visualization.DataTable();
@@ -327,6 +373,7 @@
             data.addColumn('number', 'Total');
             data.addRows(data_report);
             container.html('');
+
             var chart = new google.visualization.PieChart(container[0]);
             chart.draw(data, {
               height: 300,
@@ -337,6 +384,8 @@
           }
         });
       }
+
+/********************************************************/
 
       $('#location').autocomplete({
         serviceUrl: '/autocomplete/location/'
