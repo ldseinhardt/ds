@@ -117,7 +117,12 @@
             <h3 class="panel-title">Transações ao longo dos dias</h3>
           </div>
           <div class="panel-body">
-            <div class="graph"></div>
+            <table class="columns">
+              <tr>
+                <td><div id="my_trans_div" class="graph"></div></td>
+                <td><div id="all_trans_div" class="graph"></div></td>
+              </tr>
+            </table>
           </div>
         </div>
 
@@ -126,7 +131,12 @@
             <h3 class="panel-title">Despesas por categoria</h3>
           </div>
           <div class="panel-body">
-            <div class="graph"></div>
+            <table class="columns">
+              <tr>
+                <td><div id="my_exp_div" class="graph"></div></td>
+                <td><div id="all_exp_div" class="graph"></div></td>
+              </tr>
+            </table>
           </div>
         </div>
 
@@ -135,7 +145,12 @@
             <h3 class="panel-title">Receitas por categoria</h3>
           </div>
           <div class="panel-body">
-            <div class="graph"></div>
+            <table class="columns">
+              <tr>
+                <td><div id="my_inc_div" class="graph"></div></td>
+                <td><div id="all_inc_div" class="graph"></div></td>
+              </tr>
+            </table>
           </div>
         </div>
 
@@ -144,7 +159,12 @@
             <h3 class="panel-title">Despesas vs Receitas</h3>
           </div>
           <div class="panel-body">
-            <div class="graph"></div>
+            <table class="columns">
+              <tr>
+                <td><div id="my_exp_vs_inc_div" class="graph"></div></td>
+                <td><div id="all_exp_vs_inc_div" class="graph"></div></td>
+              </tr>
+            </table>
           </div>
         </div>
       </div>
@@ -255,9 +275,55 @@
             }));
             container.html('');
 
-            var chart = new google.visualization.LineChart(container[0]);
+            //var chart = new google.visualization.LineChart(container[0]);
+            var chart = new google.visualization.LineChart(document.getElementById('all_trans_div'));
             chart.draw(data, {
+              title: 'Todos os usuários',
               height: 300,
+              width: 500,
+              hAxis: {
+                title: 'dias'
+              },
+              vAxis: {
+                title: 'transações em reais'
+              },
+              colors: ['#F44336', '#4CAF50']
+            });
+          } else {
+            container.html('<p align="center">Não há dados.</p>');
+          }
+        });
+
+        $.post('/reports/my-transactions-per-day.json', {
+          'date_initial': $('[name=date_initial]').val(),
+          'date_final': $('[name=date_final]').val(),
+          /* Não usar estes filtros neste relatório
+            'category_id': $('[name=category_id]').val(),
+            'type_id': $('[name=type_id]:checked').val(),
+          */
+          'location': $('[name=location]').val(),
+          'birthyear': $('[name=birthyear]').val(),
+          'occupation': $('[name=occupation]').val(),
+          'education_id': $('[name=education_id]').val()
+        }, function(data_report) {
+
+          var container = $('#my-transactions-per-day .graph');
+          if (data_report && data_report.length) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'id');
+            data.addColumn('number', 'Despesas');
+            data.addColumn('number', 'Receitas');
+            data.addRows(data_report.map(function(e) {
+              return [new Date(e[0].replace(/\-/g, ', ')), e[1], e[2]];
+            }));
+            container.html('');
+
+            //var chart = new google.visualization.LineChart(container[0]);
+            var chart = new google.visualization.LineChart(document.getElementById('my_trans_div'));
+            chart.draw(data, {
+              title: 'Minhas transações',
+              height: 300,
+              width: 500,
               hAxis: {
                 title: 'dias'
               },
@@ -298,11 +364,50 @@
             data.addRows(data_report);
             container.html('');
 
-            var chart = new google.charts.Bar($('#expenses-by-category .graph')[0]);
-            //var chart = new google.visualization.LineChart(container[0]);
+            //var chart = new google.charts.Bar($('#expenses-by-category .graph')[0]);
+            var chart = new google.charts.Bar(document.getElementById('all_exp_div'));
             chart.draw(data, {
+              title: 'Todos os usuários',
               bars: 'horizontal',
               height: 500,
+              width: 500,
+              colors: '#F44336'
+            });
+          } else {
+            container.html('<p align="center">Não há dados.</p>');
+          }
+        });
+
+        $.post('/reports/my-expenses-by-category.json', {
+          'date_initial': $('[name=date_initial]').val(),
+          'date_final': $('[name=date_final]').val(),
+          /* Não usar estes filtros neste relatório
+            'category_id': $('[name=category_id]').val(),
+            'type_id': $('[name=type_id]:checked').val(),
+          */
+          'location': $('[name=location]').val(),
+          'birthyear': $('[name=birthyear]').val(),
+          'occupation': $('[name=occupation]').val(),
+          'education_id': $('[name=education_id]').val()
+        }, function(data_report) {
+
+          var container = $('#my-expenses-by-category .graph');
+
+          if (data_report && data_report.length) {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Categoria');
+            data.addColumn('number', 'Valor');
+            data.addRows(data_report);
+            container.html('');
+
+            //var chart = new google.charts.Bar($('#expenses-by-category .graph')[0]);
+            var chart = new google.charts.Bar(document.getElementById('my_exp_div'));
+            chart.draw(data, {
+              title: 'Minhas transações',
+              bars: 'horizontal',
+              height: 500,
+              width: 500,
               colors: '#F44336'
             });
           } else {
@@ -337,11 +442,50 @@
             data.addRows(data_report);
             container.html('');
 
-            var chart = new google.charts.Bar($('#incomes-by-category .graph')[0]);
-            //var chart = new google.visualization.LineChart(container[0]);
+            //var chart = new google.charts.Bar($('#incomes-by-category .graph')[0]);
+            var chart = new google.charts.Bar(document.getElementById('all_inc_div'));
             chart.draw(data, {
+              title: 'Todos os usuários',
               bars: 'horizontal',
               height: 150,
+              width: 500,
+              colors: '#4CAF50'
+            });
+          } else {
+            container.html('<p align="center">Não há dados.</p>');
+          }
+        });
+
+        $.post('/reports/my-incomes-by-category.json', {
+          'date_initial': $('[name=date_initial]').val(),
+          'date_final': $('[name=date_final]').val(),
+          /* Não usar estes filtros neste relatório
+            'category_id': $('[name=category_id]').val(),
+            'type_id': $('[name=type_id]:checked').val(),
+          */
+          'location': $('[name=location]').val(),
+          'birthyear': $('[name=birthyear]').val(),
+          'occupation': $('[name=occupation]').val(),
+          'education_id': $('[name=education_id]').val()
+        }, function(data_report) {
+
+          var container = $('#my-incomes-by-category .graph');
+
+          if (data_report && data_report.length) {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Categoria');
+            data.addColumn('number', 'Valor');
+            data.addRows(data_report);
+            container.html('');
+
+            //var chart = new google.charts.Bar($('#incomes-by-category .graph')[0]);
+            var chart = new google.charts.Bar(document.getElementById('my_inc_div'));
+            chart.draw(data, {
+              title: 'Minhas transações',
+              bars: 'horizontal',
+              height: 150,
+              width: 500,
               colors: '#4CAF50'
             });
           } else {
@@ -374,8 +518,10 @@
             data.addRows(data_report);
             container.html('');
 
-            var chart = new google.visualization.PieChart(container[0]);
+            //var chart = new google.visualization.PieChart(container[0]);
+            var chart = new google.visualization.PieChart(document.getElementById('all_exp_vs_inc_div'));
             chart.draw(data, {
+              title: 'Todos os usuários',
               height: 300,
               colors: ['#F44336', '#4CAF50']
             });
@@ -383,9 +529,43 @@
             container.html('<p align="center">Não há dados.</p>');
           }
         });
-      }
+
+        $.post('/reports/my-expense-vs-income.json', {
+          'date_initial': $('[name=date_initial]').val(),
+          'date_final': $('[name=date_final]').val(),
+          /* Não usar estes filtros neste relatório
+            'category_id': $('[name=category_id]').val(),
+            'type_id': $('[name=type_id]:checked').val(),
+          */
+          'location': $('[name=location]').val(),
+          'birthyear': $('[name=birthyear]').val(),
+          'occupation': $('[name=occupation]').val(),
+          'education_id': $('[name=education_id]').val()
+        }, function(data_report) {
+
+          var container = $('#my-expense-vs-income .graph');
+          if (data_report && data_report.length) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'id');
+            data.addColumn('number', 'Total');
+            data.addRows(data_report);
+            container.html('');
+
+            //var chart = new google.visualization.PieChart(container[0]);
+            var chart = new google.visualization.PieChart(document.getElementById('my_exp_vs_inc_div'));
+            chart.draw(data, {
+              title: 'Minhas transações',
+              height: 300,
+              colors: ['#F44336', '#4CAF50']
+            });
+          } else {
+            container.html('<p align="center">Não há dados.</p>');
+          }
+        });
 
 /********************************************************/
+
+      }
 
       $('#location').autocomplete({
         serviceUrl: '/autocomplete/location/'

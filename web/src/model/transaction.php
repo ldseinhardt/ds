@@ -140,6 +140,9 @@
           $conditions = [];
           foreach ($filters as $key => $value) {
             switch ($key) {
+              case 'user':
+                $conditions[] = "transactions.user_email = '{$value}'";
+                break;
               case 'date_initial':
                 $conditions[] = "transactions.date >= '{$value}'";
                 break;
