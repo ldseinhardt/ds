@@ -2,99 +2,101 @@
 
 {% block content %}
 
-  <div class="row" style="padding: 10px">
-    <div class="col-md-6">
-      <div class="jumbotron">
-        <h2>Oráculo da Mascada</h2>
-        <ul>
-          <li>Mantenha o controle de suas finanças.</li>
-          <li>Compartilhe suas finanças e obtenha relatórios financeiros gratuitamente.</li>
-        </ul>
-          <p>
-            <a href="{{ path('file', {file: 'downloads/desktop_v1.0.zip'}) }}" class="btn btn-primary btn-lg">
-              <i class="fa fa-desktop fa-fw"></i> Download
-            </a>
-          </p>
+  <div class="container">
+    <div class="row" style="padding: 10px">
+      <div class="col-md-6 text-center" style="margin-bottom: 10px">
+        <img src="{{ path('file', {file: 'images/desktop-01.png'}) }}" class="img-thumbnail img-responsive">
+      </div>
+      <div class="col-md-6">
+        <div class="jumbotron">
+          <h2>Oráculo da Mascada</h2>
+          <ul>
+            <li>Mantenha o controle de suas finanças.</li>
+            <li>Compartilhe suas finanças e obtenha relatórios financeiros gratuitamente.</li>
+          </ul>
+            <p>
+              <a href="{{ path('file', {file: 'downloads/desktop_v1.0.zip'}) }}" class="btn btn-primary btn-lg">
+                <i class="fa fa-desktop fa-fw"></i> Download
+              </a>
+            </p>
+        </div>
       </div>
     </div>
-    <div class="col-md-6 text-center">
-      <img src="{{ path('file', {file: 'images/desktop-01.png'}) }}" class="img-thumbnail img-responsive">
-    </div>
-  </div>
 
-  <div class="row" style="padding: 10px">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
-            <h1 class="text-center">Equipe</h1>
-            <hr width="75%">
+    <div class="row" style="padding: 10px">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-12">
+              <h1 class="text-center">Equipe</h1>
+              <hr width="75%">
+            </div>
           </div>
-        </div>
-        <div class="row team">
-          <div class="col-md-2">
-            <img src="{{ path('file', {file: 'images/team/diogo.jpg'}) }}" class="img-circle img-responsive">
+          <div class="row team">
+            <div class="col-md-2">
+              <img src="{{ path('file', {file: 'images/team/diogo.jpg'}) }}" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3>Diogo Lima</h3>
+              <p>
+                Graduando em Ciência da Computação - UFPel<br>
+                <a href="mailto:dvlima@inf.ufpel.edu.br">dvlima@inf.ufpel.edu.br</a>
+              </p>
+            </div>
+            <div class="col-md-2">
+              <img src="{{ path('file', {file: 'images/team/luan_einhardt.jpg'}) }}" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3>Luan Einhardt</h3>
+              <p>
+                Graduando em Ciência da Computação - UFPel<br>
+                <a href="mailto:ldseinhardt@inf.ufpel.edu.br">ldseinhardt@inf.ufpel.edu.br</a>
+              </p>
+            </div>
           </div>
-          <div class="col-md-4">
-            <h3>Diogo Lima</h3>
-            <p>
-              Graduando em Ciência da Computação - UFPel<br>
-              <a href="mailto:dvlima@inf.ufpel.edu.br">dvlima@inf.ufpel.edu.br</a>
-            </p>
+          <div class="row team">
+            <div class="col-md-2">
+              <img src="{{ path('file', {file: 'images/team/marcelo.jpg'}) }}" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3>Marcelo Zschornack</h3>
+              <p>
+                Graduando em Ciência da Computação - UFPel<br>
+                <a href="mailto:mvzschornack@gmail.com">mvzschornack@gmail.com</a>
+              </p>
+            </div>
+            <div class="col-md-2">
+            <img src="{{ path('file', {file: 'images/team/rodrigo_acosta.jpg'}) }}" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3>Rodrigo Acosta</h3>
+              <p>
+                Graduando em Ciência da Computação - UFPel<br>
+                <a href="mailto:rdbacosta@inf.ufpel.edu.br">rdbacosta@inf.ufpel.edu.br</a>
+              </p>
+            </div>
           </div>
-          <div class="col-md-2">
-            <img src="{{ path('file', {file: 'images/team/luan_einhardt.jpg'}) }}" class="img-circle img-responsive">
-          </div>
-          <div class="col-md-4">
-            <h3>Luan Einhardt</h3>
-            <p>
-              Graduando em Ciência da Computação - UFPel<br>
-              <a href="mailto:ldseinhardt@inf.ufpel.edu.br">ldseinhardt@inf.ufpel.edu.br</a>
-            </p>
-          </div>
-        </div>
-        <div class="row team">
-          <div class="col-md-2">
-            <img src="{{ path('file', {file: 'images/team/marcelo.jpg'}) }}" class="img-circle img-responsive">
-          </div>
-          <div class="col-md-4">
-            <h3>Marcelo Zschornack</h3>
-            <p>
-              Graduando em Ciência da Computação - UFPel<br>
-              <a href="mailto:mvzschornack@gmail.com">mvzschornack@gmail.com</a>
-            </p>
-          </div>
-          <div class="col-md-2">
-          <img src="{{ path('file', {file: 'images/team/rodrigo_acosta.jpg'}) }}" class="img-circle img-responsive">
-          </div>
-          <div class="col-md-4">
-            <h3>Rodrigo Acosta</h3>
-            <p>
-              Graduando em Ciência da Computação - UFPel<br>
-              <a href="mailto:rdbacosta@inf.ufpel.edu.br">rdbacosta@inf.ufpel.edu.br</a>
-            </p>
-          </div>
-        </div>
-        <div class="row team">
-          <div class="col-md-2">
-            <img src="{{ path('file', {file: 'images/team/rodrigo_oliveira.jpg'}) }}" class="img-circle img-responsive">
-          </div>
-          <div class="col-md-4">
-            <h3>Rodrigo Oliveira</h3>
-            <p>
-              Graduando em Ciência da Computação - UFPel<br>
-              <a href="mailto:rdroliveira@inf.ufpel.edu.br">rdroliveira@inf.ufpel.edu.br</a>
-            </p>
-          </div>
-          <div class="col-md-2">
-            <img src="{{ path('file', {file: 'images/team/wagner.jpg'}) }}" class="img-circle img-responsive">
-          </div>
-          <div class="col-md-4">
-            <h3>Wagner Oliveira Jr.</h3>
-            <p>
-              Graduando em Ciência da Computação - UFPel<br>
-              <a href="mailto:wfdoliveira@inf.ufpel.edu.br">wfdoliveira@inf.ufpel.edu.br</a>
-            </p>
+          <div class="row team">
+            <div class="col-md-2">
+              <img src="{{ path('file', {file: 'images/team/rodrigo_oliveira.jpg'}) }}" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3>Rodrigo Oliveira</h3>
+              <p>
+                Graduando em Ciência da Computação - UFPel<br>
+                <a href="mailto:rdroliveira@inf.ufpel.edu.br">rdroliveira@inf.ufpel.edu.br</a>
+              </p>
+            </div>
+            <div class="col-md-2">
+              <img src="{{ path('file', {file: 'images/team/wagner.jpg'}) }}" class="img-circle img-responsive">
+            </div>
+            <div class="col-md-4">
+              <h3>Wagner Oliveira Jr.</h3>
+              <p>
+                Graduando em Ciência da Computação - UFPel<br>
+                <a href="mailto:wfdoliveira@inf.ufpel.edu.br">wfdoliveira@inf.ufpel.edu.br</a>
+              </p>
+            </div>
           </div>
         </div>
       </div>

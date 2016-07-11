@@ -36,22 +36,9 @@
     $Transaction = new Transaction($app['db']);
 
     $filters = [
+      'user_email' => $app->escape($request->get('user_email')),
       'date_initial' => $app->escape($request->get('date_initial')),
       'date_final' => $app->escape($request->get('date_final')),
-      'category_id' => $app->escape($request->get('category_id')),
-      'type_id' => $app->escape($request->get('type_id')),
-      'location' => $app->escape($request->get('location')),
-      'birthyear' => $app->escape($request->get('birthyear')),
-      'occupation' => $app->escape($request->get('occupation')),
-      'education_id' => $app->escape($request->get('education_id'))
-    ];
-
-    $filters2 = [
-      'user' => $userLogged->email,
-      'date_initial' => $app->escape($request->get('date_initial')),
-      'date_final' => $app->escape($request->get('date_final')),
-      'category_id' => $app->escape($request->get('category_id')),
-      'type_id' => $app->escape($request->get('type_id')),
       'location' => $app->escape($request->get('location')),
       'birthyear' => $app->escape($request->get('birthyear')),
       'occupation' => $app->escape($request->get('occupation')),
@@ -64,28 +51,15 @@
       case 'expense-vs-income':
         $data = $Transaction->getReportExpenseVsIncome($filters);
         break;
-      case 'my-expense-vs-income':
-        $data = $Transaction->getReportExpenseVsIncome($filters2);
-        break;
       case 'transactions-per-day':
         $data = $Transaction->getReportTransactionsPerDay($filters);
-        break;
-      case 'my-transactions-per-day':
-        $data = $Transaction->getReportTransactionsPerDay($filters2);
         break;
       case 'expenses-by-category':
         $data = $Transaction->getReportExpensesByCategory($filters);
         break;
-      case 'my-expenses-by-category':
-        $data = $Transaction->getReportExpensesByCategory($filters2);
-        break;
       case 'incomes-by-category':
         $data = $Transaction->getReportIncomesByCategory($filters);
         break;
-      case 'my-incomes-by-category':
-        $data = $Transaction->getReportIncomesByCategory($filters2);
-        break;
-      // outros relatórios ...
     }
 
     return $app->json($data);

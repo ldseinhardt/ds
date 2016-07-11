@@ -6,84 +6,86 @@
 
 {% block content %}
 
-  <div class="col-sm-8 col-sm-offset-2 text-center">
-    {% if response %}
-      <div class="alert alert-dismissible alert-{% if response.status %}success{% else %}danger{% endif %}">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <div class="text-center"><strong>{{ response.message }}</strong></div>
-        {% if response.errors is defined and response.errors %}
-          <div class="text-left">
-            {% for error in response.errors %}
-              <br>- {{ error }}
-            {% endfor %}
-          </div>
-        {% endif %}
-      </div>
-    {% endif %}
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <form class="form-horizontal" method="POST">
-          <fieldset>
-            <h3>Cadastro</h3>
-            <hr width="75%">
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nome" value="{{ user.name }}" minlength="5" maxlength="128" required autofocus>
-              </div>
+  <div class="container">
+    <div class="col-sm-8 col-sm-offset-2 text-center">
+      {% if response %}
+        <div class="alert alert-dismissible alert-{% if response.status %}success{% else %}danger{% endif %}">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <div class="text-center"><strong>{{ response.message }}</strong></div>
+          {% if response.errors is defined and response.errors %}
+            <div class="text-left">
+              {% for error in response.errors %}
+                <br>- {{ error }}
+              {% endfor %}
             </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ user.email }}" maxlength="255" required>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form class="form-horizontal" method="POST">
+            <fieldset>
+              <h3>Cadastro</h3>
+              <hr width="75%">
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <input type="text" class="form-control" id="name" name="name" placeholder="Nome" value="{{ user.name }}" minlength="5" maxlength="128" required autofocus>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Senha" value="{{ user.password }}" minlength="4" maxlength="40" required>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ user.email }}" maxlength="255" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmar senha" value="{{ user.password2 }}" minlength="4" maxlength="40" required>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Senha" value="{{ user.password }}" minlength="4" maxlength="40" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <input type="text" class="form-control" id="location" name="location" placeholder="Localização" value="{{ user.location }}" pattern="([^,0-9]){4,},\s([^,]){4,},\s([^,]){3,}" minlength="10" maxlength="128" required>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirmar senha" value="{{ user.password2 }}" minlength="4" maxlength="40" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <input type="number" class="form-control" id="birthyear" name="birthyear" placeholder="Ano de nascimento" value="{{ user.birthyear }}" min="1901" max="2016">
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <input type="text" class="form-control" id="location" name="location" placeholder="Localização" value="{{ user.location }}" pattern="([^,0-9]){4,},\s([^,]){4,},\s([^,]){3,}" minlength="10" maxlength="128" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <input type="text" class="form-control" id="occupation" name="occupation" placeholder="Profissão" value="{{ user.occupation }}" maxlength="64">
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <input type="number" class="form-control" id="birthyear" name="birthyear" placeholder="Ano de nascimento" value="{{ user.birthyear }}" min="1901" max="2016">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <select id="education" name="education_id" class="form-control">
-                  <option value="">Escolaridade</option>
-                  <option value="1"{% if user.education_id == 1 %} selected{% endif %}>Ensino fundamental incompleto</option>
-                  <option value="2"{% if user.education_id == 2 %} selected{% endif %}>Ensino fundamental completo</option>
-                  <option value="3"{% if user.education_id == 3 %} selected{% endif %}>Ensino médio incompleto</option>
-                  <option value="4"{% if user.education_id == 4 %} selected{% endif %}>Ensino médio completo</option>
-                  <option value="5"{% if user.education_id == 5 %} selected{% endif %}>Ensino superior completo</option>
-                  <option value="6"{% if user.education_id == 6 %} selected{% endif %}>Curso de pós-graduação completo</option>
-                  <option value="7"{% if user.education_id == 7 %} selected{% endif %}>Estudante de ensino fundamental ou ensino médio</option>
-                  <option value="8"{% if user.education_id == 8 %} selected{% endif %}>Estudante de graduação ou pós-graduação</option>
-                </select>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <input type="text" class="form-control" id="occupation" name="occupation" placeholder="Profissão" value="{{ user.occupation }}" maxlength="64">
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <button type="submit" class="btn btn-raised btn-primary">Cadastrar</button>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <select id="education" name="education_id" class="form-control">
+                    <option value="">Escolaridade</option>
+                    <option value="1"{% if user.education_id == 1 %} selected{% endif %}>Ensino fundamental incompleto</option>
+                    <option value="2"{% if user.education_id == 2 %} selected{% endif %}>Ensino fundamental completo</option>
+                    <option value="3"{% if user.education_id == 3 %} selected{% endif %}>Ensino médio incompleto</option>
+                    <option value="4"{% if user.education_id == 4 %} selected{% endif %}>Ensino médio completo</option>
+                    <option value="5"{% if user.education_id == 5 %} selected{% endif %}>Ensino superior completo</option>
+                    <option value="6"{% if user.education_id == 6 %} selected{% endif %}>Curso de pós-graduação completo</option>
+                    <option value="7"{% if user.education_id == 7 %} selected{% endif %}>Estudante de ensino fundamental ou ensino médio</option>
+                    <option value="8"{% if user.education_id == 8 %} selected{% endif %}>Estudante de graduação ou pós-graduação</option>
+                  </select>
+                </div>
               </div>
-            </div>
-          </fieldset>
-        </form>
-        <a href="{{ path('login') }}">Login</a>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <button type="submit" class="btn btn-raised btn-primary">Cadastrar</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+          <a href="{{ path('login') }}">Login</a>
+        </div>
       </div>
     </div>
   </div>

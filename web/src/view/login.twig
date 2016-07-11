@@ -6,37 +6,39 @@
 
 {% block content %}
 
-  <div class="col-sm-4 col-sm-offset-4 text-center">
-    {% if response %}
-      <div class="alert alert-dismissible alert-{% if response.status %}success{% else %}danger{% endif %}">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <div class="text-center">{{ response.message }}</div>
-      </div>
-    {% endif %}
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <form class="form-horizontal" id="form" method="POST">
-          <fieldset>
-            <h3>Login</h3>
-            <hr width="75%">
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ email }}" maxlength="255" required autofocus>
+  <div class="container">
+    <div class="col-sm-4 col-sm-offset-4 text-center">
+      {% if response %}
+        <div class="alert alert-dismissible alert-{% if response.status %}success{% else %}danger{% endif %}">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <div class="text-center">{{ response.message }}</div>
+        </div>
+      {% endif %}
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form class="form-horizontal" id="form" method="POST">
+            <fieldset>
+              <h3>Login</h3>
+              <hr width="75%">
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{ email }}" maxlength="255" required autofocus>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Senha" value="{{ password }}" minlength="3" maxlength="40" required>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Senha" value="{{ password }}" minlength="3" maxlength="40" required>
+                </div>
               </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-1">
-                <button type="submit" class="btn btn-raised btn-primary">Login</button>
+              <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <button type="submit" class="btn btn-raised btn-primary">Login</button>
+                </div>
               </div>
-            </div>
-          </fieldset>
-        </form>
-        <a href="{{ path('register') }}">Cadastro</a> | <a href="{{ path('recover') }}">Recuperar senha</a>
+            </fieldset>
+          </form>
+          <a href="{{ path('register') }}">Cadastro</a> | <a href="{{ path('recover') }}">Recuperar senha</a>
+        </div>
       </div>
     </div>
   </div>

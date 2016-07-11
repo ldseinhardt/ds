@@ -19,7 +19,7 @@ html, body {
   min-height: 100%;
 }
 
-#content > .container {
+#content > [class*=container] {
   overflow: hidden;
   padding-top: 70px;
   padding-bottom: 150px;

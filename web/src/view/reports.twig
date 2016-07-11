@@ -6,165 +6,139 @@
 
 {% block content %}
 
-  <div class="col-sm-12 text-center">
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <h3>Relatórios</h3>
-        <hr width="75%">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Filtrar dados</h3>
+  <div class="container-fluid text-center">
+    <div class="col-sm-4 col-md-3 text-center">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Filtrar dados</h3>
+        </div>
+        <div class="panel-body">
+          <h3>Data</h3>
+          <div class="btn-group btn-group-justified btn-group-raised ">
+            <a href="#data_inicial" data-toggle="tab" class="btn btn-primary active">Inicial</a>
+            <a href="#data_final" data-toggle="tab" class="btn btn-primary">Final</a>
           </div>
-          <div class="panel-body">
-            <div class="row text-center">
-              <div class="col-sm-5 col-sm-offset-1">
-                <div class="form-group">
-                  <h3>Data Inicial</h3>
-                  <input type="hidden" class="form-control" id="date_initial" name="date_initial" placeholder="Período Inicial">
-                  <div id="date-initial" class="datetimepicker"></div>
-                </div>
-              </div>
-              <div class="col-sm-5">
-                <div class="form-group">
-                  <h3>Data Final</h3>
-                  <input type="hidden" class="form-control" id="date_final" name="date_final" placeholder="Período Inicial">
-                  <div id="date-final" class="datetimepicker"></div>
-                </div>
+          <div class="tab-content">
+            <div class="tab-pane fade active in" id="data_inicial">
+              <div class="form-group">
+                <input type="hidden" class="form-control" id="date_initial" name="date_initial" placeholder="Período Inicial">
+                <div id="date-initial" class="datetimepicker"></div>
               </div>
             </div>
-            <div class="row text-left">
-              <div class="col-sm-5 col-sm-offset-1">
-                <div class="form-group">
-                  <select id="category" name="category_id" class="form-control">
-                    <option value="">Categoria</option>
-                    {% for category in categories %}
-                      <option value="{{ category.id }}">{{ category.name }}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-              </div>
-              <div class="col-sm-5">
-                <div class="form-group">
-                  <div class="radio">
-                    <label>
-                      <input type="radio" name="type_id" value="" checked> Todas
-                    </label>
-                    <label>
-                      <input type="radio" name="type_id" value="1"> Despesas
-                    </label>
-                    <label>
-                      <input type="radio" name="type_id" value="2"> Receitas
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row text-left">
-              <div class="col-sm-5 col-sm-offset-1">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="location" name="location" placeholder="Localização" minlength="10" maxlength="128">
-                </div>
-              </div>
-              <div class="col-sm-5">
-                <div class="form-group">
-                  <input type="number" class="form-control" id="birthyear" name="birthyear" placeholder="Ano de nascimento" min="1901" max="2016">
-                </div>
-              </div>
-            </div>
-            <div class="row text-left">
-              <div class="col-sm-5 col-sm-offset-1">
-                <div class="form-group">
-                  <input type="text" class="form-control" id="occupation" name="occupation" placeholder="Profissão" maxlength="64">
-                </div>
-              </div>
-              <div class="col-sm-5">
-                <div class="form-group">
-                  <select id="education" name="education_id" class="form-control">
-                    <option value="">Escolaridade</option>
-                    <option value="1">Ensino fundamental incompleto</option>
-                    <option value="2">Ensino fundamental completo</option>
-                    <option value="3">Ensino médio incompleto</option>
-                    <option value="4">Ensino médio completo</option>
-                    <option value="5">Ensino superior completo</option>
-                    <option value="6">Curso de pós-graduação completo</option>
-                    <option value="7">Estudante de ensino fundamental ou ensino médio</option>
-                    <option value="8">Estudante de graduação ou pós-graduação</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="row text-left">
-              <div class="col-sm-10 col-sm-offset-1">
-                <div class="form-group text-left">
-                  <button class="btn btn-raised btn-primary" id="filter">Filtrar</button>
-                </div>
+            <div class="tab-pane fade" id="data_final">
+              <div class="form-group">
+                <input type="hidden" class="form-control" id="date_final" name="date_final" placeholder="Período Inicial">
+                <div id="date-final" class="datetimepicker"></div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="panel panel-primary" id="bar">
-          <div class="panel-heading">
-            <h3 class="panel-title">Despesas/Receitas por mês</h3>
+          <div class="form-group">
+            <input type="text" class="form-control" id="location" name="location" placeholder="Localização" minlength="10" maxlength="128">
           </div>
-          <div class="panel-body">
-            <div class="graph"></div>
-          </div>
-        </div>
 
-        <div class="panel panel-primary" id="transactions-per-day">
-          <div class="panel-heading">
-            <h3 class="panel-title">Transações ao longo dos dias</h3>
+          <div class="form-group">
+            <input type="number" class="form-control" id="birthyear" name="birthyear" placeholder="Ano de nascimento" min="1901" max="2016">
           </div>
-          <div class="panel-body">
-            <table class="columns">
-              <tr>
-                <td><div id="my_trans_div" class="graph"></div></td>
-                <td><div id="all_trans_div" class="graph"></div></td>
-              </tr>
-            </table>
-          </div>
-        </div>
 
-        <div class="panel panel-primary" id="expenses-by-category">
-          <div class="panel-heading">
-            <h3 class="panel-title">Despesas por categoria</h3>
+          <div class="form-group">
+            <input type="text" class="form-control" id="occupation" name="occupation" placeholder="Profissão" maxlength="64">
           </div>
-          <div class="panel-body">
-            <table class="columns">
-              <tr>
-                <td><div id="my_exp_div" class="graph"></div></td>
-                <td><div id="all_exp_div" class="graph"></div></td>
-              </tr>
-            </table>
+
+          <div class="form-group">
+            <select id="education" name="education_id" class="form-control">
+              <option value="">Escolaridade</option>
+              <option value="1">Ensino fundamental incompleto</option>
+              <option value="2">Ensino fundamental completo</option>
+              <option value="3">Ensino médio incompleto</option>
+              <option value="4">Ensino médio completo</option>
+              <option value="5">Ensino superior completo</option>
+              <option value="6">Curso de pós-graduação completo</option>
+              <option value="7">Estudante de ensino fundamental ou ensino médio</option>
+              <option value="8">Estudante de graduação ou pós-graduação</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-raised btn-primary" id="filter">Filtrar</button>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="panel panel-primary" id="incomes-by-category">
-          <div class="panel-heading">
-            <h3 class="panel-title">Receitas por categoria</h3>
+    <div class="col-sm-8 col-md-9 text-center">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3>Relatórios</h3>
+          <hr width="75%">
+          <div class="panel panel-primary" id="transactions-per-month">
+            <div class="panel-heading">
+              <h3 class="panel-title">Transações ao longo dos meses</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+            </div>
           </div>
-          <div class="panel-body">
-            <table class="columns">
-              <tr>
-                <td><div id="my_inc_div" class="graph"></div></td>
-                <td><div id="all_inc_div" class="graph"></div></td>
-              </tr>
-            </table>
-          </div>
-        </div>
 
-        <div class="panel panel-primary" id="expense-vs-income">
-          <div class="panel-heading">
-            <h3 class="panel-title">Despesas vs Receitas</h3>
+          <div class="panel panel-primary" id="transactions-per-day">
+            <div class="panel-heading">
+              <h3 class="panel-title">Transações ao longo dos dias</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+            </div>
           </div>
-          <div class="panel-body">
-            <table class="columns">
-              <tr>
-                <td><div id="my_exp_vs_inc_div" class="graph"></div></td>
-                <td><div id="all_exp_vs_inc_div" class="graph"></div></td>
-              </tr>
-            </table>
+
+          <div class="panel panel-primary" id="expenses-by-category">
+            <div class="panel-heading">
+              <h3 class="panel-title">Despesas por categoria</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-primary" id="incomes-by-category">
+            <div class="panel-heading">
+              <h3 class="panel-title">Receitas por categoria</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel panel-primary" id="expense-vs-income">
+            <div class="panel-heading">
+              <h3 class="panel-title">Despesas vs Receitas</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+              <div class="col-sm-6">
+                <div class="graph"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -200,87 +174,78 @@
   <script src="{{ path('file', {type: 'vendor', file: 'eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'}) }}"></script>
   <script>
     $(function() {
+      // https://developers.google.com/chart
       google.charts.load('current', {'packages':['corechart', 'bar', 'line'], 'language': 'pt-BR'});
       google.charts.setOnLoadCallback(drawCharts);
 
-      //https://developers.google.com/chart
       function drawCharts() {
-
-/********************************************************
- Gráfico Despesas/Receitas por mês
-*********************************************************/
+        /********************************************************
+         Gráfico Despesas e Receitas por mês
+        *********************************************************/
 
         var data = new google.visualization.DataTable();
-        
-        data.addColumn('timeofday', 'Time of Day');
-        data.addColumn('number', 'Motivation Level');
-        data.addColumn('number', 'Energy Level');
+
+        data.addColumn('datetime', 'mês');
+        data.addColumn('number', 'Despesas');
+        data.addColumn('number', 'Receitas');
 
         data.addRows([
-          [{v: [8, 0, 0], f: '8 am'}, 1, .25],
-          [{v: [9, 0, 0], f: '9 am'}, 2, .5],
-          [{v: [10, 0, 0], f:'10 am'}, 3, 1],
-          [{v: [11, 0, 0], f: '11 am'}, 4, 2.25],
-          [{v: [12, 0, 0], f: '12 pm'}, 5, 2.25],
-          [{v: [13, 0, 0], f: '1 pm'}, 6, 3],
-          [{v: [14, 0, 0], f: '2 pm'}, 7, 4],
-          [{v: [15, 0, 0], f: '3 pm'}, 8, 5.25],
-          [{v: [16, 0, 0], f: '4 pm'}, 9, 7.5],
-          [{v: [17, 0, 0], f: '5 pm'}, 10, 10],
+          [new Date(2016, 00, 01), 10, 20],
+          [new Date(2016, 01, 01), 20, 30],
+          [new Date(2016, 02, 01), 30, 40],
+          [new Date(2016, 03, 01), 30, 60],
+          [new Date(2016, 04, 01), 20, 60],
+          [new Date(2016, 05, 01), 10, 70],
         ]);
 
         var options = {
-          title: 'Motivation and Energy Level Throughout the Day',
+          chart: {
+          title: 'Transações por mês'
+          },
+          height: 300,
+          colors: ['#F44336', '#4CAF50'],
           hAxis: {
-            title: 'Time of Day',
-            format: 'h:mm a',
-            viewWindow: {
-              min: [7, 30, 0],
-              max: [17, 30, 0]
-            }
+            title: 'meses'
           },
           vAxis: {
-            title: 'Rating (scale of 1-10)'
+            title: 'transações em reais'
           }
         };
 
-        var chart = new google.charts.Bar($('#bar .graph')[0]);
+        var chart = new google.charts.Bar($('#transactions-per-month .graph')[0]);
         chart.draw(data, options);
 
-/********************************************************
- Gráfico Transações por dia
-*********************************************************/
+        var chart = new google.charts.Bar($('#transactions-per-month .graph')[1]);
+        chart.draw(data, options);
+
+        /********************************************************
+         Gráfico Transações por dia
+        *********************************************************/
 
         $.post('/reports/transactions-per-day.json', {
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
-          /* Não usar estes filtros neste relatório
-            'category_id': $('[name=category_id]').val(),
-            'type_id': $('[name=type_id]:checked').val(),
-          */
           'location': $('[name=location]').val(),
           'birthyear': $('[name=birthyear]').val(),
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
-
-          var container = $('#transactions-per-day .graph');
+          var container = $('#transactions-per-day .graph')[0];
           if (data_report && data_report.length) {
             var data = new google.visualization.DataTable();
-            data.addColumn('date', 'id');
+            data.addColumn('date', 'data');
             data.addColumn('number', 'Despesas');
             data.addColumn('number', 'Receitas');
             data.addRows(data_report.map(function(e) {
               return [new Date(e[0].replace(/\-/g, ', ')), e[1], e[2]];
             }));
-            container.html('');
-
-            //var chart = new google.visualization.LineChart(container[0]);
-            var chart = new google.visualization.LineChart(document.getElementById('all_trans_div'));
+            $(container).html('');
+            var chart = new google.charts.Line(container);
             chart.draw(data, {
-              title: 'Todos os usuários',
+              chart: {
+                title: 'Todos os usuários'
+              },
               height: 300,
-              width: 500,
               hAxis: {
                 title: 'dias'
               },
@@ -290,40 +255,35 @@
               colors: ['#F44336', '#4CAF50']
             });
           } else {
-            container.html('<p align="center">Não há dados.</p>');
+            $(container).html('<p align="center">Não há dados.</p>');
           }
         });
 
-        $.post('/reports/my-transactions-per-day.json', {
+        $.post('/reports/transactions-per-day.json', {
+          'user_email': '{{ userLogged.email }}',
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
-          /* Não usar estes filtros neste relatório
-            'category_id': $('[name=category_id]').val(),
-            'type_id': $('[name=type_id]:checked').val(),
-          */
           'location': $('[name=location]').val(),
           'birthyear': $('[name=birthyear]').val(),
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
-
-          var container = $('#my-transactions-per-day .graph');
+          var container = $('#transactions-per-day .graph')[1];
           if (data_report && data_report.length) {
             var data = new google.visualization.DataTable();
-            data.addColumn('date', 'id');
+            data.addColumn('date', 'data');
             data.addColumn('number', 'Despesas');
             data.addColumn('number', 'Receitas');
             data.addRows(data_report.map(function(e) {
               return [new Date(e[0].replace(/\-/g, ', ')), e[1], e[2]];
             }));
-            container.html('');
-
-            //var chart = new google.visualization.LineChart(container[0]);
-            var chart = new google.visualization.LineChart(document.getElementById('my_trans_div'));
+            $(container).html('');
+            var chart = new google.charts.Line(container);
             chart.draw(data, {
-              title: 'Minhas transações',
+              chart: {
+                title: 'Minhas transações'
+              },
               height: 300,
-              width: 500,
               hAxis: {
                 title: 'dias'
               },
@@ -333,238 +293,192 @@
               colors: ['#F44336', '#4CAF50']
             });
           } else {
-            container.html('<p align="center">Não há dados.</p>');
+            $(container).html('<p align="center">Não há dados.</p>');
           }
         });
 
-/********************************************************
- Gráfico Despesas por categoria
-*********************************************************/
+        /********************************************************
+         Gráfico Despesas por categoria
+        *********************************************************/
 
         $.post('/reports/expenses-by-category.json', {
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
-          /* Não usar estes filtros neste relatório
-            'category_id': $('[name=category_id]').val(),
-            'type_id': $('[name=type_id]:checked').val(),
-          */
           'location': $('[name=location]').val(),
           'birthyear': $('[name=birthyear]').val(),
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
-
-          var container = $('#expenses-by-category .graph');
-
+          var container = $('#expenses-by-category .graph')[0];
           if (data_report && data_report.length) {
-
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Categoria');
             data.addColumn('number', 'Valor');
             data.addRows(data_report);
-            container.html('');
-
-            //var chart = new google.charts.Bar($('#expenses-by-category .graph')[0]);
-            var chart = new google.charts.Bar(document.getElementById('all_exp_div'));
+            $(container).html('');
+            var chart = new google.charts.Bar(container);
             chart.draw(data, {
-              title: 'Todos os usuários',
+              chart: {
+                title: 'Todos os usuários'
+              },
               bars: 'horizontal',
               height: 500,
-              width: 500,
-              colors: '#F44336'
+              colors: ['#F44336']
             });
           } else {
-            container.html('<p align="center">Não há dados.</p>');
+            $(container).html('<p align="center">Não há dados.</p>');
           }
         });
 
-        $.post('/reports/my-expenses-by-category.json', {
+        $.post('/reports/expenses-by-category.json', {
+          'user_email': '{{ userLogged.email }}',
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
-          /* Não usar estes filtros neste relatório
-            'category_id': $('[name=category_id]').val(),
-            'type_id': $('[name=type_id]:checked').val(),
-          */
           'location': $('[name=location]').val(),
           'birthyear': $('[name=birthyear]').val(),
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
-
-          var container = $('#my-expenses-by-category .graph');
-
+          var container = $('#expenses-by-category .graph')[1];
           if (data_report && data_report.length) {
-
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Categoria');
             data.addColumn('number', 'Valor');
             data.addRows(data_report);
-            container.html('');
-
-            //var chart = new google.charts.Bar($('#expenses-by-category .graph')[0]);
-            var chart = new google.charts.Bar(document.getElementById('my_exp_div'));
+            $(container).html('');
+            var chart = new google.charts.Bar(container);
             chart.draw(data, {
-              title: 'Minhas transações',
+              chart: {
+                title: 'Minhas transações'
+              },
               bars: 'horizontal',
               height: 500,
-              width: 500,
-              colors: '#F44336'
+              colors: ['#F44336']
             });
           } else {
-            container.html('<p align="center">Não há dados.</p>');
+            $(container).html('<p align="center">Não há dados.</p>');
           }
         });
 
-/********************************************************
- Gráfico Receitas por categoria
-*********************************************************/
+        /********************************************************
+         Gráfico Receitas por categoria
+        *********************************************************/
 
         $.post('/reports/incomes-by-category.json', {
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
-          /* Não usar estes filtros neste relatório
-            'category_id': $('[name=category_id]').val(),
-            'type_id': $('[name=type_id]:checked').val(),
-          */
           'location': $('[name=location]').val(),
           'birthyear': $('[name=birthyear]').val(),
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
-
-          var container = $('#incomes-by-category .graph');
-
+          var container = $('#incomes-by-category .graph')[0];
           if (data_report && data_report.length) {
-
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Categoria');
             data.addColumn('number', 'Valor');
             data.addRows(data_report);
-            container.html('');
-
-            //var chart = new google.charts.Bar($('#incomes-by-category .graph')[0]);
-            var chart = new google.charts.Bar(document.getElementById('all_inc_div'));
+            $(container).html('');
+            var chart = new google.charts.Bar(container);
             chart.draw(data, {
-              title: 'Todos os usuários',
+              chart: {
+                title: 'Todos os usuários'
+              },
               bars: 'horizontal',
               height: 150,
-              width: 500,
-              colors: '#4CAF50'
+              colors: ['#4CAF50']
             });
           } else {
-            container.html('<p align="center">Não há dados.</p>');
+            $(container).html('<p align="center">Não há dados.</p>');
           }
         });
 
-        $.post('/reports/my-incomes-by-category.json', {
+        $.post('/reports/incomes-by-category.json', {
+          'user_email': '{{ userLogged.email }}',
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
-          /* Não usar estes filtros neste relatório
-            'category_id': $('[name=category_id]').val(),
-            'type_id': $('[name=type_id]:checked').val(),
-          */
           'location': $('[name=location]').val(),
           'birthyear': $('[name=birthyear]').val(),
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
-
-          var container = $('#my-incomes-by-category .graph');
-
+          var container = $('#incomes-by-category .graph')[1];
           if (data_report && data_report.length) {
-
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Categoria');
             data.addColumn('number', 'Valor');
             data.addRows(data_report);
-            container.html('');
-
-            //var chart = new google.charts.Bar($('#incomes-by-category .graph')[0]);
-            var chart = new google.charts.Bar(document.getElementById('my_inc_div'));
+            $(container).html('');
+            var chart = new google.charts.Bar(container);
             chart.draw(data, {
-              title: 'Minhas transações',
+              chart: {
+                title: 'Minhas transações'
+              },
               bars: 'horizontal',
               height: 150,
-              width: 500,
-              colors: '#4CAF50'
+              colors: ['#4CAF50']
             });
           } else {
-            container.html('<p align="center">Não há dados.</p>');
+            $(container).html('<p align="center">Não há dados.</p>');
           }
         });
 
-/********************************************************
- Gráfico Despesas x Receitas
-*********************************************************/
+        /********************************************************
+         Gráfico Despesas x Receitas
+        *********************************************************/
 
         $.post('/reports/expense-vs-income.json', {
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
-          /* Não usar estes filtros neste relatório
-            'category_id': $('[name=category_id]').val(),
-            'type_id': $('[name=type_id]:checked').val(),
-          */
           'location': $('[name=location]').val(),
           'birthyear': $('[name=birthyear]').val(),
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
-
-          var container = $('#expense-vs-income .graph');
+          var container = $('#expense-vs-income .graph')[0];
           if (data_report && data_report.length) {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'id');
             data.addColumn('number', 'Total');
             data.addRows(data_report);
-            container.html('');
-
-            //var chart = new google.visualization.PieChart(container[0]);
-            var chart = new google.visualization.PieChart(document.getElementById('all_exp_vs_inc_div'));
+            $(container).html('');
+            var chart = new google.visualization.PieChart(container);
             chart.draw(data, {
               title: 'Todos os usuários',
               height: 300,
               colors: ['#F44336', '#4CAF50']
             });
           } else {
-            container.html('<p align="center">Não há dados.</p>');
+            $(container).html('<p align="center">Não há dados.</p>');
           }
         });
 
-        $.post('/reports/my-expense-vs-income.json', {
+        $.post('/reports/expense-vs-income.json', {
+          'user_email': '{{ userLogged.email }}',
           'date_initial': $('[name=date_initial]').val(),
           'date_final': $('[name=date_final]').val(),
-          /* Não usar estes filtros neste relatório
-            'category_id': $('[name=category_id]').val(),
-            'type_id': $('[name=type_id]:checked').val(),
-          */
           'location': $('[name=location]').val(),
           'birthyear': $('[name=birthyear]').val(),
           'occupation': $('[name=occupation]').val(),
           'education_id': $('[name=education_id]').val()
         }, function(data_report) {
-
-          var container = $('#my-expense-vs-income .graph');
+          var container = $('#expense-vs-income .graph')[1];
           if (data_report && data_report.length) {
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'id');
             data.addColumn('number', 'Total');
             data.addRows(data_report);
-            container.html('');
-
-            //var chart = new google.visualization.PieChart(container[0]);
-            var chart = new google.visualization.PieChart(document.getElementById('my_exp_vs_inc_div'));
+            $(container).html('');
+            var chart = new google.visualization.PieChart(container);
             chart.draw(data, {
               title: 'Minhas transações',
               height: 300,
               colors: ['#F44336', '#4CAF50']
             });
           } else {
-            container.html('<p align="center">Não há dados.</p>');
+            $(container).html('<p align="center">Não há dados.</p>');
           }
         });
-
-/********************************************************/
-
       }
 
       $('#location').autocomplete({
@@ -575,7 +489,7 @@
         serviceUrl: '/autocomplete/occupation/'
       });
 
-      $('#education, #category').change(function() {
+      $('#education').change(function() {
         if ($(':selected', this).val() === '') {
           $(this).css('color', '#bdbdbd');
         } else {
@@ -584,7 +498,7 @@
         $('option', this).css('color', '#555');
       });
 
-      $('#education, #category').trigger('change');
+      $('#education').trigger('change');
 
       var datetimepickers = $('.datetimepicker');
 

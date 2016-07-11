@@ -140,7 +140,7 @@
           $conditions = [];
           foreach ($filters as $key => $value) {
             switch ($key) {
-              case 'user':
+              case 'user_email':
                 $conditions[] = "transactions.user_email = '{$value}'";
                 break;
               case 'date_initial':
@@ -148,12 +148,6 @@
                 break;
               case 'date_final':
                 $conditions[] = "transactions.date <= '{$value}'";
-                break;
-              case 'category_id':
-                $conditions[] = "transactions.category_id = '{$value}'";
-                break;
-              case 'type_id':
-                $conditions[] = "categories.type_id = '{$value}'";
                 break;
               case 'birthyear':
                 $conditions[] = "users.birthyear = '{$value}'";
@@ -183,7 +177,7 @@
       $query = $this->db->fetchAll("
         SELECT
           types.type,
-          SUM(transactions.value) AS total
+          AVG(transactions.value) AS total
         FROM
           transactions
           LEFT JOIN categories
@@ -222,7 +216,7 @@
         SELECT
           transactions.date,
           categories.type_id,
-          SUM(transactions.value) AS total
+          AVG(transactions.value) AS total
         FROM
           transactions
           LEFT JOIN categories
@@ -264,7 +258,7 @@
       $query = $this->db->fetchAll("
         SELECT
           categories.category,
-          SUM(transactions.value) AS total
+          AVG(transactions.value) AS total
         FROM
           transactions
           JOIN categories
@@ -301,7 +295,7 @@
       $query = $this->db->fetchAll("
         SELECT
           categories.category,
-          SUM(transactions.value) AS total
+          AVG(transactions.value) AS total
         FROM
           transactions
           JOIN categories
@@ -333,7 +327,5 @@
       }
       return NULL;
     }
-
-    // outros relatórios ...
 
   }
