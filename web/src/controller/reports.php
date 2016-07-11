@@ -17,7 +17,8 @@
     return $app['twig']->render('reports.twig', [
       'page' => 'reports',
       'userLogged' => $userLogged,
-      'categories' => $Transaction->getCategories()
+      'data_inicial' => date('Y-m-d', strtotime(date('Y-m-d') . ' -6 months')),
+      'data_final' => date('Y-m-d')
     ]);
   })
     ->bind('reports');
@@ -50,6 +51,9 @@
     switch ($report) {
       case 'expense-vs-income':
         $data = $Transaction->getReportExpenseVsIncome($filters);
+        break;
+      case 'transactions-per-month':
+        $data = $Transaction->getReportTransactionsPerMonth($filters);
         break;
       case 'transactions-per-day':
         $data = $Transaction->getReportTransactionsPerDay($filters);

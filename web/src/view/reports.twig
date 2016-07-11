@@ -15,19 +15,19 @@
         <div class="panel-body">
           <h3>Data</h3>
           <div class="btn-group btn-group-justified btn-group-raised ">
-            <a href="#data_inicial" data-toggle="tab" class="btn btn-primary active">Inicial</a>
-            <a href="#data_final" data-toggle="tab" class="btn btn-primary">Final</a>
+            <a href="#data_inicial" data-toggle="tab" class="btn btn-primary">Inicial</a>
+            <a href="#data_final" data-toggle="tab" class="btn btn-primary active">Final</a>
           </div>
           <div class="tab-content">
-            <div class="tab-pane fade active in" id="data_inicial">
+            <div class="tab-pane fade" id="data_inicial">
               <div class="form-group">
-                <input type="hidden" class="form-control" id="date_initial" name="date_initial" placeholder="Período Inicial">
+                <input type="hidden" class="form-control" id="date_initial" name="date_initial" value="{{ data_inicial }}">
                 <div id="date-initial" class="datetimepicker"></div>
               </div>
             </div>
-            <div class="tab-pane fade" id="data_final">
+            <div class="tab-pane fade active in" id="data_final">
               <div class="form-group">
-                <input type="hidden" class="form-control" id="date_final" name="date_final" placeholder="Período Inicial">
+                <input type="hidden" class="form-control" id="date_final" name="date_final" value="{{ data_final }}">
                 <div id="date-final" class="datetimepicker"></div>
               </div>
             </div>
@@ -183,40 +183,80 @@
          Gráfico Despesas e Receitas por mês
         *********************************************************/
 
-        var data = new google.visualization.DataTable();
-
-        data.addColumn('datetime', 'mês');
-        data.addColumn('number', 'Despesas');
-        data.addColumn('number', 'Receitas');
-
-        data.addRows([
-          [new Date(2016, 00, 01), 10, 20],
-          [new Date(2016, 01, 01), 20, 30],
-          [new Date(2016, 02, 01), 30, 40],
-          [new Date(2016, 03, 01), 30, 60],
-          [new Date(2016, 04, 01), 20, 60],
-          [new Date(2016, 05, 01), 10, 70],
-        ]);
-
-        var options = {
-          chart: {
-          title: 'Transações por mês'
-          },
-          height: 300,
-          colors: ['#F44336', '#4CAF50'],
-          hAxis: {
-            title: 'meses'
-          },
-          vAxis: {
-            title: 'transações em reais'
+        $.post('/reports/transactions-per-month.json', {
+          'date_initial': $('[name=date_initial]').val(),
+          'date_final': $('[name=date_final]').val(),
+          'location': $('[name=location]').val(),
+          'birthyear': $('[name=birthyear]').val(),
+          'occupation': $('[name=occupation]').val(),
+          'education_id': $('[name=education_id]').val()
+        }, function(data_report) {
+          var container = $('#transactions-per-month .graph')[0];
+          if (data_report && data_report.length) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'mês');
+            data.addColumn('number', 'Despesas');
+            data.addColumn('number', 'Receitas');
+            data.addRows(data_report.map(function(e) {
+              return [new Date(e[0].replace(/\-/g, ', ')), e[1], e[2]];
+            }));
+            $(container).html('');
+            var chart = new google.charts.Bar(container);
+            chart.draw(data, {
+              chart: {
+                title: 'Todos os usuários'
+              },
+              height: 300,
+              hAxis: {
+                title: 'meses'
+              },
+              vAxis: {
+                title: 'transações em reais'
+              },
+              colors: ['#F44336', '#4CAF50']
+            });
+          } else {
+            $(container).html('<p align="center">Não há dados.</p>');
           }
-        };
+        });
 
-        var chart = new google.charts.Bar($('#transactions-per-month .graph')[0]);
-        chart.draw(data, options);
-
-        var chart = new google.charts.Bar($('#transactions-per-month .graph')[1]);
-        chart.draw(data, options);
+        $.post('/reports/transactions-per-month.json', {
+          'user_email': '{{ userLogged.email }}',
+          'date_initial': $('[name=date_initial]').val(),
+          'date_final': $('[name=date_final]').val(),
+          'location': $('[name=location]').val(),
+          'birthyear': $('[name=birthyear]').val(),
+          'occupation': $('[name=occupation]').val(),
+          'education_id': $('[name=education_id]').val()
+        }, function(data_report) {
+          var container = $('#transactions-per-month .graph')[1];
+          if (data_report && data_report.length) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('date', 'mês');
+            data.addColumn('number', 'Despesas');
+            data.addColumn('number', 'Receitas');
+            data.addRows(data_report.map(function(e) {
+              return [new Date(e[0].replace(/\-/g, ', ')), e[1], e[2]];
+            }));
+            $(container).html('');
+            var chart = new google.charts.Bar(container);
+            chart.draw(data, {
+              chart: {
+                title: 'Minhas transações'
+              },
+              height: 300,
+              hAxis: {
+                title: 'meses'
+              },
+              vAxis: {
+                title: 'transações em reais'
+              },
+              colors: ['#F44336', '#4CAF50']
+            });
+          } else {
+            $(container).html('<p align="center">Não há dados.</p>');
+          }
+        });
 
         /********************************************************
          Gráfico Transações por dia
@@ -516,6 +556,10 @@
         $('#date_final')
           .val(new Date(evt.date._d.valueOf()).toISOString().split(/T/)[0]);
       });
+
+      $(datetimepickers[0]).data().DateTimePicker.defaultDate(new Date($('#date_initial').val()));
+
+      $(datetimepickers[1]).data().DateTimePicker.defaultDate(new Date($('#date_final').val()));
 
       $('#filter').click(function() {
         drawCharts();

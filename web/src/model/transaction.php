@@ -211,6 +211,49 @@
       return NULL;
     }
 
+    public function getReportTransactionsPerMonth($filters = NULL) {
+      $query = $this->db->fetchAll("
+        SELECT
+          concat(YEAR(transactions.date), '-', MONTH(transactions.date)) AS date,
+          categories.type_id,
+          AVG(transactions.value) AS total
+        FROM
+          transactions
+          LEFT JOIN categories
+            ON (transactions.category_id = categories.id)
+          LEFT JOIN types
+            ON (categories.type_id = types.id)
+          LEFT JOIN users
+            ON (transactions.user_email = users.email)
+          LEFT JOIN cities
+            ON (users.city_id = cities.id)
+          LEFT JOIN states
+            ON (cities.state_id = states.id)
+          LEFT JOIN countries
+            ON (states.country_id = countries.id)
+          LEFT JOIN occupations
+            ON (users.occupation_id = occupations.id)
+        {$this->getReportfilters($filters)}
+        GROUP BY date, categories.type_id
+        ORDER BY date, categories.type_id
+      ");
+      if ($query && count($query)) {
+        $temp = [];
+        foreach ($query as $row) {
+          if (!(isset($temp[$row['date']]) && count($temp[$row['date']]))){
+            $temp[$row['date']] = [0, 0];
+          }
+          $temp[$row['date']][$row['type_id'] -1] = (double) $row['total'];
+        }
+        $values = [];
+        foreach ($temp as $key => $value) {
+          $values[] = [$key, $value[0], $value[1]];
+        }
+        return $values;
+      }
+      return NULL;
+    }
+
     public function getReportTransactionsPerDay($filters = NULL) {
       $query = $this->db->fetchAll("
         SELECT
