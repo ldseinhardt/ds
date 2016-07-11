@@ -4,7 +4,29 @@
   {{ parent() }} :: Downloads
 {% endblock %}
 
+
 {% block content %}
+
+  <div class="container">
+    <div class="row" style="padding: 10px">
+      <div class="col-md-6 text-center" style="margin-bottom: 10px">
+        <img src="{{ path('file', {file: 'images/desktop-01.png'}) }}" class="img-thumbnail img-responsive">
+      </div>
+      <div class="col-md-6">
+        <div class="jumbotron">
+          <h2>Oráculo da Mascada</h2>
+          <ul>
+            <li>Mantenha o controle de suas finanças.</li>
+            <li>Compartilhe suas finanças e obtenha relatórios financeiros gratuitamente.</li>
+          </ul>
+            <p>
+              <a href="{{ path('file', {file: 'downloads/desktop_v1.0.zip'}) }}" class="btn btn-primary btn-lg">
+                <i class="fa fa-desktop fa-fw"></i> Download
+              </a>
+            </p>
+        </div>
+      </div>
+    </div>
 
   <div class="container">
     <div class="col-sm-10 col-sm-offset-1 text-center">
@@ -18,6 +40,23 @@
     </div>
   </div>
 
+{% endblock %}
+
+{% block style %}
+  <style>
+    .jumbotron h2 {
+      font-size: 24pt;
+    }
+
+    .jumbotron ul li {
+      font-size: 14pt;
+    }
+
+    img {
+      width: auto;
+      max-height: 265px;
+    }
+  </style>
 {% endblock %}
 
 {% block script %}
