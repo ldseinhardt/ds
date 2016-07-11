@@ -17,9 +17,6 @@ Desenvolvimento de Software - UFPEL (2016/1)
 * Rodrigo Oliveira (<rodrigodroliveira@gmail.com>)
 * Wagner Oliveira Jr (<wfdoliveira@inf.ufpel.edu.br>)
 
-## A fazer
-  - Web (relatórios)
-
 ## Prazos
 
 | Data       | Item                                   |
@@ -30,4 +27,4 @@ Desenvolvimento de Software - UFPEL (2016/1)
 | 23/05/2016 | ~~Modelo ER~~                          |
 | 13/06/2016 | ~~Carga de arquivo no banco de dados~~ |
 | 27/06/2016 | ~~Wireframes~~                         |
-| 11/06/2016 | Entrega Final com sistema web          |
+| 11/06/2016 | ~~Entrega Final com sistema web~~      |
